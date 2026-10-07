@@ -165,7 +165,10 @@ export default function Dashboard() {
             <h2 className="text-xl font-bold mb-4">2. Schedule Challenge</h2>
             <form onSubmit={handleAddCustomArtist} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold tracking-widest text-zinc-500 mb-2">PLAY DATE (YYYY-MM-DD)</label>
+                <label className="block text-xs font-bold tracking-widest text-zinc-500 mb-2 flex justify-between items-center">
+                  PLAY DATE (YYYY-MM-DD)
+                  <button type="button" onClick={() => setPlayDate(new Date().toISOString().split('T')[0])} className="text-green-500 hover:text-green-400">Set to Today</button>
+                </label>
                 <input 
                   type="date" 
                   value={playDate}
