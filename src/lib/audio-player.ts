@@ -34,7 +34,7 @@ class AudioEngine {
     return this.buffers.get(id);
   }
 
-  public playSlice(buffer: AudioBuffer, startSec: number, durationSec = 0.5): void {
+  public playSlice(buffer: AudioBuffer, startSec: number, durationSec = 1.0): void {
     const ctx = this.getContext();
     
     const source = ctx.createBufferSource();

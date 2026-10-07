@@ -309,7 +309,7 @@ export default function GameContainer() {
 
               <div className="space-y-4 mb-8">
                 {[
-                  { step: '01', title: 'Listen to a sharp 0.5-second audio snippet', icon: <Volume2 size={20} /> },
+                  { step: '01', title: 'Listen to a sharp 1-second audio snippet', icon: <Volume2 size={20} /> },
                   { step: '02', title: 'Guess as many tracks as you can in 60s', icon: <Search size={20} /> },
                   { step: '03', title: 'Score points & claim rank', icon: <Flame size={20} /> }
                 ].map((s, i) => (
