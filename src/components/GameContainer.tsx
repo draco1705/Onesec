@@ -248,7 +248,7 @@ export default function GameContainer() {
   return (
     <div className="w-full min-h-screen bg-[#0a0a0a] text-zinc-300 font-sans selection:bg-green-500/30">
       {/* Top Navbar */}
-      <nav className="relative w-full border-b border-zinc-800 bg-[#111] px-4 md:px-6 py-3 flex items-center justify-between text-xs tracking-wider overflow-x-hidden">
+      <nav className="relative w-full border-b border-zinc-800 bg-[#111] px-4 md:px-6 py-3 flex items-center justify-between text-xs tracking-wider">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 font-bold text-white text-lg shrink-0">
             <span className="w-4 h-4 bg-white block rounded-sm" /> ONESEC
@@ -259,7 +259,7 @@ export default function GameContainer() {
           </div>
         </div>
         
-        <div className="flex items-center gap-4 md:gap-6 font-bold mx-auto absolute left-1/2 -translate-x-1/2 sm:static sm:translate-x-0 sm:left-auto">
+        <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-4 md:gap-6 font-bold">
           <button className="text-white hover:text-green-400 transition-colors">GAME</button>
           <button className="text-zinc-500 hover:text-white transition-colors">ARCHIVE</button>
         </div>
