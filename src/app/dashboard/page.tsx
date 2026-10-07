@@ -45,14 +45,15 @@ export default function Dashboard() {
       const combinedResults = [...(data1.results || []), ...(data2.results || [])];
       
       const validTracks = combinedResults.filter(t => t.previewUrl);
-      const uniqueTracks = Array.from(new Map(validTracks.map(t => [t.trackId, t])).values()).slice(0, 50); // limit to top 50 for curation
+      const uniqueTracks = Array.from(new Map(validTracks.map(t => [t.trackId, t])).values());
       
       setSearchResults(uniqueTracks);
       
       if (uniqueTracks.length > 0) {
         setArtistImage(uniqueTracks[0].artworkUrl100.replace('100x100bb', '600x600bb'));
         setGenre(uniqueTracks[0].primaryGenreName || 'Pop');
-        setSelectedTracks(new Set(uniqueTracks.map(t => t.trackId)));
+        const defaultSelected = uniqueTracks.slice(0, 50).map(t => t.trackId);
+        setSelectedTracks(new Set(defaultSelected));
       }
     } catch (err) {
       console.error(err);
@@ -60,9 +61,10 @@ export default function Dashboard() {
     setIsSearching(false);
   };
 
-  const removeTrack = (trackId: number) => {
+  const toggleTrack = (trackId: number) => {
     const next = new Set(selectedTracks);
-    next.delete(trackId);
+    if (next.has(trackId)) next.delete(trackId);
+    else next.add(trackId);
     setSelectedTracks(next);
   };
 
@@ -246,28 +248,40 @@ export default function Dashboard() {
               
               <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-lg overflow-hidden">
                 <div className="max-h-[250px] overflow-y-auto custom-scrollbar divide-y divide-zinc-800/50">
-                  {selectedTracksList.map((track, idx) => (
-                    <div key={track.trackId} className="flex items-center justify-between p-3 hover:bg-zinc-800/20 group">
-                      <div className="flex items-center gap-4">
-                        <div className="text-xs font-bold text-zinc-500 bg-zinc-900 w-6 h-6 rounded flex items-center justify-center">{(idx + 1).toString().padStart(2, '0')}</div>
-                        <div>
-                          <div className="text-sm font-bold text-zinc-200 group-hover:text-white transition-colors">{track.trackName}</div>
-                          <div className="text-[10px] text-zinc-500">{track.collectionName} ({track.releaseDate?.substring(0,4) || 'Unknown'})</div>
+                  {searchResults.map((track, idx) => {
+                    const isSelected = selectedTracks.has(track.trackId);
+                    return (
+                      <div key={track.trackId} className={`flex items-center justify-between p-3 hover:bg-zinc-800/40 group transition-opacity ${isSelected ? '' : 'opacity-40 grayscale hover:opacity-100 hover:grayscale-0'}`}>
+                        <div className="flex items-center gap-4">
+                          <div className="text-xs font-bold text-zinc-500 bg-zinc-900 w-6 h-6 rounded flex items-center justify-center">{(idx + 1).toString().padStart(2, '0')}</div>
+                          <div>
+                            <div className="text-sm font-bold text-zinc-200 group-hover:text-white transition-colors">
+                              {!isSelected && <span className="bg-red-500 text-black text-[9px] px-1 mr-2 rounded uppercase font-black tracking-widest">REMOVED</span>}
+                              {track.trackName}
+                            </div>
+                            <div className="text-[10px] text-zinc-500">{track.collectionName} ({track.releaseDate?.substring(0,4) || 'Unknown'})</div>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-4">
+                          <div className="hidden sm:flex text-[10px] font-mono text-zinc-500 items-center gap-2">
+                            OFFSET <span className="text-zinc-300">00:00.000s</span>
+                          </div>
+                          <button onClick={() => playPreview(track.previewUrl)} className="flex items-center gap-1 text-[10px] font-bold bg-zinc-800 hover:bg-zinc-700 text-white px-2 py-1.5 rounded transition-colors">
+                            <Play size={10} fill="currentColor" /> 1s
+                          </button>
+                          {isSelected ? (
+                            <button onClick={() => toggleTrack(track.trackId)} className="text-zinc-600 hover:text-red-500 transition-colors px-2">
+                              <Trash2 size={14} />
+                            </button>
+                          ) : (
+                            <button onClick={() => toggleTrack(track.trackId)} className="text-green-500 hover:text-green-400 transition-colors px-2">
+                              <Plus size={16} />
+                            </button>
+                          )}
                         </div>
                       </div>
-                      <div className="flex items-center gap-4">
-                        <div className="hidden sm:flex text-[10px] font-mono text-zinc-500 items-center gap-2">
-                          OFFSET <span className="text-zinc-300">00:00.000s</span>
-                        </div>
-                        <button onClick={() => playPreview(track.previewUrl)} className="flex items-center gap-1 text-[10px] font-bold bg-zinc-800 hover:bg-zinc-700 text-white px-2 py-1.5 rounded transition-colors">
-                          <Play size={10} fill="currentColor" /> 1s
-                        </button>
-                        <button onClick={() => removeTrack(track.trackId)} className="text-zinc-600 hover:text-red-500 transition-colors px-2">
-                          <Trash2 size={14} />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
                 <div className="bg-zinc-900 p-3 flex justify-between items-center text-[10px] text-zinc-500 border-t border-zinc-800/50">
                   <span>{selectedTracksList.length}-Track Search Pool (Fuzzy Match for Guessers):</span>
