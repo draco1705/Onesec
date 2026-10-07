@@ -46,7 +46,8 @@ export async function POST(request: Request) {
       actualTitle: track.title,
       album: track.album || 'Unknown Album',
       year: track.year || 'Unknown Year',
-      sliceStart: track.slice_offset_sec
+      sliceStart: track.slice_offset_sec,
+      artwork_url: track.artwork_url
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

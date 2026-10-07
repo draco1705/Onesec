@@ -21,7 +21,7 @@ export function decryptUrl(token: string): string {
     let decrypted = decipher.update(encrypted, 'hex', 'utf8');
     decrypted += decipher.final('utf8');
     return decrypted;
-  } catch (e) {
+  } catch {
     throw new Error('Invalid audio token');
   }
 }
@@ -46,7 +46,7 @@ export function verifySessionToken(token: string, challengeId: string): number {
     if (signature !== expectedSignature) throw new Error('Invalid signature');
     
     return parseInt(startMsStr, 10);
-  } catch (e) {
+  } catch {
     throw new Error('Invalid session token');
   }
 }

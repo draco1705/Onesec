@@ -1,10 +1,9 @@
 class AudioEngine {
   private context: AudioContext | null = null;
   private buffers: Map<string, AudioBuffer> = new Map();
-
   public getContext(): AudioContext {
     if (!this.context) {
-      this.context = new (window.AudioContext || (window as any).webkitAudioContext)();
+      this.context = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
     }
     return this.context;
   }

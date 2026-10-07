@@ -22,7 +22,8 @@ export async function GET(request: Request) {
       const safeTrackPool = targetTracks.map((track: any) => ({
         id: track.id,
         preview_url: `/api/audio?token=${encodeURIComponent(encryptUrl(track.preview_url))}`,
-        slice_offset_sec: track.slice_offset_sec
+        slice_offset_sec: track.slice_offset_sec,
+        artwork_url: track.artwork_url
       }));
       
       const challenge = {
@@ -55,7 +56,8 @@ export async function GET(request: Request) {
     const safeTrackPool = data.track_pool.map((track: any) => ({
       id: track.id,
       preview_url: `/api/audio?token=${encodeURIComponent(encryptUrl(track.preview_url))}`,
-      slice_offset_sec: track.slice_offset_sec
+      slice_offset_sec: track.slice_offset_sec,
+      artwork_url: track.artwork_url
     }));
 
     return NextResponse.json({
