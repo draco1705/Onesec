@@ -248,33 +248,31 @@ export default function GameContainer() {
   return (
     <div className="w-full min-h-screen bg-[#0a0a0a] text-zinc-300 font-sans selection:bg-green-500/30">
       {/* Top Navbar */}
-      <nav className="relative w-full border-b border-zinc-800 bg-[#111] px-6 py-3 flex items-center justify-between text-xs tracking-wider">
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2 font-bold text-white text-lg">
+      <nav className="relative w-full border-b border-zinc-800 bg-[#111] px-4 md:px-6 py-3 flex items-center justify-between text-xs tracking-wider overflow-x-hidden">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 font-bold text-white text-lg shrink-0">
             <span className="w-4 h-4 bg-white block rounded-sm" /> ONESEC
           </div>
-          <div className="flex items-center gap-2 bg-zinc-800/50 px-3 py-1 rounded">
+          <div className="hidden lg:flex items-center gap-2 bg-zinc-800/50 px-3 py-1 rounded">
             <span>DAILY #14</span>
             <span className="text-zinc-500" suppressHydrationWarning>RESET IN {resetTimer}</span>
           </div>
-          <div className="flex items-center gap-2 bg-zinc-800/50 px-3 py-1 rounded">
-            <span className="text-zinc-500">ARTIST:</span>
-            <span className="text-white">{challenge?.artist_name?.toUpperCase()}</span>
-          </div>
         </div>
-        <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-6 font-bold">
+        
+        <div className="flex items-center gap-4 md:gap-6 font-bold mx-auto absolute left-1/2 -translate-x-1/2 sm:static sm:translate-x-0 sm:left-auto">
           <button className="text-white hover:text-green-400 transition-colors">GAME</button>
           <button className="text-zinc-500 hover:text-white transition-colors">ARCHIVE</button>
         </div>
-        <div className="flex items-center gap-4 text-zinc-400">
-          <HelpCircle size={16} className="cursor-pointer hover:text-white" />
+
+        <div className="flex items-center gap-3 text-zinc-400 shrink-0">
+          <HelpCircle size={16} className="cursor-pointer hover:text-white hidden sm:block" />
           <div className="flex items-center gap-1 text-green-500">
-            <Flame size={16} /> 7
+            <Flame size={16} /> <span className="hidden sm:inline">7</span>
           </div>
-          <BarChart2 size={16} className="cursor-pointer hover:text-white" />
-          <Volume2 size={16} className="cursor-pointer hover:text-white" />
-          <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center cursor-pointer">
-            <User size={16} />
+          <BarChart2 size={16} className="cursor-pointer hover:text-white hidden sm:block" />
+          <Volume2 size={16} className="cursor-pointer hover:text-white hidden sm:block" />
+          <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white text-black flex items-center justify-center cursor-pointer">
+            <User size={14} />
           </div>
         </div>
       </nav>

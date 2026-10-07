@@ -11,7 +11,7 @@ export async function POST(request: Request) {
   try {
     const { date, trackId, guess, testArtist } = await request.json();
 
-    if (!trackId || !guess) {
+    if (!trackId || guess === undefined) {
       return NextResponse.json({ error: 'Missing parameters' }, { status: 400 });
     }
 
