@@ -26,7 +26,7 @@ export default function ScoreDistribution({ userScore, userTimeMs, guessHistory,
     const timeSec = (userTimeMs / 1000).toFixed(1);
     const dayNumber = 14; // Mocked for design
     
-    const text = `Halfsec #${dayNumber} - ${artistName || 'Daily Artist'}\n${userScore}/${guessHistory.length} ⚡ (${timeSec}s)\n${emojis}\nplay: halfsec.fm`;
+    const text = `Onesec #${dayNumber} - ${artistName || 'Daily Artist'}\n${userScore}/${guessHistory.length} ⚡ (${timeSec}s)\n${emojis}\nplay: onesec.fm`;
     
     navigator.clipboard.writeText(text);
     alert('Copied to clipboard!');
@@ -72,7 +72,7 @@ export default function ScoreDistribution({ userScore, userTimeMs, guessHistory,
                   {h.isCorrect ? (
                     <div className="text-xs text-zinc-500">{h.album} ({h.year})</div>
                   ) : (
-                    <div className="text-xs text-red-400">Guessed &quot;{h.guess}&quot;</div>
+                    <div className="text-xs text-red-400">{h.guess === 'Skipped' ? `Skipped (Answer: ${h.actualTitle})` : `Guessed "${h.guess}"`}</div>
                   )}
                 </div>
               </div>
@@ -87,7 +87,6 @@ export default function ScoreDistribution({ userScore, userTimeMs, guessHistory,
         </div>
       </div>
 
-
       
       <div className="flex items-center justify-between bg-zinc-900 p-4 rounded-lg border border-zinc-800">
          <div className="flex flex-wrap gap-1 max-w-[50%]">
@@ -95,7 +94,7 @@ export default function ScoreDistribution({ userScore, userTimeMs, guessHistory,
              <div key={i} className={`w-4 h-4 rounded-sm ${h.isCorrect ? 'bg-green-500' : 'bg-zinc-700'}`} />
            ))}
          </div>
-         <div className="text-xs font-bold tracking-widest text-zinc-500 text-center">HALFSEC #14 <br className="sm:hidden" />[{userScore}/{guessHistory.length}]</div>
+         <div className="text-xs font-bold tracking-widest text-zinc-500 text-center">ONESEC #14 <br className="sm:hidden" />[{userScore}/{guessHistory.length}]</div>
          <button onClick={handleShare} className="text-xs font-bold tracking-widest text-white flex items-center gap-2 hover:text-green-400 transition-colors">
            <Copy size={14} /> COPY CARD
          </button>

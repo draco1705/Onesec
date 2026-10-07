@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Halfsec - Daily Music Trivia",
-  description: "Guess the artist from a 500ms audio snippet.",
+  title: "Onesec - Daily Music Trivia",
+  description: "Guess the artist from a 1s audio snippet.",
 };
 
 export default function RootLayout({

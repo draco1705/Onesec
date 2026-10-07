@@ -167,8 +167,8 @@ export default function GameContainer() {
     const buffer = audioEngine.getBuffer(track.id);
     if (buffer) {
       setIsPlaying(true);
-      audioEngine.playSlice(buffer, track.slice_offset_sec, 0.5);
-      setTimeout(() => setIsPlaying(false), 500);
+      audioEngine.playSlice(buffer, track.slice_offset_sec, 1.0);
+      setTimeout(() => setIsPlaying(false), 1000);
     }
   };
   
@@ -209,7 +209,7 @@ export default function GameContainer() {
     
     // Time penalty for skipping
     if (guess === '') {
-      setGameTimeRemaining(prev => Math.max(0, prev - 0.5));
+      setGameTimeRemaining(prev => Math.max(0, prev - 1.0));
     }
     
     const isCorrect = result.isCorrect;
@@ -251,7 +251,7 @@ export default function GameContainer() {
       <nav className="relative w-full border-b border-zinc-800 bg-[#111] px-6 py-3 flex items-center justify-between text-xs tracking-wider">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2 font-bold text-white text-lg">
-            <span className="w-4 h-4 bg-white block rounded-sm" /> HALFSEC
+            <span className="w-4 h-4 bg-white block rounded-sm" /> ONESEC
           </div>
           <div className="flex items-center gap-2 bg-zinc-800/50 px-3 py-1 rounded">
             <span>DAILY #14</span>
@@ -294,7 +294,7 @@ export default function GameContainer() {
                   <div className="text-sm tracking-widest text-zinc-400 mt-4">FEATURED CATALOG</div>
                   <h1 className="text-5xl font-black text-white uppercase tracking-tighter mt-1">{challenge?.artist_name}</h1>
                 </div>
-                <div className="text-xs font-bold tracking-widest text-green-500">500MS SNIPPET / ROUND</div>
+                <div className="text-xs font-bold tracking-widest text-green-500">1S SNIPPET / ROUND</div>
               </div>
               
               <div className="relative w-full h-64 bg-zinc-900 rounded-lg overflow-hidden mb-8 group flex items-center justify-center">
@@ -375,10 +375,10 @@ export default function GameContainer() {
               <div className="flex justify-between items-center bg-zinc-900 p-2 pl-4 rounded-lg">
                 <div>
                   <div className="text-xl font-bold text-white">Snippet 0{currentRound + 1}</div>
-                  <div className="text-xs text-zinc-500">Artist: {challenge?.artist_name} • 0.5s audio slice</div>
+                  <div className="text-xs text-zinc-500">Artist: {challenge?.artist_name} • 1s audio slice</div>
                 </div>
                 <button onClick={playCurrentSnippet} className="bg-white text-black px-6 py-3 rounded font-bold text-sm flex items-center gap-2 hover:bg-zinc-200">
-                  <Play size={16} fill="currentColor" /> PLAY SNIPPET (0.5s) <span className="bg-zinc-200 text-zinc-500 text-[10px] px-1.5 py-0.5 rounded ml-2">SPACE</span>
+                  <Play size={16} fill="currentColor" /> PLAY SNIPPET (1s) <span className="bg-zinc-200 text-zinc-500 text-[10px] px-1.5 py-0.5 rounded ml-2">SPACE</span>
                 </button>
               </div>
             </div>
@@ -421,9 +421,9 @@ export default function GameContainer() {
             </div>
 
             {/* Actions */}
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <button onClick={() => submitGuess('')} className="flex-1 bg-zinc-900 border border-zinc-800 py-4 rounded-lg font-bold text-zinc-500 hover:text-white transition-colors flex items-center justify-center gap-2">
-                <SkipForward size={18} /> SKIP ROUND (-0.5s)
+                <SkipForward size={18} /> SKIP ROUND (-1s)
               </button>
               <button disabled={!searchQuery} onClick={() => submitGuess(searchResults[0] || searchQuery)} className="flex-1 bg-white text-black py-4 rounded-lg font-bold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
                 SUBMIT GUESS →
@@ -443,7 +443,7 @@ export default function GameContainer() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-white font-bold truncate">{h.actualTitle}</div>
-                        <div className="text-xs text-zinc-500 truncate">{h.isCorrect ? <span className="text-green-500">Correctly guessed!</span> : <span>Missed (You guessed: {h.guess || 'Skipped'})</span>}</div>
+                        <div className="text-xs text-zinc-500 truncate">{h.isCorrect ? <span className="text-green-500">Correctly guessed!</span> : <span>{h.guess === 'Skipped' ? `Skipped (Answer: ${h.actualTitle})` : `Missed (You guessed: ${h.guess})`}</span>}</div>
                       </div>
                     </div>
                   ))}
