@@ -12,22 +12,34 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { artistName, playDate } = await request.json();
+    const { artistName, playDate, customPool, customTitles, customImage } = await request.json();
     if (!artistName || !playDate) {
       return NextResponse.json({ error: 'Missing artistName or playDate' }, { status: 400 });
     }
 
-    const { artistName: fetchedArtistName, artistImageUrl, targetTracks, allTitles } = await fetchArtistDiscography(artistName);
+    let finalArtistName = artistName;
+    let finalImageUrl = customImage || '';
+    let finalTracks = customPool || [];
+    let finalTitles = customTitles || [];
+
+    // If they didn't provide a custom pool from the dashboard, fetch it automatically
+    if (!customPool || customPool.length === 0) {
+      const { artistName: fetchedArtistName, artistImageUrl, targetTracks, allTitles } = await fetchArtistDiscography(artistName);
+      finalArtistName = fetchedArtistName;
+      finalImageUrl = artistImageUrl;
+      finalTracks = targetTracks;
+      finalTitles = allTitles;
+    }
 
     const { data, error } = await supabase
       .from('daily_challenges')
       .insert([
         {
           play_date: playDate,
-          artist_name: fetchedArtistName,
-          artist_image_url: artistImageUrl,
-          track_pool: targetTracks,
-          all_searchable_titles: allTitles
+          artist_name: finalArtistName,
+          artist_image_url: finalImageUrl,
+          track_pool: finalTracks,
+          all_searchable_titles: finalTitles
         }
       ])
       .select()
