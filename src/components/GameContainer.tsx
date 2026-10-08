@@ -69,13 +69,14 @@ export default function GameContainer() {
     const params = new URLSearchParams(window.location.search);
     const artistParam = params.get('artist');
     
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTestArtist(artistParam || 'Wxrdie'); // Still set it so the UI shows it correctly if needed
+    if (artistParam) {
+      setTestArtist(artistParam);
+    }
     
     const dateStr = new Date().toISOString().split('T')[0];
     const url = artistParam 
-      ? `/api/daily?date=${dateStr}&artist=${encodeURIComponent(artistParam)}`
-      : `/api/daily?date=${dateStr}`;
+      ? `/api/daily?date=${dateStr}&artist=${encodeURIComponent(artistParam)}&t=${Date.now()}`
+      : `/api/daily?date=${dateStr}&t=${Date.now()}`;
 
     fetch(url)
       .then(res => res.json())

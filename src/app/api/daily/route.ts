@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { fetchArtistDiscography } from '@/lib/music';
 import { encryptUrl } from '@/lib/crypto';
-import { getStoredChallengeByDate } from '@/lib/challenges-store';
+import { getStoredChallengeByDate, getLatestActiveChallenge } from '@/lib/challenges-store';
 
 // In-memory cache for test queries
 const testCache = new Map<string, any>();
@@ -13,22 +13,26 @@ export async function GET(request: Request) {
   const testArtist = searchParams.get('artist');
 
   try {
-    if (!date) {
-      return NextResponse.json({ error: 'Date is required' }, { status: 400 });
-    }
-
     let challengeData: any = null;
 
-    // 1. Check local challenges store first
-    if (!testArtist) {
+    // 1. If date provided, check stored challenges for that date first
+    if (date) {
       const stored = getStoredChallengeByDate(date);
       if (stored) {
         challengeData = stored;
       }
     }
 
-    // 2. Try Supabase if not found locally
+    // 2. If no challenge found for exact date, check if there is any active challenge in store
     if (!challengeData && !testArtist) {
+      const latest = getLatestActiveChallenge();
+      if (latest) {
+        challengeData = latest;
+      }
+    }
+
+    // 3. Try Supabase if still not found
+    if (!challengeData && !testArtist && date) {
       try {
         if (process.env.NEXT_PUBLIC_SUPABASE_URL && !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('dummy')) {
           const { data, error } = await supabase
@@ -68,10 +72,14 @@ export async function GET(request: Request) {
         artist_image_url: challengeData.artist_image_url,
         track_pool: safeTrackPool,
         all_searchable_titles: challengeData.all_searchable_titles
+      }, {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        }
       });
     }
 
-    // FALLBACK: Auto-generate challenge via Deezer directly
+    // 4. FALLBACK: Auto-generate challenge via Deezer directly
     const fallbackArtist = testArtist || 'Wxrdie';
 
     if (testCache.has(fallbackArtist)) {
@@ -89,7 +97,7 @@ export async function GET(request: Request) {
 
     const fallbackChallenge = {
       id: 'fallback-challenge',
-      play_date: date,
+      play_date: date || new Date().toISOString().split('T')[0],
       artist_name: artistName,
       artist_image_url: artistImageUrl,
       track_pool: safeTrackPoolFallback,
@@ -97,7 +105,11 @@ export async function GET(request: Request) {
     };
 
     testCache.set(fallbackArtist, fallbackChallenge);
-    return NextResponse.json(fallbackChallenge);
+    return NextResponse.json(fallbackChallenge, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+      }
+    });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

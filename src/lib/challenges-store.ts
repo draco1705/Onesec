@@ -13,7 +13,7 @@ export interface StoredChallenge {
   created_at: string;
 }
 
-// In-memory store (primary fallback for serverless environments)
+// Global in-memory storage fallback
 declare global {
   // eslint-disable-next-line no-var
   var __memory_challenges__: StoredChallenge[] | undefined;
@@ -23,9 +23,7 @@ if (!global.__memory_challenges__) {
   global.__memory_challenges__ = [];
 }
 
-// Check if running in a serverless / read-only environment like Vercel/AWS Lambda
 function getDataFilePath(): string {
-  // If running in AWS Lambda / Vercel (/var/task), write to /tmp which is writable
   if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.cwd().startsWith('/var/task')) {
     return path.join(os.tmpdir(), 'challenges.json');
   }
@@ -38,10 +36,15 @@ function tryReadDisk(): StoredChallenge[] | null {
     if (existsSync(filePath)) {
       const raw = readFileSync(filePath, 'utf-8');
       const parsed = JSON.parse(raw);
-      return parsed.challenges || [];
+      if (Array.isArray(parsed)) {
+        return parsed;
+      }
+      if (parsed && Array.isArray(parsed.challenges)) {
+        return parsed.challenges;
+      }
     }
   } catch (e) {
-    // Read failed, fall back to memory
+    console.warn('tryReadDisk error:', e);
   }
   return null;
 }
@@ -55,15 +58,13 @@ function tryWriteDisk(challenges: StoredChallenge[]) {
     }
     writeFileSync(filePath, JSON.stringify({ challenges }, null, 2));
   } catch (e) {
-    // Write failed (e.g. read-only filesystem), in-memory will retain it
     console.warn('Filesystem write not available, using in-memory store:', e);
   }
 }
 
 export function getAllStoredChallenges(): StoredChallenge[] {
   const disk = tryReadDisk();
-  if (disk && disk.length > 0) {
-    // Sync into global memory
+  if (disk !== null) {
     global.__memory_challenges__ = disk;
     return disk;
   }
@@ -72,7 +73,14 @@ export function getAllStoredChallenges(): StoredChallenge[] {
 
 export function getStoredChallengeByDate(date: string): StoredChallenge | null {
   const all = getAllStoredChallenges();
+  // Return the latest active challenge matching this date
   return all.find(c => c.play_date === date && !c.is_draft) || null;
+}
+
+export function getLatestActiveChallenge(): StoredChallenge | null {
+  const all = getAllStoredChallenges();
+  const nonDrafts = all.filter(c => !c.is_draft && !c.play_date.startsWith('draft-'));
+  return nonDrafts[0] || null;
 }
 
 export function saveStoredChallenge(challenge: Omit<StoredChallenge, 'id' | 'created_at'>): StoredChallenge {
@@ -85,16 +93,14 @@ export function saveStoredChallenge(challenge: Omit<StoredChallenge, 'id' | 'cre
     created_at: new Date().toISOString(),
   };
 
+  // If publishing an active challenge (not draft), overwrite any existing challenge with the same date
   const filtered = challenge.is_draft
     ? all
     : all.filter(c => c.play_date !== challenge.play_date);
 
   filtered.unshift(newChallenge);
 
-  // Update in-memory
   global.__memory_challenges__ = filtered;
-
-  // Attempt to persist to disk (/tmp in serverless or ./data in local)
   tryWriteDisk(filtered);
 
   return newChallenge;
