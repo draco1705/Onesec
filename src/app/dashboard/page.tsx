@@ -1,129 +1,293 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Search, Plus, Calendar, Trash2, Play, CheckCircle2, Circle, X } from 'lucide-react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Search, Plus, Calendar, Trash2, Play, CheckCircle2, Circle, X, FolderOpen, Music, Scissors, ChevronLeft, ChevronRight } from 'lucide-react';
+
+type SourceMode = 'itunes' | 'local';
 
 export default function Dashboard() {
   const [history, setHistory] = useState<any[]>([]);
   const [artistName, setArtistName] = useState('');
   const [status, setStatus] = useState('');
-  
+
   const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [selectedTracks, setSelectedTracks] = useState<Set<number>>(new Set());
+  const [selectedTracks, setSelectedTracks] = useState<Set<string>>(new Set());
   const [isSearching, setIsSearching] = useState(false);
   const [artistImage, setArtistImage] = useState('');
-  const [genre, setGenre] = useState('Pop');
-  
+  const [genre, setGenre] = useState('');
+
   const [view, setView] = useState<'list' | 'create'>('list');
   const [scheduleOption, setScheduleOption] = useState<'A' | 'B' | 'C'>('A');
   const [customDate, setCustomDate] = useState('');
 
+  const [sourceMode, setSourceMode] = useState<SourceMode>('itunes');
+  const [localArtists, setLocalArtists] = useState<any[]>([]);
+
+  // ── Clip editor state ────────────────────────────────────────────────────────
+  // Map of trackId → slice_offset_sec (seconds)
+  const [trackOffsets, setTrackOffsets] = useState<Map<string, number>>(new Map());
+  // Which track row has the clip editor expanded
+  const [expandedTrackId, setExpandedTrackId] = useState<string | null>(null);
+  // Tracks currently being loaded into AudioContext for slice preview
+  const [loadingTrackId, setLoadingTrackId] = useState<string | null>(null);
+
+  // Shared AudioContext + decoded buffer cache for the slice previewer
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const bufferCacheRef = useRef<Map<string, AudioBuffer>>(new Map());
+
+  const getAudioCtx = () => {
+    if (!audioCtxRef.current) {
+      audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+    if (audioCtxRef.current.state === 'suspended') audioCtxRef.current.resume();
+    return audioCtxRef.current;
+  };
+
+  // Fetch + decode a track into the buffer cache (runs once per track)
+  const ensureBuffer = useCallback(async (trackId: string, url: string): Promise<AudioBuffer | null> => {
+    if (bufferCacheRef.current.has(trackId)) return bufferCacheRef.current.get(trackId)!;
+    setLoadingTrackId(trackId);
+    try {
+      const res = await fetch(url);
+      const arrayBuf = await res.arrayBuffer();
+      const ctx = getAudioCtx();
+      const audioBuf = await ctx.decodeAudioData(arrayBuf);
+      bufferCacheRef.current.set(trackId, audioBuf);
+      return audioBuf;
+    } catch (e) {
+      console.error('Failed to decode audio', e);
+      return null;
+    } finally {
+      setLoadingTrackId(null);
+    }
+  }, []);
+
+  // Play exactly 1 second starting at `offsetSec` from the decoded buffer
+  const playSliceAt = useCallback(async (track: any, offsetSec: number) => {
+    const buf = await ensureBuffer(track.trackId.toString(), track.previewUrl);
+    if (!buf) return;
+    const ctx = getAudioCtx();
+    const safeOffset = Math.max(0, Math.min(offsetSec, buf.duration - 1.0));
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    const gain = ctx.createGain();
+    src.connect(gain);
+    gain.connect(ctx.destination);
+    const now = ctx.currentTime;
+    gain.gain.setValueAtTime(1, now);
+    gain.gain.setValueAtTime(1, now + 0.985);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 1.0);
+    src.start(now, safeOffset, 1.0);
+    src.stop(now + 1.0);
+  }, [ensureBuffer]);
+
+  // Get the buffered duration for a track (for clamping the slider max)
+  const getBufferDuration = (trackId: string): number | null => {
+    const buf = bufferCacheRef.current.get(trackId);
+    return buf ? buf.duration : null;
+  };
+
+  const getOffset = (trackId: string) => trackOffsets.get(trackId) ?? 0;
+
+  const setOffset = (trackId: string, value: number) => {
+    setTrackOffsets(prev => {
+      const next = new Map(prev);
+      next.set(trackId, Math.max(0, value));
+      return next;
+    });
+  };
+
+  // Clamp offset against known buffer duration
+  const clampedOffset = (trackId: string, raw: number): number => {
+    const dur = getBufferDuration(trackId);
+    if (dur === null) return Math.max(0, raw);
+    return Math.max(0, Math.min(raw, dur - 1.0));
+  };
+
+  // ── History ──────────────────────────────────────────────────────────────────
   const loadHistory = () => {
     fetch('/api/dashboard/history')
       .then(res => res.json())
-      .then(data => {
-        if (!data.error) setHistory(data);
-      });
+      .then(data => { if (!data.error) setHistory(data); });
   };
+  useEffect(() => { loadHistory(); }, []);
 
   useEffect(() => {
-    loadHistory();
-  }, []);
+    if (sourceMode === 'local' && localArtists.length === 0) {
+      fetch('/api/local-songs')
+        .then(res => res.json())
+        .then(data => { if (Array.isArray(data)) setLocalArtists(data); })
+        .catch(() => {});
+    }
+  }, [sourceMode, localArtists.length]);
 
+  // ── iTunes search ────────────────────────────────────────────────────────────
   const searchiTunes = async (e?: React.FormEvent) => {
     e?.preventDefault();
     if (!artistName) return;
     setIsSearching(true);
+    setSearchResults([]);
+    setSelectedTracks(new Set());
+    setTrackOffsets(new Map());
+    setExpandedTrackId(null);
     try {
       const url1 = `https://itunes.apple.com/search?term=${encodeURIComponent(artistName)}&entity=song&limit=200`;
       const url2 = `https://itunes.apple.com/search?term=${encodeURIComponent(artistName + ' feat')}&entity=song&limit=200`;
-      
       const [res1, res2] = await Promise.all([fetch(url1), fetch(url2)]);
       const data1 = await res1.json();
       const data2 = await res2.json();
-
-      const combinedResults = [...(data1.results || []), ...(data2.results || [])];
-      
-      const validTracks = combinedResults.filter(t => t.previewUrl);
-      const uniqueTracks = Array.from(new Map(validTracks.map(t => [t.trackId, t])).values());
-      
-      setSearchResults(uniqueTracks);
-      
-      if (uniqueTracks.length > 0) {
-        setArtistImage(uniqueTracks[0].artworkUrl100.replace('100x100bb', '600x600bb'));
-        setGenre(uniqueTracks[0].primaryGenreName || 'Pop');
-        const defaultSelected = uniqueTracks.slice(0, 50).map(t => t.trackId);
-        setSelectedTracks(new Set(defaultSelected));
+      const combined = [...(data1.results || []), ...(data2.results || [])];
+      const valid = combined.filter(t => t.previewUrl);
+      const unique = Array.from(new Map(valid.map(t => [t.trackId, t])).values());
+      setSearchResults(unique);
+      if (unique.length > 0) {
+        setArtistImage(unique[0].artworkUrl100.replace('100x100bb', '600x600bb'));
+        setGenre(unique[0].primaryGenreName || 'Pop');
+        setSelectedTracks(new Set(unique.slice(0, 50).map(t => t.trackId.toString())));
       }
     } catch (err) {
       console.error(err);
+      setStatus('Error: iTunes search failed. Try switching to Local MP3 mode.');
     }
     setIsSearching(false);
   };
 
-  const toggleTrack = (trackId: number) => {
-    const next = new Set(selectedTracks);
-    if (next.has(trackId)) next.delete(trackId);
-    else next.add(trackId);
-    setSelectedTracks(next);
+  // ── Local search ─────────────────────────────────────────────────────────────
+  const searchLocal = async (e?: React.FormEvent) => {
+    e?.preventDefault();
+    if (!artistName) return;
+    setIsSearching(true);
+    setSearchResults([]);
+    setSelectedTracks(new Set());
+    setTrackOffsets(new Map());
+    setExpandedTrackId(null);
+    try {
+      const res = await fetch(`/api/local-songs?artist=${encodeURIComponent(artistName)}`);
+      const data = await res.json();
+      if (data.error) {
+        setStatus(`Error: ${data.error}`);
+      } else {
+        const tracks = data.songs.map((s: any) => ({
+          trackId: s.id,
+          trackName: s.title,
+          collectionName: s.album,
+          releaseDate: s.year ? `${s.year}-01-01` : undefined,
+          artworkUrl100: s.artwork_url || data.image_url || '',
+          previewUrl: s.file,
+          primaryGenreName: 'Local',
+          artistName: data.name,
+          _sliceOffset: s.slice_offset_sec ?? 0,
+        }));
+        setSearchResults(tracks);
+        setArtistImage(data.image_url || '');
+        setGenre('Local Library');
+        setSelectedTracks(new Set(tracks.map((t: any) => t.trackId.toString())));
+        // Pre-populate offsets from manifest
+        const offsets = new Map<string, number>();
+        tracks.forEach((t: any) => offsets.set(t.trackId.toString(), t._sliceOffset ?? 0));
+        setTrackOffsets(offsets);
+      }
+    } catch (err) {
+      setStatus('Error: Local search failed.');
+    }
+    setIsSearching(false);
   };
 
+  const handleSearch = (e?: React.FormEvent) =>
+    sourceMode === 'local' ? searchLocal(e) : searchiTunes(e);
+
+  const selectLocalArtist = async (name: string) => {
+    setArtistName(name);
+    setIsSearching(true);
+    setSearchResults([]);
+    setSelectedTracks(new Set());
+    setTrackOffsets(new Map());
+    setExpandedTrackId(null);
+    try {
+      const res = await fetch(`/api/local-songs?artist=${encodeURIComponent(name)}`);
+      const data = await res.json();
+      if (!data.error) {
+        const tracks = data.songs.map((s: any) => ({
+          trackId: s.id,
+          trackName: s.title,
+          collectionName: s.album,
+          releaseDate: s.year ? `${s.year}-01-01` : undefined,
+          artworkUrl100: s.artwork_url || data.image_url || '',
+          previewUrl: s.file,
+          primaryGenreName: 'Local',
+          artistName: data.name,
+          _sliceOffset: s.slice_offset_sec ?? 0,
+        }));
+        setSearchResults(tracks);
+        setArtistImage(data.image_url || '');
+        setGenre('Local Library');
+        setSelectedTracks(new Set(tracks.map((t: any) => t.trackId.toString())));
+        const offsets = new Map<string, number>();
+        tracks.forEach((t: any) => offsets.set(t.trackId.toString(), t._sliceOffset ?? 0));
+        setTrackOffsets(offsets);
+      }
+    } catch {}
+    setIsSearching(false);
+  };
+
+  // ── Track selection ──────────────────────────────────────────────────────────
+  const toggleTrack = (trackId: string) => {
+    setSelectedTracks(prev => {
+      const next = new Set(prev);
+      next.has(trackId) ? next.delete(trackId) : next.add(trackId);
+      return next;
+    });
+  };
+
+  // ── Queue helpers ────────────────────────────────────────────────────────────
   const getNextQueueDate = () => {
     if (history.length === 0) return new Date().toISOString().split('T')[0];
-    const sortedDates = history.map(h => h.play_date).sort().reverse();
-    const latestDate = new Date(sortedDates[0]);
-    latestDate.setUTCDate(latestDate.getUTCDate() + 1);
-    return latestDate.toISOString().split('T')[0];
+    const latest = new Date([...history.map(h => h.play_date)].sort().reverse()[0]);
+    latest.setUTCDate(latest.getUTCDate() + 1);
+    return latest.toISOString().split('T')[0];
   };
-
   const nextQueueDate = getNextQueueDate();
 
+  // ── Save ─────────────────────────────────────────────────────────────────────
   const handleSaveChallenge = async () => {
-    if (selectedTracks.size === 0) {
-      setStatus('Please select at least 1 song!');
-      return;
-    }
-    
+    if (selectedTracks.size === 0) { setStatus('Please select at least 1 song!'); return; }
     setStatus('Saving custom challenge...');
-    
+
     let targetDate = new Date().toISOString().split('T')[0];
     if (scheduleOption === 'A') targetDate = nextQueueDate;
+    if (scheduleOption === 'B') targetDate = new Date().toISOString().split('T')[0];
     if (scheduleOption === 'C' && customDate) targetDate = customDate;
 
     const finalPool = searchResults
-      .filter(t => selectedTracks.has(t.trackId))
+      .filter(t => selectedTracks.has(t.trackId.toString()))
       .map(track => ({
         id: track.trackId.toString(),
         title: track.trackName,
         album: track.collectionName,
         year: track.releaseDate ? track.releaseDate.substring(0, 4) : 'Unknown',
         preview_url: track.previewUrl,
-        slice_offset_sec: 0,
-        artwork_url: track.artworkUrl100?.replace('100x100bb', '600x600bb')
+        // Use the per-track offset the user set in the clip editor
+        slice_offset_sec: getOffset(track.trackId.toString()),
+        artwork_url: track.artworkUrl100?.replace('100x100bb', '600x600bb') || track.artworkUrl100 || ''
       }));
-
-    const allTitles = finalPool.map(t => t.title);
 
     const res = await fetch('/api/cron/generate-daily', {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer secret`
-      },
-      body: JSON.stringify({ 
-        artistName, 
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer secret' },
+      body: JSON.stringify({
+        artistName,
         playDate: targetDate,
         customPool: finalPool,
-        customTitles: allTitles,
+        customTitles: finalPool.map(t => t.title),
         customImage: artistImage
       })
     });
-    
     const data = await res.json();
     if (data.success) {
       setStatus('');
       setArtistName('');
       setSearchResults([]);
+      setTrackOffsets(new Map());
       loadHistory();
       setView('list');
     } else {
@@ -131,10 +295,9 @@ export default function Dashboard() {
     }
   };
 
-  const playPreview = (url: string) => {
-    new Audio(url).play();
-  };
+  const selectedTracksList = searchResults.filter(t => selectedTracks.has(t.trackId.toString()));
 
+  // ── LIST VIEW ────────────────────────────────────────────────────────────────
   if (view === 'list') {
     return (
       <div className="min-h-screen bg-[#0a0a0a] text-white p-8 font-sans selection:bg-green-500/30">
@@ -151,7 +314,7 @@ export default function Dashboard() {
                 const isToday = item.play_date === new Date().toISOString().split('T')[0];
                 return (
                   <div key={i} className="bg-zinc-900/50 p-4 rounded-lg flex items-center gap-4 border border-zinc-800/50">
-                    <img src={item.artist_image_url} alt={item.artist_name} className="w-12 h-12 rounded object-cover" />
+                    {item.artist_image_url && <img src={item.artist_image_url} alt={item.artist_name} className="w-12 h-12 rounded object-cover" />}
                     <div className="flex-1">
                       <div className="font-bold text-white flex items-center gap-2">
                         {item.artist_name}
@@ -171,12 +334,11 @@ export default function Dashboard() {
     );
   }
 
-  const selectedTracksList = searchResults.filter(t => selectedTracks.has(t.trackId));
-
+  // ── CREATE VIEW ──────────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-zinc-300 p-4 md:p-8 font-sans flex items-center justify-center">
       <div className="w-full max-w-4xl bg-[#111] border border-zinc-800 rounded-xl shadow-2xl flex flex-col max-h-[90vh]">
-        
+
         {/* Header */}
         <div className="flex justify-between items-center p-4 md:p-6 border-b border-zinc-800 shrink-0">
           <div className="flex items-center gap-3">
@@ -188,26 +350,65 @@ export default function Dashboard() {
           </button>
         </div>
 
-        {/* Content */}
-        <div className="p-4 md:p-6 overflow-y-auto custom-scrollbar flex-1 space-y-8">
-          
-          {/* Step 1 */}
+        {/* Scrollable body */}
+        <div className="p-4 md:p-6 overflow-y-auto flex-1 space-y-8">
+
+          {/* Source toggle */}
+          <div>
+            <div className="text-xs font-bold tracking-widest text-zinc-500 mb-3 uppercase">Audio Source</div>
+            <div className="grid grid-cols-2 gap-3">
+              {(['itunes', 'local'] as const).map(mode => (
+                <button
+                  key={mode}
+                  onClick={() => { setSourceMode(mode); setSearchResults([]); setSelectedTracks(new Set()); setTrackOffsets(new Map()); setArtistName(''); setExpandedTrackId(null); }}
+                  className={`p-3 rounded-lg border text-sm font-bold flex items-center gap-2 transition-all ${sourceMode === mode ? 'bg-zinc-800/80 border-white text-white' : 'bg-zinc-900/50 border-zinc-800 text-zinc-500 hover:border-zinc-600'}`}
+                >
+                  {mode === 'itunes' ? <><Music size={16} /> iTunes / Apple Music</> : <><FolderOpen size={16} /> Local MP3 Files</>}
+                </button>
+              ))}
+            </div>
+            {sourceMode === 'local' && (
+              <div className="mt-2 text-[11px] text-zinc-500 bg-zinc-900/50 border border-zinc-800 rounded p-3">
+                Drop MP3s into <code className="text-zinc-300 bg-zinc-800 px-1 rounded">public/songs/artist-name/</code> and register them in{' '}
+                <code className="text-zinc-300 bg-zinc-800 px-1 rounded">public/songs/manifest.json</code>.
+              </div>
+            )}
+          </div>
+
+          {/* Step 1 — Artist */}
           <div>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                <span className="bg-white text-black w-5 h-5 rounded-full flex items-center justify-center text-xs">1</span> 
+                <span className="bg-white text-black w-5 h-5 rounded-full flex items-center justify-center text-xs">1</span>
                 Select Featured Artist
               </h2>
               {searchResults.length > 0 && <span className="text-[10px] font-bold text-green-500 tracking-widest">STEP COMPLETE</span>}
             </div>
-            
-            <form onSubmit={searchiTunes} className="relative mb-4">
+
+            {sourceMode === 'local' && localArtists.length > 0 && searchResults.length === 0 && (
+              <div className="mb-4 grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {localArtists.map((a, i) => (
+                  <button key={i} onClick={() => selectLocalArtist(a.name)} className="bg-zinc-900 border border-zinc-800 hover:border-zinc-600 rounded-lg p-3 text-left transition-colors">
+                    <div className="text-sm font-bold text-white">{a.name}</div>
+                    <div className="text-[10px] text-zinc-500 mt-0.5">{a.song_count} songs</div>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {sourceMode === 'local' && localArtists.length === 0 && searchResults.length === 0 && (
+              <div className="mb-4 text-zinc-500 text-sm bg-zinc-900/50 border border-zinc-800 rounded-lg p-4">
+                No artists found. Add songs to <code className="text-zinc-300">public/songs/manifest.json</code>.
+              </div>
+            )}
+
+            <form onSubmit={handleSearch} className="relative mb-4">
               <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" />
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={artistName}
                 onChange={e => setArtistName(e.target.value)}
-                placeholder="Search Artist..."
+                placeholder={sourceMode === 'local' ? 'Search local artist...' : 'Search Artist (iTunes)...'}
                 className="w-full bg-zinc-900 border border-zinc-800 rounded-lg py-3 pl-10 pr-24 text-sm text-white focus:outline-none focus:border-zinc-600"
               />
               <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 text-xs bg-zinc-800 hover:bg-zinc-700 text-white font-bold px-3 py-1.5 rounded transition-colors">
@@ -218,145 +419,269 @@ export default function Dashboard() {
             {searchResults.length > 0 && (
               <div className="bg-zinc-900/50 border border-zinc-800 p-4 rounded-lg flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <img src={artistImage} className="w-14 h-14 rounded object-cover shadow" />
+                  {artistImage && <img src={artistImage} className="w-14 h-14 rounded object-cover shadow" alt="artist" />}
                   <div>
                     <div className="text-white font-bold text-lg flex items-center gap-2">
                       {searchResults[0].artistName} <CheckCircle2 size={16} className="text-green-500" />
                     </div>
-                    <div className="text-xs text-zinc-400 mt-1 flex items-center gap-1">
-                      {genre} <span className="text-green-500 ml-1">• Verified Catalog ({searchResults.length} songs available)</span>
+                    <div className="text-xs text-zinc-400 mt-1">
+                      {genre} <span className="text-green-500 ml-1">• {searchResults.length} songs found</span>
                     </div>
                   </div>
                 </div>
                 <div className="hidden md:flex text-xs font-bold text-zinc-400 items-center gap-1 bg-zinc-800/50 px-3 py-1.5 rounded-full">
-                  <CheckCircle2 size={14} className="text-green-500" /> {selectedTracks.size}-Track Fuzzy Pool Auto-Generated
+                  <CheckCircle2 size={14} className="text-green-500" /> {selectedTracks.size}-Track Pool
                 </div>
               </div>
             )}
           </div>
 
-          {/* Step 2 */}
+          {/* Step 2 — Curate + Clip Editor */}
           {searchResults.length > 0 && (
             <div>
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                  <span className="bg-white text-black w-5 h-5 rounded-full flex items-center justify-center text-xs">2</span> 
-                  Curate Song Pools (1sec Slices)
+                  <span className="bg-white text-black w-5 h-5 rounded-full flex items-center justify-center text-xs">2</span>
+                  Curate Song Pool &amp; Set Clip Points
                 </h2>
-                <span className="text-[10px] font-bold text-zinc-500 tracking-widest uppercase">{selectedTracksList.length} OF {searchResults.length} CONFIGURED</span>
+                <span className="text-[10px] font-bold text-zinc-500 tracking-widest uppercase">{selectedTracksList.length} / {searchResults.length} SELECTED</span>
               </div>
-              
-              <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-lg overflow-hidden">
-                <div className="max-h-[250px] overflow-y-auto custom-scrollbar divide-y divide-zinc-800/50">
+
+              <div className="text-[11px] text-zinc-500 bg-zinc-900/30 border border-zinc-800/50 rounded-t-lg px-4 py-2 flex items-center gap-2">
+                <Scissors size={12} className="text-zinc-400" />
+                Click the <span className="text-zinc-300 font-bold">✂ icon</span> on any track to set where the 1-second game snippet starts.
+              </div>
+
+              <div className="bg-zinc-900/30 border border-zinc-800/50 border-t-0 rounded-b-lg overflow-hidden">
+                <div className="max-h-[400px] overflow-y-auto divide-y divide-zinc-800/50">
                   {searchResults.map((track, idx) => {
-                    const isSelected = selectedTracks.has(track.trackId);
+                    const id = track.trackId.toString();
+                    const isSelected = selectedTracks.has(id);
+                    const offset = getOffset(id);
+                    const isExpanded = expandedTrackId === id;
+                    const isLoading = loadingTrackId === id;
+                    const bufDur = getBufferDuration(id);
+                    // iTunes previews are ~30s; local files can be longer
+                    const isLocal = track.previewUrl?.startsWith('/songs/') || track.previewUrl?.startsWith('/public/');
+                    const maxOffset = bufDur !== null ? Math.floor(bufDur - 1) : (isLocal ? 600 : 28);
+
                     return (
-                      <div key={track.trackId} className={`flex items-center justify-between p-3 hover:bg-zinc-800/40 group transition-opacity ${isSelected ? '' : 'opacity-40 grayscale hover:opacity-100 hover:grayscale-0'}`}>
-                        <div className="flex items-center gap-4">
-                          <div className="text-xs font-bold text-zinc-500 bg-zinc-900 w-6 h-6 rounded flex items-center justify-center">{(idx + 1).toString().padStart(2, '0')}</div>
-                          <div>
-                            <div className="text-sm font-bold text-zinc-200 group-hover:text-white transition-colors">
-                              {!isSelected && <span className="bg-red-500 text-black text-[9px] px-1 mr-2 rounded uppercase font-black tracking-widest">REMOVED</span>}
-                              {track.trackName}
+                      <div key={id} className={`transition-opacity ${isSelected ? '' : 'opacity-40 hover:opacity-100'}`}>
+                        {/* Main row */}
+                        <div className="flex items-center justify-between p-3 hover:bg-zinc-800/30 group">
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="text-xs font-bold text-zinc-500 bg-zinc-900 w-6 h-6 rounded flex items-center justify-center shrink-0">
+                              {(idx + 1).toString().padStart(2, '0')}
                             </div>
-                            <div className="text-[10px] text-zinc-500">{track.collectionName} ({track.releaseDate?.substring(0,4) || 'Unknown'})</div>
+                            <div className="min-w-0">
+                              <div className="text-sm font-bold text-zinc-200 group-hover:text-white truncate">
+                                {!isSelected && <span className="bg-red-500 text-black text-[9px] px-1 mr-2 rounded uppercase font-black">REMOVED</span>}
+                                {track.trackName}
+                              </div>
+                              <div className="text-[10px] text-zinc-500">{track.collectionName} ({track.releaseDate?.substring(0, 4) || '?'})</div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-2 shrink-0 ml-2">
+                            {/* Clip offset badge */}
+                            <button
+                              onClick={() => {
+                                setExpandedTrackId(isExpanded ? null : id);
+                                // Eagerly start decoding so the buffer is ready
+                                ensureBuffer(id, track.previewUrl);
+                              }}
+                              title="Edit clip start point"
+                              className={`flex items-center gap-1 text-[10px] font-bold px-2 py-1.5 rounded transition-colors ${isExpanded ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white'}`}
+                            >
+                              <Scissors size={11} />
+                              <span className="font-mono">{offset.toFixed(1)}s</span>
+                            </button>
+
+                            {/* Remove / add toggle */}
+                            {isSelected ? (
+                              <button onClick={() => toggleTrack(id)} className="text-zinc-600 hover:text-red-500 transition-colors p-1">
+                                <Trash2 size={14} />
+                              </button>
+                            ) : (
+                              <button onClick={() => toggleTrack(id)} className="text-green-500 hover:text-green-400 transition-colors p-1">
+                                <Plus size={16} />
+                              </button>
+                            )}
                           </div>
                         </div>
-                        <div className="flex items-center gap-4">
-                          <div className="hidden sm:flex text-[10px] font-mono text-zinc-500 items-center gap-2">
-                            OFFSET <span className="text-zinc-300">00:00.000s</span>
+
+                        {/* Clip editor — expands inline */}
+                        {isExpanded && (
+                          <div className="mx-3 mb-3 bg-[#0d0d0d] border border-amber-500/30 rounded-lg p-4 space-y-3">
+                            <div className="flex items-center justify-between text-[10px] font-bold tracking-widest">
+                              <span className="text-amber-400 flex items-center gap-1.5"><Scissors size={11} /> CLIP START POINT</span>
+                              <span className="text-zinc-500">{isLoading ? 'LOADING AUDIO…' : bufDur ? `TRACK DURATION: ${bufDur.toFixed(1)}s` : 'CLICK PLAY TO LOAD'}</span>
+                            </div>
+
+                            {/* Slider */}
+                            <div className="flex items-center gap-3">
+                              <span className="text-[10px] text-zinc-500 w-6 text-right">0s</span>
+                              <input
+                                type="range"
+                                min={0}
+                                max={maxOffset}
+                                step={0.5}
+                                value={offset}
+                                onChange={e => setOffset(id, parseFloat(e.target.value))}
+                                className="flex-1 h-1.5 accent-amber-400 cursor-pointer"
+                              />
+                              <span className="text-[10px] text-zinc-500 w-12">{maxOffset}s</span>
+                            </div>
+
+                            {/* Fine controls */}
+                            <div className="flex items-center gap-2">
+                              {/* Step buttons */}
+                              {([-10, -5, -1] as const).map(d => (
+                                <button
+                                  key={d}
+                                  onClick={() => setOffset(id, clampedOffset(id, offset + d))}
+                                  className="text-[10px] font-bold bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1.5 rounded transition-colors"
+                                >{d}s</button>
+                              ))}
+
+                              {/* Number input */}
+                              <div className="flex items-center gap-1 bg-zinc-800 border border-zinc-700 rounded px-2 mx-1">
+                                <button onClick={() => setOffset(id, clampedOffset(id, offset - 0.5))} className="text-zinc-400 hover:text-white py-1">
+                                  <ChevronLeft size={14} />
+                                </button>
+                                <input
+                                  type="number"
+                                  min={0}
+                                  max={maxOffset}
+                                  step={0.5}
+                                  value={offset}
+                                  onChange={e => setOffset(id, clampedOffset(id, parseFloat(e.target.value) || 0))}
+                                  className="w-14 bg-transparent text-center text-sm font-mono text-white focus:outline-none"
+                                />
+                                <span className="text-zinc-500 text-xs">s</span>
+                                <button onClick={() => setOffset(id, clampedOffset(id, offset + 0.5))} className="text-zinc-400 hover:text-white py-1">
+                                  <ChevronRight size={14} />
+                                </button>
+                              </div>
+
+                              {([1, 5, 10] as const).map(d => (
+                                <button
+                                  key={d}
+                                  onClick={() => setOffset(id, clampedOffset(id, offset + d))}
+                                  className="text-[10px] font-bold bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1.5 rounded transition-colors"
+                                >+{d}s</button>
+                              ))}
+
+                              {/* Play slice button */}
+                              <button
+                                onClick={() => playSliceAt(track, offset)}
+                                disabled={isLoading}
+                                className="ml-auto flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-black text-[11px] font-black px-3 py-1.5 rounded transition-colors"
+                              >
+                                <Play size={11} fill="currentColor" />
+                                {isLoading ? 'Loading…' : 'Play 1s'}
+                              </button>
+                            </div>
+
+                            {/* Visual timeline */}
+                            <div className="relative h-6 bg-zinc-900 rounded overflow-hidden border border-zinc-800">
+                              <div className="absolute inset-y-0 bg-zinc-700/40" style={{ left: 0, width: `${(offset / Math.max(maxOffset, 1)) * 100}%` }} />
+                              <div
+                                className="absolute inset-y-0 bg-amber-500/50 border-l-2 border-r-2 border-amber-400"
+                                style={{
+                                  left: `${(offset / Math.max(maxOffset, 1)) * 100}%`,
+                                  width: `${(1 / Math.max(maxOffset, 1)) * 100}%`
+                                }}
+                              />
+                              <div className="absolute inset-0 flex items-center justify-center text-[9px] font-bold text-zinc-400 tracking-widest pointer-events-none">
+                                CLIP: {offset.toFixed(1)}s → {(offset + 1).toFixed(1)}s
+                              </div>
+                            </div>
                           </div>
-                          <button onClick={() => playPreview(track.previewUrl)} className="flex items-center gap-1 text-[10px] font-bold bg-zinc-800 hover:bg-zinc-700 text-white px-2 py-1.5 rounded transition-colors">
-                            <Play size={10} fill="currentColor" /> 1s
-                          </button>
-                          {isSelected ? (
-                            <button onClick={() => toggleTrack(track.trackId)} className="text-zinc-600 hover:text-red-500 transition-colors px-2">
-                              <Trash2 size={14} />
-                            </button>
-                          ) : (
-                            <button onClick={() => toggleTrack(track.trackId)} className="text-green-500 hover:text-green-400 transition-colors px-2">
-                              <Plus size={16} />
-                            </button>
-                          )}
-                        </div>
+                        )}
                       </div>
                     );
                   })}
                 </div>
+
                 <div className="bg-zinc-900 p-3 flex justify-between items-center text-[10px] text-zinc-500 border-t border-zinc-800/50">
-                  <span>{selectedTracksList.length}-Track Search Pool (Fuzzy Match for Guessers):</span>
-                  <span>Auto-Populated from Studio Discography</span>
+                  <span>{selectedTracksList.length}-Track pool · clip offsets configured: {[...trackOffsets.values()].filter(v => v > 0).length}</span>
+                  <span>{sourceMode === 'local' ? '📁 Local MP3 Library' : '🎵 iTunes Catalog'}</span>
                 </div>
               </div>
             </div>
           )}
 
-          {/* Step 3 */}
+          {/* Step 3 — Schedule */}
           {searchResults.length > 0 && (
             <div>
               <div className="mb-4">
                 <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                  <span className="bg-white text-black w-5 h-5 rounded-full flex items-center justify-center text-xs">3</span> 
-                  Schedule & Publish Strategy
+                  <span className="bg-white text-black w-5 h-5 rounded-full flex items-center justify-center text-xs">3</span>
+                  Schedule &amp; Publish
                 </h2>
               </div>
-              
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {/* Option A */}
+                {/* A */}
                 <div onClick={() => setScheduleOption('A')} className={`cursor-pointer p-4 rounded-lg border transition-all ${scheduleOption === 'A' ? 'bg-zinc-800/80 border-white' : 'bg-zinc-900/50 border-zinc-800 hover:border-zinc-600'}`}>
                   <div className="flex justify-between items-start mb-2">
                     <span className="text-[10px] font-bold tracking-widest uppercase text-green-500">Option A • Next Slot</span>
                     {scheduleOption === 'A' ? <CheckCircle2 size={16} className="text-white" /> : <Circle size={16} className="text-zinc-600" />}
                   </div>
                   <div className="text-sm font-bold text-white mb-1">Next Available Date</div>
-                  <div className="text-[10px] text-zinc-400">Appends to queue: {nextQueueDate} (00:00 UTC)</div>
+                  <div className="text-[10px] text-zinc-400">Queue: {nextQueueDate}</div>
                 </div>
-
-                {/* Option B */}
+                {/* B */}
                 <div onClick={() => setScheduleOption('B')} className={`cursor-pointer p-4 rounded-lg border transition-all ${scheduleOption === 'B' ? 'bg-zinc-800/80 border-white' : 'bg-zinc-900/50 border-zinc-800 hover:border-zinc-600'}`}>
                   <div className="flex justify-between items-start mb-2">
                     <span className="text-[10px] font-bold tracking-widest uppercase text-orange-500">Option B • Override</span>
                     {scheduleOption === 'B' ? <CheckCircle2 size={16} className="text-white" /> : <Circle size={16} className="text-zinc-600" />}
                   </div>
                   <div className="text-sm font-bold text-white mb-1">Make Active Now</div>
-                  <div className="text-[10px] text-zinc-400">Immediately replaces today's active live song</div>
+                  <div className="text-[10px] text-zinc-400">Replaces today&apos;s challenge ({new Date().toISOString().split('T')[0]})</div>
                 </div>
-
-                {/* Option C */}
+                {/* C */}
                 <div onClick={() => setScheduleOption('C')} className={`cursor-pointer p-4 rounded-lg border transition-all ${scheduleOption === 'C' ? 'bg-zinc-800/80 border-white' : 'bg-zinc-900/50 border-zinc-800 hover:border-zinc-600'}`}>
                   <div className="flex justify-between items-start mb-2">
                     <span className="text-[10px] font-bold tracking-widest uppercase text-blue-500">Option C • Calendar</span>
                     {scheduleOption === 'C' ? <CheckCircle2 size={16} className="text-white" /> : <Circle size={16} className="text-zinc-600" />}
                   </div>
                   <div className="text-sm font-bold text-white mb-1">Pick Custom Date</div>
-                  <input 
-                    type="date" 
+                  <input
+                    type="date"
                     value={customDate}
-                    onChange={(e) => { setCustomDate(e.target.value); setScheduleOption('C'); }}
-                    onClick={(e) => e.stopPropagation()}
+                    onChange={e => { setCustomDate(e.target.value); setScheduleOption('C'); }}
+                    onClick={e => e.stopPropagation()}
                     className="w-full bg-zinc-900 border border-zinc-700 text-[10px] p-1.5 rounded text-white focus:outline-none"
                   />
                 </div>
               </div>
             </div>
           )}
-          
-          {status && <div className={`text-sm font-bold p-3 rounded text-center ${status.includes('Error') ? 'bg-red-500/20 text-red-500' : 'bg-green-500/20 text-green-500'}`}>{status}</div>}
+
+          {status && (
+            <div className={`text-sm font-bold p-3 rounded text-center ${status.includes('Error') ? 'bg-red-500/20 text-red-500' : 'bg-green-500/20 text-green-500'}`}>
+              {status}
+            </div>
+          )}
         </div>
 
         {/* Footer */}
         {searchResults.length > 0 && (
           <div className="p-4 md:p-6 border-t border-zinc-800 bg-[#0a0a0a] rounded-b-xl flex flex-col sm:flex-row justify-between items-center gap-4 shrink-0">
             <button onClick={() => setView('list')} className="text-xs font-bold text-zinc-500 hover:text-white transition-colors">
-              Cancel & Discard
+              Cancel &amp; Discard
             </button>
             <div className="flex gap-3 w-full sm:w-auto">
               <button onClick={() => setView('list')} className="flex-1 sm:flex-none text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-white px-6 py-2.5 rounded transition-colors">
                 Save as Draft
               </button>
-              <button onClick={handleSaveChallenge} className="flex-1 sm:flex-none text-xs font-bold bg-white hover:bg-zinc-200 text-black px-6 py-2.5 rounded transition-colors flex items-center justify-center gap-2">
-                <Calendar size={14} /> 
-                {scheduleOption === 'A' ? `Save & Add to Queue (${nextQueueDate})` : scheduleOption === 'B' ? 'Save & Make Live Today' : 'Save Custom Date'}
+              <button
+                onClick={handleSaveChallenge}
+                className="flex-1 sm:flex-none text-xs font-bold bg-white hover:bg-zinc-200 text-black px-6 py-2.5 rounded transition-colors flex items-center justify-center gap-2"
+              >
+                <Calendar size={14} />
+                {scheduleOption === 'A' ? `Queue (${nextQueueDate})` : scheduleOption === 'B' ? 'Make Live Today' : 'Save Custom Date'}
               </button>
             </div>
           </div>

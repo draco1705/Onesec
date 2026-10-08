@@ -1,0 +1,19 @@
+{
+  "artists": [
+    {
+      "name": "Example Artist",
+      "image_url": "/songs/example-artist/cover.jpg",
+      "songs": [
+        {
+          "id": "example-001",
+          "title": "Song Title Here",
+          "album": "Album Name",
+          "year": "2024",
+          "file": "/songs/example-artist/song-title-here.mp3",
+          "artwork_url": "/songs/example-artist/cover.jpg",
+          "slice_offset_sec": 30
+        }
+      ]
+    }
+  ]
+}

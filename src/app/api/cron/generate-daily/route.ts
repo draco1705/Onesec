@@ -33,15 +33,16 @@ export async function POST(request: Request) {
 
     const { data, error } = await supabase
       .from('daily_challenges')
-      .insert([
+      .upsert(
         {
           play_date: playDate,
           artist_name: finalArtistName,
           artist_image_url: finalImageUrl,
           track_pool: finalTracks,
           all_searchable_titles: finalTitles
-        }
-      ])
+        },
+        { onConflict: 'play_date' }
+      )
       .select()
       .single();
 

@@ -33,12 +33,19 @@ export async function GET(request: Request) {
 
     // If challenge found in DB, use it
     if (challengeData) {
-      const safeTrackPool = challengeData.track_pool.map((track: any) => ({
-        id: track.id,
-        preview_url: `/api/audio?token=${encodeURIComponent(encryptUrl(track.preview_url))}`,
-        slice_offset_sec: track.slice_offset_sec,
-        artwork_url: track.artwork_url
-      }));
+      const safeTrackPool = challengeData.track_pool.map((track: any) => {
+        // Local files (stored as /songs/...) don't need the audio proxy
+        const isLocal = track.preview_url?.startsWith('/songs/') || track.preview_url?.startsWith('/public/');
+        const safeUrl = isLocal
+          ? track.preview_url
+          : `/api/audio?token=${encodeURIComponent(encryptUrl(track.preview_url))}`;
+        return {
+          id: track.id,
+          preview_url: safeUrl,
+          slice_offset_sec: track.slice_offset_sec,
+          artwork_url: track.artwork_url
+        };
+      });
 
       return NextResponse.json({
         id: challengeData.id,
