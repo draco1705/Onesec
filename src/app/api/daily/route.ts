@@ -80,9 +80,8 @@ export async function GET(request: Request) {
           track_pool: targetTracks,
           all_searchable_titles: allTitles,
           is_draft: false,
-        }, true);
+        }, false);
       }
-      setActiveArtist(challengeData.artist_name);
     }
 
     // 2. If no specific artist requested: load active challenge from database

@@ -70,8 +70,9 @@ export default function GameContainer() {
     const params = new URLSearchParams(window.location.search);
     const artistParam = params.get('artist');
     
-    if (artistParam) {
-      setTestArtist(artistParam);
+    // Clear stale ?artist= query param so F5 refreshes always load the active database challenge
+    if (artistParam && typeof window !== 'undefined') {
+      window.history.replaceState({}, '', window.location.pathname);
     }
     
     const dateStr = new Date().toISOString().split('T')[0];
@@ -79,7 +80,7 @@ export default function GameContainer() {
       ? `/api/daily?date=${dateStr}&artist=${encodeURIComponent(artistParam)}&t=${Date.now()}`
       : `/api/daily?date=${dateStr}&t=${Date.now()}`;
 
-    fetch(url)
+    fetch(url, { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         if (!data.error) {

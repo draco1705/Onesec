@@ -1,517 +1,517 @@
 {
   "challenges": [
     {
-      "id": "ch-1791486874913-gz6zu",
+      "id": "ch-1791488731513-carti",
       "play_date": "2026-10-08",
-      "artist_name": "Travis Scott",
-      "artist_image_url": "https://cdn-images.dzcdn.net/images/artist/8d8316146026d7e6ce377e314536df62/1000x1000-000000-80-0-0.jpg",
+      "artist_name": "Playboi Carti",
+      "artist_image_url": "https://cdn-images.dzcdn.net/images/artist/b90097972a60d9d8598a79a786be1a3a/1000x1000-000000-80-0-0.jpg",
       "track_pool": [
         {
-          "id": "deezer-2047662487",
-          "title": "Niagara Falls (Foot or 2)",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/8/f/0/18fa0fe1871a5316407f867fb506d240.mp3?hdnea=exp=1791487800~acl=/api/1/1/1/8/f/0/18fa0fe1871a5316407f867fb506d240.mp3*~data=user_id=0,application_id=42~hmac=8cfe06a8f55177be6c5a973248e7c815aafe8d3cd0beae20f19d35294c08d5c2",
-          "slice_offset_sec": 0,
-          "album": "HEROES & VILLAINS",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/862ab860ff69c30deeb5979db6e46b62/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-536421042",
-          "title": "SKELETONS",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/5/8/0/458ead6cc75d4fdf60a450cd2a7a6024.mp3?hdnea=exp=1791487800~acl=/api/1/1/4/5/8/0/458ead6cc75d4fdf60a450cd2a7a6024.mp3*~data=user_id=0,application_id=42~hmac=d6f3b15b4a8d9ee88cb780b99df49c984f12348ca321d67b12bd6cb17e80a231",
-          "slice_offset_sec": 0,
-          "album": "ASTROWORLD",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-536421122",
-          "title": "BUTTERFLY EFFECT",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/6/8/0/f68ff5d4a51c1376a352c9a7c45c7327.mp3?hdnea=exp=1791487800~acl=/api/1/1/f/6/8/0/f68ff5d4a51c1376a352c9a7c45c7327.mp3*~data=user_id=0,application_id=42~hmac=77daa435fd12967d2e722ba7133d928e946c558c4f6b92de22f468d3692cce5c",
-          "slice_offset_sec": 0,
-          "album": "ASTROWORLD",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-3690734892",
-          "title": "Parking Lot",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/7/d/6/0/7d640fc4af822846e26a3e4c159006eb.mp3?hdnea=exp=1791487800~acl=/api/1/1/7/d/6/0/7d640fc4af822846e26a3e4c159006eb.mp3*~data=user_id=0,application_id=42~hmac=3fcbd19de3f7363b9416ad9d331aaabe26f60d73a165a61f617646b793ce59c4",
-          "slice_offset_sec": 0,
-          "album": "Parking Lot",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/31a3c258adbd198877adfc28c7a4aee6/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-667570632",
-          "title": "Power is Power",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/8/e/4/0/8e4da0f3bcfe78a5bf9db909ce18927e.mp3?hdnea=exp=1791487800~acl=/api/1/1/8/e/4/0/8e4da0f3bcfe78a5bf9db909ce18927e.mp3*~data=user_id=0,application_id=42~hmac=00c14f200dfedcb8689027c03002350acc3e36bbcb6b5fc5f2f92ddd88eb0c59",
-          "slice_offset_sec": 0,
-          "album": "Power is Power",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0879118ae0a60e54914102bfa1651348/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-536421002",
-          "title": "SICKO MODE",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/b/9/7/0/b97402f4426864d46acd235a7146895c.mp3?hdnea=exp=1791487800~acl=/api/1/1/b/9/7/0/b97402f4426864d46acd235a7146895c.mp3*~data=user_id=0,application_id=42~hmac=750aec4f156f94f32f759536d610d7a3bcca6244838bed858d5a294e7cb88bce",
-          "slice_offset_sec": 0,
-          "album": "ASTROWORLD",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-3457399821",
-          "title": "KICK OUT",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/c/3/0/fc3a9cdaca69930413dfeec2a0511578.mp3?hdnea=exp=1791487800~acl=/api/1/1/f/c/3/0/fc3a9cdaca69930413dfeec2a0511578.mp3*~data=user_id=0,application_id=42~hmac=6c77804856510d42275b0c4ac6ea9c8e415d3ff61f981a6f5c1ebe5dcf9db56f",
-          "slice_offset_sec": 0,
-          "album": "JACKBOYS 2",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/2a622e01fb9b1c4717c63ae3caca9826/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-370426001",
-          "title": "Love Galore",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/e/b/d/0/ebdc91ddaf356f67d5089711aefa7bd2.mp3?hdnea=exp=1791487800~acl=/api/1/1/e/b/d/0/ebdc91ddaf356f67d5089711aefa7bd2.mp3*~data=user_id=0,application_id=42~hmac=f6907b344b787285d876306a096b53c3944b0cd88b51f74f08b518efb9462819",
-          "slice_offset_sec": 0,
-          "album": "Ctrl",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/c2431a6ddfeaaea69562b7448e82d714/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-2375967015",
-          "title": "K-POP",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/5/9/0/159ada2aee5762e1a5483b6917d6bd0f.mp3?hdnea=exp=1791487800~acl=/api/1/1/1/5/9/0/159ada2aee5762e1a5483b6917d6bd0f.mp3*~data=user_id=0,application_id=42~hmac=b490a8d95901aad1cd92e4cb4c9932ff354616199180d5d49dddd8b743450611",
-          "slice_offset_sec": 0,
-          "album": "K-POP",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/49dd2965ab5ecaeb65061bc21d17075b/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-1543114842",
-          "title": "MAFIA",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/c/8/b/0/c8bf5afeb4138006c3b1aef08160d0f7.mp3?hdnea=exp=1791487800~acl=/api/1/1/c/8/b/0/c8bf5afeb4138006c3b1aef08160d0f7.mp3*~data=user_id=0,application_id=42~hmac=07ea08f6718aae8b31537f2b88c166daade4430cbffb463b12ee16afea8d80c8",
-          "slice_offset_sec": 0,
-          "album": "ESCAPE PLAN / MAFIA",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/ef2a1dd715dc245a38210ff8c427897d/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-4292567272",
-          "title": "RHYNO (from GTAVI: The Album)",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/d/b/0/fdb56e2387b99accd3c917bc8ba0d78b.mp3?hdnea=exp=1791487800~acl=/api/1/1/f/d/b/0/fdb56e2387b99accd3c917bc8ba0d78b.mp3*~data=user_id=0,application_id=42~hmac=3bba8f120c0e004a5ac8a3ed4acdbe3a749d6047b666c127ef29a2f165c69ff4",
-          "slice_offset_sec": 0,
-          "album": "RHYNO (from GTAVI: The Album)",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/dc492b8d028525c713a52713b9bb005d/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-767583072",
-          "title": "HIGHEST IN THE ROOM",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/7/1/0/2719bbd3dad355b7c5e7f32be24a5cfe.mp3?hdnea=exp=1791487800~acl=/api/1/1/2/7/1/0/2719bbd3dad355b7c5e7f32be24a5cfe.mp3*~data=user_id=0,application_id=42~hmac=ca78ce392969322e150da578b0c46093952bbfc9155569c5001b39e9568e411f",
-          "slice_offset_sec": 0,
-          "album": "HIGHEST IN THE ROOM",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/5fa05e7d74819963577a92a8c6ad4979/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-3921591601",
-          "title": "DA WIZARD",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/e/d/c/0/edc30f3f205ddd8de2d3846d2400822b.mp3?hdnea=exp=1791487800~acl=/api/1/1/e/d/c/0/edc30f3f205ddd8de2d3846d2400822b.mp3*~data=user_id=0,application_id=42~hmac=fd9202afa7846c21a1dac8266da5a8d7db0aef7b61be3ef4b179af2216479309",
-          "slice_offset_sec": 0,
-          "album": "JACKBOYS 2",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/2a622e01fb9b1c4717c63ae3caca9826/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-3457399831",
-          "title": "DUMBO",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/1/3/0/213598bb030d5c24a27a177aa5aca964.mp3?hdnea=exp=1791487800~acl=/api/1/1/2/1/3/0/213598bb030d5c24a27a177aa5aca964.mp3*~data=user_id=0,application_id=42~hmac=e8cb1770276d5a7b8a90e49453e2c6d81e6f6fa04c2d8baff14e0d4d74fb1b38",
-          "slice_offset_sec": 0,
-          "album": "JACKBOYS 2",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/2a622e01fb9b1c4717c63ae3caca9826/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-3200805881",
-          "title": "4X4",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/6/3/0/463294c5a3d0de1e146641762754534c.mp3?hdnea=exp=1791487800~acl=/api/1/1/4/6/3/0/463294c5a3d0de1e146641762754534c.mp3*~data=user_id=0,application_id=42~hmac=32c7ce58d9bb6aeff0788f85843c136d153505eb8379ae1263f35e251d303b81",
-          "slice_offset_sec": 0,
-          "album": "4X4",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0f37592365f63e65cd7fa4d3c7f10c7c/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-367735791",
-          "title": "Know No Better",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/d/7/0/0/d700f1e17f0ca3be05d52803a86bc3ca.mp3?hdnea=exp=1791487800~acl=/api/1/1/d/7/0/0/d700f1e17f0ca3be05d52803a86bc3ca.mp3*~data=user_id=0,application_id=42~hmac=f58d93e3fc1b791e83ebc56ae5276a4df76d0bb0dbe2410088a811104c1ea811",
-          "slice_offset_sec": 0,
-          "album": "Know No Better",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/31285a0140507b687f4796a938240ac8/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-126092539",
-          "title": "pick up the phone",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/4/9/0/14924dcfe511d190d808f6abe52a2bc1.mp3?hdnea=exp=1791487800~acl=/api/1/1/1/4/9/0/14924dcfe511d190d808f6abe52a2bc1.mp3*~data=user_id=0,application_id=42~hmac=0552f2108fa9e8abd5c712ff2ef9056f3a96f0beb1033bb3ac873968155abf06",
-          "slice_offset_sec": 0,
-          "album": "pick up the phone (feat. Quavo)",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/bdc55cf166f1be51964f8c0cf58643ac/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-2386586115",
-          "title": "TOPIA TWINS",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/6/a/b/0/6ab3bc286c857066b8f3e449cdb92f51.mp3?hdnea=exp=1791487800~acl=/api/1/1/6/a/b/0/6ab3bc286c857066b8f3e449cdb92f51.mp3*~data=user_id=0,application_id=42~hmac=067311198f11deb507ad951478e00e582ba621962a076efbbd9648aa765011ad",
-          "slice_offset_sec": 0,
-          "album": "UTOPIA",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-536421092",
-          "title": "YOSEMITE",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/a/4/7/0/a4763c687c57d63e6ba3809a02ef6c9e.mp3?hdnea=exp=1791487800~acl=/api/1/1/a/4/7/0/a4763c687c57d63e6ba3809a02ef6c9e.mp3*~data=user_id=0,application_id=42~hmac=c5947b3c85f479ff04cd7a7293920dce923d4c113f4cdad55cac6784788fb677",
-          "slice_offset_sec": 0,
-          "album": "ASTROWORLD",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-3457399801",
-          "title": "CHAMPAIN & VACAY",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/6/1/f/0/61fb1ea6510153a07e6d0c76a8e8e8e5.mp3?hdnea=exp=1791487800~acl=/api/1/1/6/1/f/0/61fb1ea6510153a07e6d0c76a8e8e8e5.mp3*~data=user_id=0,application_id=42~hmac=8b31284212a7a9277e5e6c96fbf1840407903ec34a09100fb671c0de0a1347a7",
-          "slice_offset_sec": 0,
-          "album": "JACKBOYS 2",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/2a622e01fb9b1c4717c63ae3caca9826/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-2386586025",
-          "title": "THANK GOD",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/9/7/0/19770718ae7c9b49c9d70b0e372d05c0.mp3?hdnea=exp=1791487800~acl=/api/1/1/1/9/7/0/19770718ae7c9b49c9d70b0e372d05c0.mp3*~data=user_id=0,application_id=42~hmac=c13d84ff71ed6ad8f379bdda8c503cd161bef606ba182e6bdb691ad421307ef9",
-          "slice_offset_sec": 0,
-          "album": "UTOPIA",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-841897092",
-          "title": "OUT WEST",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/b/6/b/0/b6b6faad9c2bb8bdb96be083b2fbb34d.mp3?hdnea=exp=1791487800~acl=/api/1/1/b/6/b/0/b6b6faad9c2bb8bdb96be083b2fbb34d.mp3*~data=user_id=0,application_id=42~hmac=bb9f523fa9956b954e97c5d2be88cc5119756e6ee2f757406acf9b54171f8199",
-          "slice_offset_sec": 0,
-          "album": "JACKBOYS",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/d1ed81aebe34697130d8caf2459e0d72/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-536421082",
-          "title": "ASTROTHUNDER",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/7/4/6/0/746a808541be868dc65fd4d6c7f8dd0a.mp3?hdnea=exp=1791487800~acl=/api/1/1/7/4/6/0/746a808541be868dc65fd4d6c7f8dd0a.mp3*~data=user_id=0,application_id=42~hmac=4ee394c870931a1f996047148a5dc7d15ea93fd7b536bc00e9757070b117e748",
-          "slice_offset_sec": 0,
-          "album": "ASTROWORLD",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-972669712",
-          "title": "TKN",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/b/a/7/0/ba7afa4cf3908e4d84f71c61125879fc.mp3?hdnea=exp=1791487800~acl=/api/1/1/b/a/7/0/ba7afa4cf3908e4d84f71c61125879fc.mp3*~data=user_id=0,application_id=42~hmac=8ec1d29cd5ee3c19e784698466f9034a95923913880b01ab9ddc8a09e02f0adb",
-          "slice_offset_sec": 0,
-          "album": "TKN",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/1f5bb099f460c29fa4c3991431116e17/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-939689012",
-          "title": "THE SCOTTS",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/d/c/9/0/dc9f6c09236f26a58610e0479e6602c1.mp3?hdnea=exp=1791487800~acl=/api/1/1/d/c/9/0/dc9f6c09236f26a58610e0479e6602c1.mp3*~data=user_id=0,application_id=42~hmac=cc90243e316a077c5bbb88dbf9cc593582fc815889feeaedf4e7456dd6122d51",
-          "slice_offset_sec": 0,
-          "album": "THE SCOTTS",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/c960f0b900832a1c8ece116ccc789a27/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-2386586105",
-          "title": "I KNOW ?",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/8/2/8/0/8285d8922596a959e9d7af17a3773157.mp3?hdnea=exp=1791487800~acl=/api/1/1/8/2/8/0/8285d8922596a959e9d7af17a3773157.mp3*~data=user_id=0,application_id=42~hmac=96b52d0e20eb9ec70979d3c5b91618df783c94d9544c0e066b1c5e3156cfa1b7",
-          "slice_offset_sec": 0,
-          "album": "UTOPIA",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-841897112",
-          "title": "GATTI",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/d/c/f/0/dcf0d187aebac078d523262eed68a0d2.mp3?hdnea=exp=1791487800~acl=/api/1/1/d/c/f/0/dcf0d187aebac078d523262eed68a0d2.mp3*~data=user_id=0,application_id=42~hmac=a530922c72c428be8e2a3f8ea0895da99f38a770d85229c726d30ef669ca8afb",
-          "slice_offset_sec": 0,
-          "album": "JACKBOYS",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/d1ed81aebe34697130d8caf2459e0d72/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-4152514452",
-          "title": "When I’m Home",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/c/4/a/0/c4a207e1ac003c89c910b5239ebb1a84.mp3?hdnea=exp=1791487800~acl=/api/1/1/c/4/a/0/c4a207e1ac003c89c910b5239ebb1a84.mp3*~data=user_id=0,application_id=42~hmac=35d3d5a24c662e8f86ff536c5af1cc31138d5538cba7818199efaea3a0dce3ab",
-          "slice_offset_sec": 0,
-          "album": "The Odyssey (Original Motion Picture Soundtrack)",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/dd000448a0e2f7f44c0e3150fcc42da9/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-536421062",
-          "title": "5% TINT",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/5/f/b/0/5fb959a56d6982f611ac6d880595fd87.mp3?hdnea=exp=1791487800~acl=/api/1/1/5/f/b/0/5fb959a56d6982f611ac6d880595fd87.mp3*~data=user_id=0,application_id=42~hmac=0a22124417aa38b3224785a0be2b80a157e7c2b6a32101e30cac46cdafd91fd3",
-          "slice_offset_sec": 0,
-          "album": "ASTROWORLD",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-2386586125",
-          "title": "CIRCUS MAXIMUS",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/0/1/1/0/01123a25dcba9399ca178b29347272d7.mp3?hdnea=exp=1791487800~acl=/api/1/1/0/1/1/0/01123a25dcba9399ca178b29347272d7.mp3*~data=user_id=0,application_id=42~hmac=2cfa0bc4466c8fc81a8358c174cc95625bf175ad9ed9fe3bd1cedb00c7200c59",
-          "slice_offset_sec": 0,
-          "album": "UTOPIA",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-2047662417",
-          "title": "Raindrops (Insane)",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/a/f/4/0/af488531f1dee655b3b658be43e1b81c.mp3?hdnea=exp=1791487800~acl=/api/1/1/a/f/4/0/af488531f1dee655b3b658be43e1b81c.mp3*~data=user_id=0,application_id=42~hmac=18c2843368f04225b027d6bda8946b51dcf0154c105e3b283d8d6ee1e4a5686e",
-          "slice_offset_sec": 0,
-          "album": "HEROES & VILLAINS",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/862ab860ff69c30deeb5979db6e46b62/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-1992849427",
-          "title": "Down In Atlanta",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/b/8/0/4b8026a4f905fb98f86d0a9173afde8f.mp3?hdnea=exp=1791487800~acl=/api/1/1/4/b/8/0/4b8026a4f905fb98f86d0a9173afde8f.mp3*~data=user_id=0,application_id=42~hmac=71da884cee8df45d6dd3a4e4c55f58d6025c1678fb03f7adc89569dad04cbd08",
-          "slice_offset_sec": 0,
-          "album": "Down In Atlanta",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/e7701e80a53d80b6d0f577b7dc2d0b91/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-106713878",
-          "title": "90210",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/d/f/0/2dfa8879a28a07882735f27cf8305913.mp3?hdnea=exp=1791487800~acl=/api/1/1/2/d/f/0/2dfa8879a28a07882735f27cf8305913.mp3*~data=user_id=0,application_id=42~hmac=2781d090993877f9e9978c408d0b33d912bf3e2f2130d42011056b822c488fe9",
-          "slice_offset_sec": 0,
-          "album": "Rodeo",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/c6fe182fb0f3485428906c7b21873046/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-2955903261",
-          "title": "Drugs You Should Try It",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/f/d/0/ffde1c559b719adcda540652b9db9093.mp3?hdnea=exp=1791487800~acl=/api/1/1/f/f/d/0/ffde1c559b719adcda540652b9db9093.mp3*~data=user_id=0,application_id=42~hmac=34795f7b374bf8c273ee950c7b2e0efacce94f560e54a71de79d76c45b319cdb",
-          "slice_offset_sec": 0,
-          "album": "DAYS BEFORE RODEO",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/b8be81921aa5990f1cd3b7499d4d6501/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-106713890",
-          "title": "Maria I'm Drunk",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/6/a/7/0/6a7517b029ef44af9cca9b8ff20ce4d5.mp3?hdnea=exp=1791487800~acl=/api/1/1/6/a/7/0/6a7517b029ef44af9cca9b8ff20ce4d5.mp3*~data=user_id=0,application_id=42~hmac=2ac03072b27549b5c3bd47e080af5a20bd280da27b73ad4c34016f0a814e4703",
-          "slice_offset_sec": 0,
-          "album": "Rodeo",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/c6fe182fb0f3485428906c7b21873046/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-536421102",
-          "title": "CAN'T SAY",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/4/c/0/24cb61b1af1a8991f7856c90db1ccee8.mp3?hdnea=exp=1791487800~acl=/api/1/1/2/4/c/0/24cb61b1af1a8991f7856c90db1ccee8.mp3*~data=user_id=0,application_id=42~hmac=1f50f31c30eb48ee1ecdd38795be35492021b1fef29333ae8edaa1bdbf441819",
-          "slice_offset_sec": 0,
-          "album": "ASTROWORLD",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-2386586195",
-          "title": "TIL FURTHER NOTICE",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/6/0/3/0/60372c75c29778272e5d150c8b737a93.mp3?hdnea=exp=1791487800~acl=/api/1/1/6/0/3/0/60372c75c29778272e5d150c8b737a93.mp3*~data=user_id=0,application_id=42~hmac=aa010194b16db4814054d11db83be6973125e50f5060c0f5acb2593d71ed0005",
-          "slice_offset_sec": 0,
-          "album": "UTOPIA",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-106713882",
-          "title": "Nightcrawler",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/6/4/6/0/646928cd4ff982643ae7343e36aa7788.mp3?hdnea=exp=1791487800~acl=/api/1/1/6/4/6/0/646928cd4ff982643ae7343e36aa7788.mp3*~data=user_id=0,application_id=42~hmac=6c8354283ad4d734ac6b093238b47c5386641aeb17ccbf628ae387d8f110adf0",
-          "slice_offset_sec": 0,
-          "album": "Rodeo",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/c6fe182fb0f3485428906c7b21873046/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-2047662437",
-          "title": "Trance",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/5/b/1/0/5b18f175688832a0c334eb1093b7c41c.mp3?hdnea=exp=1791487800~acl=/api/1/1/5/b/1/0/5b18f175688832a0c334eb1093b7c41c.mp3*~data=user_id=0,application_id=42~hmac=4377cd3ad26acd5ab4bbc1bd1b2b27c1bfde94d59a9aa4d1c2a411c968d9cc4e",
-          "slice_offset_sec": 0,
-          "album": "HEROES & VILLAINS",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/862ab860ff69c30deeb5979db6e46b62/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-536420982",
-          "title": "STARGAZING",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/b/a/1/0/ba114179e04e88d7d900f1e367ae6e37.mp3?hdnea=exp=1791487800~acl=/api/1/1/b/a/1/0/ba114179e04e88d7d900f1e367ae6e37.mp3*~data=user_id=0,application_id=42~hmac=af2d25debd124b9ec7302609dd7aa7a82d4a9bc70c1e7aaa63ba47e5ca67f182",
-          "slice_offset_sec": 0,
-          "album": "ASTROWORLD",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-536421022",
-          "title": "STOP TRYING TO BE GOD",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/5/6/6/0/5666732b308de0d6d054083c35e4fb68.mp3?hdnea=exp=1791487800~acl=/api/1/1/5/6/6/0/5666732b308de0d6d054083c35e4fb68.mp3*~data=user_id=0,application_id=42~hmac=2b738a88ab168a45310a8f550f8ebf1f6360c2a00201c4843bfe9cd719165bac",
-          "slice_offset_sec": 0,
-          "album": "ASTROWORLD",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-2386586085",
-          "title": "FE!N",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/7/c/0/47c5acbdd0e0b218700ae15e0a5f34a0.mp3?hdnea=exp=1791487800~acl=/api/1/1/4/7/c/0/47c5acbdd0e0b218700ae15e0a5f34a0.mp3*~data=user_id=0,application_id=42~hmac=18c9c642156ae7882ca27f6bcb71a20dd7a22c751636a9530946df73adaa54c0",
-          "slice_offset_sec": 0,
-          "album": "UTOPIA",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-1089612082",
-          "title": "FRANCHISE",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/5/0/0/250a18918d346122983feae6cbffc575.mp3?hdnea=exp=1791487800~acl=/api/1/1/2/5/0/0/250a18918d346122983feae6cbffc575.mp3*~data=user_id=0,application_id=42~hmac=3e18d544c09e92746cab15576aca6e1737141b9de1faa8a74d63fb1345df422e",
-          "slice_offset_sec": 0,
-          "album": "FRANCHISE (feat. Young Thug & M.I.A.)",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/78fc5cf233b24aa52561e76ecd75e9ae/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-2386586185",
-          "title": "TELEKINESIS",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/5/f/9/0/5f964cf835087b1ecde591cd10fb6507.mp3?hdnea=exp=1791487800~acl=/api/1/1/5/f/9/0/5f964cf835087b1ecde591cd10fb6507.mp3*~data=user_id=0,application_id=42~hmac=e9649ef947bdef6eb06b4dfeee6f87b995809fcb11bcc08e53b42ecca4b06ddb",
-          "slice_offset_sec": 0,
-          "album": "UTOPIA",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-2386586075",
-          "title": "MELTDOWN",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/f/d/0/2fd32f2fe468eb671e631c957c7eb44e.mp3?hdnea=exp=1791487800~acl=/api/1/1/2/f/d/0/2fd32f2fe468eb671e631c957c7eb44e.mp3*~data=user_id=0,application_id=42~hmac=dd2e088063c463fde776c632d14fbab21eec20434e8c6da19464ca631300585f",
-          "slice_offset_sec": 0,
-          "album": "UTOPIA",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-106713886",
-          "title": "Antidote",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/a/4/e/0/a4ef2ec4cb30d7696e214322fe413e39.mp3?hdnea=exp=1791487800~acl=/api/1/1/a/4/e/0/a4ef2ec4cb30d7696e214322fe413e39.mp3*~data=user_id=0,application_id=42~hmac=f172e8264fd6d331b1f0f7b6a4fca0ef2d2d193d416ea2e02f7baef07413e608",
-          "slice_offset_sec": 0,
-          "album": "Rodeo",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/c6fe182fb0f3485428906c7b21873046/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-841897102",
-          "title": "WHAT TO DO?",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/7/9/4/0/794e383bfe02724e6fbae9b0454fe837.mp3?hdnea=exp=1791487800~acl=/api/1/1/7/9/4/0/794e383bfe02724e6fbae9b0454fe837.mp3*~data=user_id=0,application_id=42~hmac=e8e2b6ccf8cf0f174235a59213fd71e20cbe72235d4bc7b4aa9d094bdd34b6e8",
-          "slice_offset_sec": 0,
-          "album": "JACKBOYS",
-          "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/d1ed81aebe34697130d8caf2459e0d72/1000x1000-000000-80-0-0.jpg"
-        },
-        {
-          "id": "deezer-3210598461",
-          "title": "Reflections Laughing",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/8/f/0/28f4349950d6e3c8116436b9c6e5884e.mp3?hdnea=exp=1791487800~acl=/api/1/1/2/8/f/0/28f4349950d6e3c8116436b9c6e5884e.mp3*~data=user_id=0,application_id=42~hmac=c44d9b38b42e6f75ae1d231d960d7a3edccfe199deef9d006eee7fd1515ea227",
-          "slice_offset_sec": 0,
+          "id": "deezer-3210598501",
+          "title": "Timeless",
           "album": "Hurry Up Tomorrow",
           "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/d/1/d/0/d1d0f32d011c2139bcff3bf9b591cf67.mp3?hdnea=exp=1791489658~acl=/api/1/1/d/1/d/0/d1d0f32d011c2139bcff3bf9b591cf67.mp3*~data=user_id=0,application_id=42~hmac=a63b2805e674d1cfdd4f0fe2567ca63699c0bcf94cb95c75a9bc4334b5349d60",
+          "slice_offset_sec": 0,
           "artwork_url": "https://cdn-images.dzcdn.net/images/cover/e4b16c1afe136140bba34368357e8f05/1000x1000-000000-80-0-0.jpg"
         },
         {
-          "id": "deezer-132201196",
-          "title": "goosebumps",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/e/e/1/0/ee1f78cff459de066182995b5fde2fbb.mp3?hdnea=exp=1791487800~acl=/api/1/1/e/e/1/0/ee1f78cff459de066182995b5fde2fbb.mp3*~data=user_id=0,application_id=42~hmac=3220934ed112023eab441035d144a01cd65decf633c49aa50f8121984677b819",
-          "slice_offset_sec": 0,
-          "album": "Birds In The Trap Sing McKnight",
+          "id": "deezer-3278625241",
+          "title": "RATHER LIE",
+          "album": "MUSIC",
           "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/a2f66f08468fb9897019e82ffb7a5fcb/1000x1000-000000-80-0-0.jpg"
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/9/8/e/0/98ee72abb5acff9a222187de73cd6802.mp3?hdnea=exp=1791489658~acl=/api/1/1/9/8/e/0/98ee72abb5acff9a222187de73cd6802.mp3*~data=user_id=0,application_id=42~hmac=6a000b778155ffe48bcd07d04a4415b8bda9be3381e0dba8ba68a9b00b078176",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
         },
         {
-          "id": "deezer-2386586045",
-          "title": "MY EYES",
-          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/b/d/e/0/bde786926179901de4abb6cceb2f6176.mp3?hdnea=exp=1791487800~acl=/api/1/1/b/d/e/0/bde786926179901de4abb6cceb2f6176.mp3*~data=user_id=0,application_id=42~hmac=33e94dcb1c34281467afa0b174de4b71a24aed6b65936faa941b70ff657ccfb7",
-          "slice_offset_sec": 0,
-          "album": "UTOPIA",
+          "id": "deezer-1189531242",
+          "title": "Sky",
+          "album": "Whole Lotta Red",
           "year": "Unknown",
-          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/a/7/b/0/a7baa69c27f747f2aa10297d6060929e.mp3?hdnea=exp=1791489658~acl=/api/1/1/a/7/b/0/a7baa69c27f747f2aa10297d6060929e.mp3*~data=user_id=0,application_id=42~hmac=9dc2bb2e05b3ddd6135b20dc67c2edc0d08b01d3384ba4d47da62605c704c3df",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/3c5f5f3f5f41ff96f961afd7df7eb4d9/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-347376721",
+          "title": "Magnolia",
+          "album": "Playboi Carti",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/3/b/e/0/3be8a1e38a5384d72f1aba576b948fb2.mp3?hdnea=exp=1791489658~acl=/api/1/1/3/b/e/0/3be8a1e38a5384d72f1aba576b948fb2.mp3*~data=user_id=0,application_id=42~hmac=14fd40e7f838c81155a93acd37d4ff83d1a2f8837ffd1ad038719660448d4b44",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0ae8e05f734268cbe5aae06f96f2b1f2/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-347376711",
+          "title": "Location",
+          "album": "Playboi Carti",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/5/1/6/0/5163a83924eab2fb9cfeac1aab09354c.mp3?hdnea=exp=1791489658~acl=/api/1/1/5/1/6/0/5163a83924eab2fb9cfeac1aab09354c.mp3*~data=user_id=0,application_id=42~hmac=afd04d540a23fa3d74253f86ed9a3104cc84f37fcc7907808a2a844a0262f282",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0ae8e05f734268cbe5aae06f96f2b1f2/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2494452491",
+          "title": "Miss The Rage",
+          "album": "Miss The Rage",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/3/0/2/0/302e3777629d9bb7a4a82f274377ff27.mp3?hdnea=exp=1791489658~acl=/api/1/1/3/0/2/0/302e3777629d9bb7a4a82f274377ff27.mp3*~data=user_id=0,application_id=42~hmac=49fff03fc6b3c3092619a5baebd40d0006857f28b7f5060a566e62b87e89a8d3",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/b48dc2e877d089f8c95be845f8b9e041/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625201",
+          "title": "EVIL J0RDAN",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/f/4/0/1f4bddaf67b8b9831d2375e420832db2.mp3?hdnea=exp=1791489658~acl=/api/1/1/1/f/4/0/1f4bddaf67b8b9831d2375e420832db2.mp3*~data=user_id=0,application_id=42~hmac=fdfb76d4b927668a3e91b558b7ccab6195b5f40b850fb2bdc95fe442064a9678",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-497467052",
+          "title": "Long Time (Intro)",
+          "album": "Die Lit",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/b/5/0/4b563074bdc3e34ed8014d123e298ef5.mp3?hdnea=exp=1791489658~acl=/api/1/1/4/b/5/0/4b563074bdc3e34ed8014d123e298ef5.mp3*~data=user_id=0,application_id=42~hmac=1d3696f45e24f7f0ebb33e5da626cef9ad264cf9b50db1114ffff79ddf2e9180",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/f2d66b587ca8d3f0fa222c3501d23564/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1189531262",
+          "title": "ILoveUIHateU",
+          "album": "Whole Lotta Red",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/d/1/9/0/d195bec5e8fd038d57671011b9f29f14.mp3?hdnea=exp=1791489658~acl=/api/1/1/d/1/9/0/d195bec5e8fd038d57671011b9f29f14.mp3*~data=user_id=0,application_id=42~hmac=d34952f8bb23dd4316dceea222bd59b08f4970622e0861695411a10cdbfb50e5",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/3c5f5f3f5f41ff96f961afd7df7eb4d9/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625271",
+          "title": "TOXIC",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/5/f/0/25f6203c3258c784e617048b8d595dc3.mp3?hdnea=exp=1791489658~acl=/api/1/1/2/5/f/0/25f6203c3258c784e617048b8d595dc3.mp3*~data=user_id=0,application_id=42~hmac=b56d11c2163213787b2bb9e44f9039a6aa68097b2dbc119f7db64cbbdd5dc56d",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-497467102",
+          "title": "Shoota",
+          "album": "Die Lit",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/d/8/7/0/d87245945c273a66b7cfc4564d7f9ac4.mp3?hdnea=exp=1791489658~acl=/api/1/1/d/8/7/0/d87245945c273a66b7cfc4564d7f9ac4.mp3*~data=user_id=0,application_id=42~hmac=c0701d4da39dbe0559d5407492aff7e2a794406a02046fbaa5ae457d9596b4e0",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/f2d66b587ca8d3f0fa222c3501d23564/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1189531172",
+          "title": "Vamp Anthem",
+          "album": "Whole Lotta Red",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/a/3/3/0/a3326c85d5c3c1eff02c02bf5bb80547.mp3?hdnea=exp=1791489658~acl=/api/1/1/a/3/3/0/a3326c85d5c3c1eff02c02bf5bb80547.mp3*~data=user_id=0,application_id=42~hmac=28b3c99d7cdbd0fc9c529e7683ec736125b5c14ffa9bcf39f5a02981dc104198",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/3c5f5f3f5f41ff96f961afd7df7eb4d9/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2992749261",
+          "title": "ALL RED",
+          "album": "ALL RED",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/a/6/1/0/a616ce97f6a4686bff5938f906163bad.mp3?hdnea=exp=1791489658~acl=/api/1/1/a/6/1/0/a616ce97f6a4686bff5938f906163bad.mp3*~data=user_id=0,application_id=42~hmac=ffdc626192b6107f928c28717e2d5e8b1c7399d4efbcf55e7136ffd33becae1f",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6067af4126cba12c047b9658e78b676e/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-497467142",
+          "title": "Fell In Luv",
+          "album": "Die Lit",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/3/7/0/237f158fdd80774693747e2ebac808ad.mp3?hdnea=exp=1791489658~acl=/api/1/1/2/3/7/0/237f158fdd80774693747e2ebac808ad.mp3*~data=user_id=0,application_id=42~hmac=a4d75709bdaab1499b0e69329ae289ac68d567e9315fe850d5d4565f93e67f97",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/f2d66b587ca8d3f0fa222c3501d23564/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1189531252",
+          "title": "Over",
+          "album": "Whole Lotta Red",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/3/6/0/136c0daac57ed4ae93c8a77b6d7028cf.mp3?hdnea=exp=1791489658~acl=/api/1/1/1/3/6/0/136c0daac57ed4ae93c8a77b6d7028cf.mp3*~data=user_id=0,application_id=42~hmac=5314facdfed04a3e6d0dfdf1fe56819fa8db2e54a7803572cbe551e15751da58",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/3c5f5f3f5f41ff96f961afd7df7eb4d9/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1148427422",
+          "title": "Flex Up",
+          "album": "Lil Boat 3.5",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/5/c/0/45c6963eccba646097cf817aa2e77a54.mp3?hdnea=exp=1791489658~acl=/api/1/1/4/5/c/0/45c6963eccba646097cf817aa2e77a54.mp3*~data=user_id=0,application_id=42~hmac=1bc1a905b0284d7691da9f1228e368211f925499a77f1fc79533ad0f4540df21",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/b8175920f025c8a163b20e6f07d50a9a/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-497467062",
+          "title": "R.I.P.",
+          "album": "Die Lit",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/e/d/0/2ed8a088a9466932dc6caa5135b6035c.mp3?hdnea=exp=1791489658~acl=/api/1/1/2/e/d/0/2ed8a088a9466932dc6caa5135b6035c.mp3*~data=user_id=0,application_id=42~hmac=4caa6a4dec6b716355c17dae6f4ade7036d7874cf89a4dfd2957e6e120d3f986",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/f2d66b587ca8d3f0fa222c3501d23564/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3294753821",
+          "title": "2024",
+          "album": "MUSIC - SORRY 4 DA WAIT",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/a/7/0/fa71422f5ef7cd476d82c77edb9e1be2.mp3?hdnea=exp=1791489658~acl=/api/1/1/f/a/7/0/fa71422f5ef7cd476d82c77edb9e1be2.mp3*~data=user_id=0,application_id=42~hmac=d3c1216dd4b1232e026a19d53ba8130383feadc07d31689340a1e00746b77d90",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2721989112",
+          "title": "I LUV IT",
+          "album": "I LUV IT",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/a/4/0/4a45762e11c4d1efe392c1071935ee01.mp3?hdnea=exp=1791489658~acl=/api/1/1/4/a/4/0/4a45762e11c4d1efe392c1071935ee01.mp3*~data=user_id=0,application_id=42~hmac=13b10500d1db86fd09e9f63d10cc4c6f80e60d912eba6333a9a144da61911835",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8697e91f195eac7430ec4d50508c57f3/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625441",
+          "title": "HBA",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/e/6/0/4e62d82c56af3eeee4e2b2b88ca8b2fb.mp3?hdnea=exp=1791489658~acl=/api/1/1/4/e/6/0/4e62d82c56af3eeee4e2b2b88ca8b2fb.mp3*~data=user_id=0,application_id=42~hmac=60b58f300055d8529efcbd26939b746ce02446c33aeb5d1ae89b8637520855fe",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625361",
+          "title": "COCAINE NOSE",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/0/6/0/f06433751ce888bb9c92855832b32b34.mp3?hdnea=exp=1791489658~acl=/api/1/1/f/0/6/0/f06433751ce888bb9c92855832b32b34.mp3*~data=user_id=0,application_id=42~hmac=e8074cc1cbd9b614bcd83a8c931043601b60f3a2a25307bd69935f698d9202e3",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1189531082",
+          "title": "Stop Breathing",
+          "album": "Whole Lotta Red",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/9/8/2/0/98285d6c073484b941eee76cde2cda98.mp3?hdnea=exp=1791489658~acl=/api/1/1/9/8/2/0/98285d6c073484b941eee76cde2cda98.mp3*~data=user_id=0,application_id=42~hmac=bb33acda5c575dea0c3a5e97cb314396a748af906fb09c8a70d144d70af62093",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/3c5f5f3f5f41ff96f961afd7df7eb4d9/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625381",
+          "title": "OLYMPIAN",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/d/d/0/2dd146c5ef17d144e6e4ecb5d7050573.mp3?hdnea=exp=1791489658~acl=/api/1/1/2/d/d/0/2dd146c5ef17d144e6e4ecb5d7050573.mp3*~data=user_id=0,application_id=42~hmac=981a360af4ba280a37848bbbe3f5346ef9e9d060e29ebbf388cd043a4f7f3a0a",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3294753841",
+          "title": "FOMDJ",
+          "album": "MUSIC - SORRY 4 DA WAIT",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/e/5/4/0/e54b5c4e92d3d9b5c7d8ae76cf6eac00.mp3?hdnea=exp=1791489658~acl=/api/1/1/e/5/4/0/e54b5c4e92d3d9b5c7d8ae76cf6eac00.mp3*~data=user_id=0,application_id=42~hmac=27f1ffb15e64b7be7eac36bb332619fd96c3ec629688304c77a99822c0dc57db",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625181",
+          "title": "CRUSH",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/d/2/5/0/d259115c97539cc0ed46a701ee64b4da.mp3?hdnea=exp=1791489658~acl=/api/1/1/d/2/5/0/d259115c97539cc0ed46a701ee64b4da.mp3*~data=user_id=0,application_id=42~hmac=0edfa64f19ab260dd2acb295c89ab8206f0c1675ec7c247ecdcfc6a4305908d2",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4129703981",
+          "title": "deaf note",
+          "album": "xperiment",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/7/1/7/0/71744a63b778cee7b7ed8d1cd63a6d69.mp3?hdnea=exp=1791489658~acl=/api/1/1/7/1/7/0/71744a63b778cee7b7ed8d1cd63a6d69.mp3*~data=user_id=0,application_id=42~hmac=d3b1b692be53d63825c87c7d3b650594c13a33fac8b3c9c7d2d3cdbe2152d95d",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/4aa19260b53de6d04c9924382d834e6f/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-347376741",
+          "title": "wokeuplikethis*",
+          "album": "Playboi Carti",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/3/6/1/0/36109d5fc2d7373c5da9fb353e4bc88f.mp3?hdnea=exp=1791489658~acl=/api/1/1/3/6/1/0/36109d5fc2d7373c5da9fb353e4bc88f.mp3*~data=user_id=0,application_id=42~hmac=2b5cf3cd57d64729d68144e56e54e22ac28ce0e1bd0c8af7f6b8f1bb459a5f1f",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0ae8e05f734268cbe5aae06f96f2b1f2/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1189531212",
+          "title": "On That Time",
+          "album": "Whole Lotta Red",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/f/f/0/1ffcf987a16763a6aae0254a2b4d2a72.mp3?hdnea=exp=1791489658~acl=/api/1/1/1/f/f/0/1ffcf987a16763a6aae0254a2b4d2a72.mp3*~data=user_id=0,application_id=42~hmac=a8acecff2c47480d3e8a65ea26a365262f7e63c12156ff83c35dd18669121d33",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/3c5f5f3f5f41ff96f961afd7df7eb4d9/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-497467072",
+          "title": "Lean 4 Real",
+          "album": "Die Lit",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/b/2/0/4b215eee59fac8ceec8afc8a861c3827.mp3?hdnea=exp=1791489658~acl=/api/1/1/4/b/2/0/4b215eee59fac8ceec8afc8a861c3827.mp3*~data=user_id=0,application_id=42~hmac=5a54bf9385b0f73c15e63956eb50a2d4a36580b7c5af25c39f099deef9316c6c",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/f2d66b587ca8d3f0fa222c3501d23564/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1189531062",
+          "title": "Rockstar Made",
+          "album": "Whole Lotta Red",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/a/1/0/fa19bac9579d9ab86ce4a30bb84fa26e.mp3?hdnea=exp=1791489658~acl=/api/1/1/f/a/1/0/fa19bac9579d9ab86ce4a30bb84fa26e.mp3*~data=user_id=0,application_id=42~hmac=55f4c7db01eabc412a47b1e83e7aa8fd7c6325a524d7a90001d3348f8b3b0cb0",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/3c5f5f3f5f41ff96f961afd7df7eb4d9/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625311",
+          "title": "GOOD CREDIT",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/0/5/0/1054faedee5f997f0c27b7a241af1043.mp3?hdnea=exp=1791489658~acl=/api/1/1/1/0/5/0/1054faedee5f997f0c27b7a241af1043.mp3*~data=user_id=0,application_id=42~hmac=b9e2a99628c02812ee73e912cdded99466d2f81ed46e4741c610279f715a6609",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625221",
+          "title": "PHILLY",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/a/4/8/0/a48cf328fd03643644c24228655033ce.mp3?hdnea=exp=1791489658~acl=/api/1/1/a/4/8/0/a48cf328fd03643644c24228655033ce.mp3*~data=user_id=0,application_id=42~hmac=f48a7bd94b3efe8dd7dfda42eccbd68771cf579bb62ebb3417a079f0da4a8de2",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-347376771",
+          "title": "New Choppa",
+          "album": "Playboi Carti",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/b/5/0/4b532cbd96090be097317e5aa2a5a68b.mp3?hdnea=exp=1791489658~acl=/api/1/1/4/b/5/0/4b532cbd96090be097317e5aa2a5a68b.mp3*~data=user_id=0,application_id=42~hmac=2569ff3101654b8e9a5d897e871a89f708074b8d759c1ca156e117cb982afa63",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0ae8e05f734268cbe5aae06f96f2b1f2/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625331",
+          "title": "WAKE UP F1LTHY",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/a/c/a/0/aca752c6dd6de8f0843479cfe321ca3e.mp3?hdnea=exp=1791489658~acl=/api/1/1/a/c/a/0/aca752c6dd6de8f0843479cfe321ca3e.mp3*~data=user_id=0,application_id=42~hmac=9338a9362b3eb9355c1f9069f06d7e855e227e99c1c563a4ec724bca2fe03fed",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-497467182",
+          "title": "FlatBed Freestyle",
+          "album": "Die Lit",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/7/9/a/0/79a06615a707c246ce82d7ad44cc5326.mp3?hdnea=exp=1791489658~acl=/api/1/1/7/9/a/0/79a06615a707c246ce82d7ad44cc5326.mp3*~data=user_id=0,application_id=42~hmac=38673dcfa673508a477d6e2ba0bf2f91e57bc97288dd5108fd2b1837231a7897",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/f2d66b587ca8d3f0fa222c3501d23564/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3294753831",
+          "title": "BACKR00MS",
+          "album": "MUSIC - SORRY 4 DA WAIT",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/a/d/0/2ad181af84d4e5b4af35a77412e45498.mp3?hdnea=exp=1791489658~acl=/api/1/1/2/a/d/0/2ad181af84d4e5b4af35a77412e45498.mp3*~data=user_id=0,application_id=42~hmac=6a3ebe41bc848dde2aeb4b2a515c0609157eb6886b654f818809cf30466d4849",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1189531182",
+          "title": "New N3on",
+          "album": "Whole Lotta Red",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/0/4/1/0/0419564e4425d9abead95c42f51f5f7e.mp3?hdnea=exp=1791489658~acl=/api/1/1/0/4/1/0/0419564e4425d9abead95c42f51f5f7e.mp3*~data=user_id=0,application_id=42~hmac=a5a2f41c1e5ebfa08f3e70afaa3d29c645b88fdaaf773de2144a80ea2b8c907f",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/3c5f5f3f5f41ff96f961afd7df7eb4d9/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625171",
+          "title": "POP OUT",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/f/4/0/1f4d445761230c61a7f8966c98b9c85e.mp3?hdnea=exp=1791489658~acl=/api/1/1/1/f/4/0/1f4d445761230c61a7f8966c98b9c85e.mp3*~data=user_id=0,application_id=42~hmac=a83025991f830340cab15619f0ea5b25d78fdb7c8ae2b50c924f4cbdfc54bd0e",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625261",
+          "title": "BACKD00R",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/3/8/b/0/38ba8b33a348aef5d7e4b13caaf31d84.mp3?hdnea=exp=1791489658~acl=/api/1/1/3/8/b/0/38ba8b33a348aef5d7e4b13caaf31d84.mp3*~data=user_id=0,application_id=42~hmac=456cc68003a0d1da56e114751a8761b5d293d3812a61fd7af703f53b33dd5b51",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-347376831",
+          "title": "Flex",
+          "album": "Playboi Carti",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/d/6/0/1d60e971e2dc66c50ce966be6b1aa26e.mp3?hdnea=exp=1791489658~acl=/api/1/1/1/d/6/0/1d60e971e2dc66c50ce966be6b1aa26e.mp3*~data=user_id=0,application_id=42~hmac=88367c8987441844d639b42877d8176b92871c0444473028c2f5ca8b576d49c4",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0ae8e05f734268cbe5aae06f96f2b1f2/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-497467192",
+          "title": "No Time",
+          "album": "Die Lit",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/c/3/c/0/c3c0dc38730ad557b15c3ce71d363b08.mp3?hdnea=exp=1791489658~acl=/api/1/1/c/3/c/0/c3c0dc38730ad557b15c3ce71d363b08.mp3*~data=user_id=0,application_id=42~hmac=d96539f3811cf57f0dbfa0d2314e64821ecf04838000ec2d28b0b4db667cf0ba",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/f2d66b587ca8d3f0fa222c3501d23564/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3294753811",
+          "title": "DIFFERENT DAY",
+          "album": "MUSIC - SORRY 4 DA WAIT",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/0/3/0/2037f2c5d97920f311934dc8fd0c61e7.mp3?hdnea=exp=1791489658~acl=/api/1/1/2/0/3/0/2037f2c5d97920f311934dc8fd0c61e7.mp3*~data=user_id=0,application_id=42~hmac=e94ff23394cb111ad5c8b0f503e6f381534ef5df061a718118e689a7d339a831",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-929683972",
+          "title": "@ MEH",
+          "album": "@ MEH",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/7/7/e/0/77e2b0a50b3f1a90f390892b377e4370.mp3?hdnea=exp=1791489658~acl=/api/1/1/7/7/e/0/77e2b0a50b3f1a90f390892b377e4370.mp3*~data=user_id=0,application_id=42~hmac=17a08d8b48cd0d38b3197d0d76edffe188288b98b2203a65d88f95de5d8e4fce",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/4e4f6595ee8227807ef4a78eb1b84a5e/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625291",
+          "title": "CRANK",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/8/b/6/0/8b6cfe5a87bb1b228e5feba94e29985b.mp3?hdnea=exp=1791489658~acl=/api/1/1/8/b/6/0/8b6cfe5a87bb1b228e5feba94e29985b.mp3*~data=user_id=0,application_id=42~hmac=f294fcc0d34ac21313a4f4d285b6738ab46ddbb0340c54b794006ded4cf7a1ef",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625351",
+          "title": "TRIM",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/c/4/5/0/c45d4c2b21454a200195bbf3702c56b2.mp3?hdnea=exp=1791489658~acl=/api/1/1/c/4/5/0/c45d4c2b21454a200195bbf3702c56b2.mp3*~data=user_id=0,application_id=42~hmac=2f83be7069e143f32d740543155463b2ae15f25377d243013a672156a36aa2ad",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-347376821",
+          "title": "Yah Mean",
+          "album": "Playboi Carti",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/9/e/0/49ec60dccb0cdbf01914d319c07aefcb.mp3?hdnea=exp=1791489658~acl=/api/1/1/4/9/e/0/49ec60dccb0cdbf01914d319c07aefcb.mp3*~data=user_id=0,application_id=42~hmac=2d3a160de8b2a7fcd8e26a225de3c84edbd84d6729c3db5f1ffd34bf3823659b",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0ae8e05f734268cbe5aae06f96f2b1f2/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625371",
+          "title": "WE NEED ALL DA VIBES",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/a/3/0/0/a308b477f3f3dde5cc795b456dbdccc0.mp3?hdnea=exp=1791489658~acl=/api/1/1/a/3/0/0/a308b477f3f3dde5cc795b456dbdccc0.mp3*~data=user_id=0,application_id=42~hmac=44045ab78ece7d23fd9ff7c48f2d8a460da5cdfda9e7926564ac499099abd750",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3202442471",
+          "title": "Blick Sum (feat. Playboi Carti)",
+          "album": "Blick Sum (feat. Playboi Carti)",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/9/2/2/0/92268f583f50e41f71ecc0bb702b12c5.mp3?hdnea=exp=1791489658~acl=/api/1/1/9/2/2/0/92268f583f50e41f71ecc0bb702b12c5.mp3*~data=user_id=0,application_id=42~hmac=5d032b4d91821f7fe2fbbe7595c5f26aec56bd114d6df3ceda15da524a117a95",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/00cfe1fddb85657d69c9b0c283e19f01/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1189531232",
+          "title": "Place",
+          "album": "Whole Lotta Red",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/e/c/0/1ec5095c1f37774b669d6374cecd23c9.mp3?hdnea=exp=1791489658~acl=/api/1/1/1/e/c/0/1ec5095c1f37774b669d6374cecd23c9.mp3*~data=user_id=0,application_id=42~hmac=f35b4b601861b4ef4ac3857eda0ea74cd8d638fb6befc938da5df8b1210c6b2d",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/3c5f5f3f5f41ff96f961afd7df7eb4d9/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3278625391",
+          "title": "OPM BABI",
+          "album": "MUSIC",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/6/8/0/168d4e0cdf68c7d2684b84fb0e057bf0.mp3?hdnea=exp=1791489658~acl=/api/1/1/1/6/8/0/168d4e0cdf68c7d2684b84fb0e057bf0.mp3*~data=user_id=0,application_id=42~hmac=37343c5d55f7d42f9b56352a5e8bc43aacdf7886b2fb2445189cf9423c121e4d",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8848c366508735e513fed3e2c6f2a6d1/1000x1000-000000-80-0-0.jpg"
         }
       ],
       "all_searchable_titles": [
-        "goosebumps",
-        "FE!N",
-        "SICKO MODE",
-        "HIGHEST IN THE ROOM",
-        "MY EYES",
-        "Trance",
-        "TELEKINESIS",
-        "BUTTERFLY EFFECT",
-        "pick up the phone",
-        "Nightcrawler",
-        "I KNOW ?",
-        "THE SCOTTS",
-        "90210",
-        "SKELETONS",
-        "DUMBO",
-        "RHYNO (from GTAVI: The Album)",
-        "OUT WEST",
-        "TIL FURTHER NOTICE",
-        "Reflections Laughing",
-        "GATTI",
-        "Drugs You Should Try It",
-        "When I’m Home",
-        "STARGAZING",
-        "Antidote",
-        "ASTROTHUNDER",
-        "4X4",
-        "TKN",
-        "FRANCHISE",
-        "K-POP",
-        "Know No Better",
-        "TOPIA TWINS",
-        "YOSEMITE",
-        "Power is Power",
-        "CAN'T SAY",
-        "Niagara Falls (Foot or 2)",
-        "CIRCUS MAXIMUS",
-        "Down In Atlanta",
-        "Raindrops (Insane)",
-        "MELTDOWN",
-        "Maria I'm Drunk",
-        "CHAMPAIN & VACAY",
-        "THANK GOD",
-        "5% TINT",
-        "WHAT TO DO?",
-        "Love Galore",
-        "KICK OUT",
-        "Parking Lot",
-        "STOP TRYING TO BE GOD",
-        "MAFIA",
-        "DA WIZARD"
+        "Timeless",
+        "RATHER LIE",
+        "Sky",
+        "Magnolia",
+        "Location",
+        "Miss The Rage",
+        "EVIL J0RDAN",
+        "Long Time (Intro)",
+        "ILoveUIHateU",
+        "TOXIC",
+        "Shoota",
+        "Vamp Anthem",
+        "ALL RED",
+        "Fell In Luv",
+        "Over",
+        "Flex Up",
+        "R.I.P.",
+        "2024",
+        "I LUV IT",
+        "HBA",
+        "COCAINE NOSE",
+        "Stop Breathing",
+        "OLYMPIAN",
+        "FOMDJ",
+        "CRUSH",
+        "deaf note",
+        "wokeuplikethis*",
+        "On That Time",
+        "Lean 4 Real",
+        "Rockstar Made",
+        "GOOD CREDIT",
+        "PHILLY",
+        "New Choppa",
+        "WAKE UP F1LTHY",
+        "FlatBed Freestyle",
+        "BACKR00MS",
+        "New N3on",
+        "POP OUT",
+        "BACKD00R",
+        "Flex",
+        "No Time",
+        "DIFFERENT DAY",
+        "@ MEH",
+        "CRANK",
+        "TRIM",
+        "Yah Mean",
+        "WE NEED ALL DA VIBES",
+        "Blick Sum (feat. Playboi Carti)",
+        "Place",
+        "OPM BABI"
       ],
       "is_draft": false,
-      "is_active": false,
-      "created_at": "2026-10-08T19:14:34.913Z"
+      "is_active": true,
+      "created_at": "2026-10-08T19:45:31.513Z"
     },
     {
       "id": "ch-1791481700049-n2cvf",
@@ -1023,8 +1023,521 @@
         "Shut It Down"
       ],
       "is_draft": false,
-      "is_active": true,
+      "is_active": false,
       "created_at": "2026-10-08T19:29:17.986Z"
+    },
+    {
+      "id": "ch-1791486874913-gz6zu",
+      "play_date": "2026-10-08",
+      "artist_name": "Travis Scott",
+      "artist_image_url": "https://cdn-images.dzcdn.net/images/artist/8d8316146026d7e6ce377e314536df62/1000x1000-000000-80-0-0.jpg",
+      "track_pool": [
+        {
+          "id": "deezer-2047662487",
+          "title": "Niagara Falls (Foot or 2)",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/8/f/0/18fa0fe1871a5316407f867fb506d240.mp3?hdnea=exp=1791487800~acl=/api/1/1/1/8/f/0/18fa0fe1871a5316407f867fb506d240.mp3*~data=user_id=0,application_id=42~hmac=8cfe06a8f55177be6c5a973248e7c815aafe8d3cd0beae20f19d35294c08d5c2",
+          "slice_offset_sec": 0,
+          "album": "HEROES & VILLAINS",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/862ab860ff69c30deeb5979db6e46b62/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-536421042",
+          "title": "SKELETONS",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/5/8/0/458ead6cc75d4fdf60a450cd2a7a6024.mp3?hdnea=exp=1791487800~acl=/api/1/1/4/5/8/0/458ead6cc75d4fdf60a450cd2a7a6024.mp3*~data=user_id=0,application_id=42~hmac=d6f3b15b4a8d9ee88cb780b99df49c984f12348ca321d67b12bd6cb17e80a231",
+          "slice_offset_sec": 0,
+          "album": "ASTROWORLD",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-536421122",
+          "title": "BUTTERFLY EFFECT",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/6/8/0/f68ff5d4a51c1376a352c9a7c45c7327.mp3?hdnea=exp=1791487800~acl=/api/1/1/f/6/8/0/f68ff5d4a51c1376a352c9a7c45c7327.mp3*~data=user_id=0,application_id=42~hmac=77daa435fd12967d2e722ba7133d928e946c558c4f6b92de22f468d3692cce5c",
+          "slice_offset_sec": 0,
+          "album": "ASTROWORLD",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3690734892",
+          "title": "Parking Lot",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/7/d/6/0/7d640fc4af822846e26a3e4c159006eb.mp3?hdnea=exp=1791487800~acl=/api/1/1/7/d/6/0/7d640fc4af822846e26a3e4c159006eb.mp3*~data=user_id=0,application_id=42~hmac=3fcbd19de3f7363b9416ad9d331aaabe26f60d73a165a61f617646b793ce59c4",
+          "slice_offset_sec": 0,
+          "album": "Parking Lot",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/31a3c258adbd198877adfc28c7a4aee6/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-667570632",
+          "title": "Power is Power",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/8/e/4/0/8e4da0f3bcfe78a5bf9db909ce18927e.mp3?hdnea=exp=1791487800~acl=/api/1/1/8/e/4/0/8e4da0f3bcfe78a5bf9db909ce18927e.mp3*~data=user_id=0,application_id=42~hmac=00c14f200dfedcb8689027c03002350acc3e36bbcb6b5fc5f2f92ddd88eb0c59",
+          "slice_offset_sec": 0,
+          "album": "Power is Power",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0879118ae0a60e54914102bfa1651348/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-536421002",
+          "title": "SICKO MODE",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/b/9/7/0/b97402f4426864d46acd235a7146895c.mp3?hdnea=exp=1791487800~acl=/api/1/1/b/9/7/0/b97402f4426864d46acd235a7146895c.mp3*~data=user_id=0,application_id=42~hmac=750aec4f156f94f32f759536d610d7a3bcca6244838bed858d5a294e7cb88bce",
+          "slice_offset_sec": 0,
+          "album": "ASTROWORLD",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3457399821",
+          "title": "KICK OUT",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/c/3/0/fc3a9cdaca69930413dfeec2a0511578.mp3?hdnea=exp=1791487800~acl=/api/1/1/f/c/3/0/fc3a9cdaca69930413dfeec2a0511578.mp3*~data=user_id=0,application_id=42~hmac=6c77804856510d42275b0c4ac6ea9c8e415d3ff61f981a6f5c1ebe5dcf9db56f",
+          "slice_offset_sec": 0,
+          "album": "JACKBOYS 2",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/2a622e01fb9b1c4717c63ae3caca9826/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-370426001",
+          "title": "Love Galore",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/e/b/d/0/ebdc91ddaf356f67d5089711aefa7bd2.mp3?hdnea=exp=1791487800~acl=/api/1/1/e/b/d/0/ebdc91ddaf356f67d5089711aefa7bd2.mp3*~data=user_id=0,application_id=42~hmac=f6907b344b787285d876306a096b53c3944b0cd88b51f74f08b518efb9462819",
+          "slice_offset_sec": 0,
+          "album": "Ctrl",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/c2431a6ddfeaaea69562b7448e82d714/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2375967015",
+          "title": "K-POP",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/5/9/0/159ada2aee5762e1a5483b6917d6bd0f.mp3?hdnea=exp=1791487800~acl=/api/1/1/1/5/9/0/159ada2aee5762e1a5483b6917d6bd0f.mp3*~data=user_id=0,application_id=42~hmac=b490a8d95901aad1cd92e4cb4c9932ff354616199180d5d49dddd8b743450611",
+          "slice_offset_sec": 0,
+          "album": "K-POP",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/49dd2965ab5ecaeb65061bc21d17075b/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1543114842",
+          "title": "MAFIA",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/c/8/b/0/c8bf5afeb4138006c3b1aef08160d0f7.mp3?hdnea=exp=1791487800~acl=/api/1/1/c/8/b/0/c8bf5afeb4138006c3b1aef08160d0f7.mp3*~data=user_id=0,application_id=42~hmac=07ea08f6718aae8b31537f2b88c166daade4430cbffb463b12ee16afea8d80c8",
+          "slice_offset_sec": 0,
+          "album": "ESCAPE PLAN / MAFIA",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/ef2a1dd715dc245a38210ff8c427897d/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4292567272",
+          "title": "RHYNO (from GTAVI: The Album)",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/d/b/0/fdb56e2387b99accd3c917bc8ba0d78b.mp3?hdnea=exp=1791487800~acl=/api/1/1/f/d/b/0/fdb56e2387b99accd3c917bc8ba0d78b.mp3*~data=user_id=0,application_id=42~hmac=3bba8f120c0e004a5ac8a3ed4acdbe3a749d6047b666c127ef29a2f165c69ff4",
+          "slice_offset_sec": 0,
+          "album": "RHYNO (from GTAVI: The Album)",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/dc492b8d028525c713a52713b9bb005d/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-767583072",
+          "title": "HIGHEST IN THE ROOM",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/7/1/0/2719bbd3dad355b7c5e7f32be24a5cfe.mp3?hdnea=exp=1791487800~acl=/api/1/1/2/7/1/0/2719bbd3dad355b7c5e7f32be24a5cfe.mp3*~data=user_id=0,application_id=42~hmac=ca78ce392969322e150da578b0c46093952bbfc9155569c5001b39e9568e411f",
+          "slice_offset_sec": 0,
+          "album": "HIGHEST IN THE ROOM",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/5fa05e7d74819963577a92a8c6ad4979/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3921591601",
+          "title": "DA WIZARD",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/e/d/c/0/edc30f3f205ddd8de2d3846d2400822b.mp3?hdnea=exp=1791487800~acl=/api/1/1/e/d/c/0/edc30f3f205ddd8de2d3846d2400822b.mp3*~data=user_id=0,application_id=42~hmac=fd9202afa7846c21a1dac8266da5a8d7db0aef7b61be3ef4b179af2216479309",
+          "slice_offset_sec": 0,
+          "album": "JACKBOYS 2",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/2a622e01fb9b1c4717c63ae3caca9826/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3457399831",
+          "title": "DUMBO",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/1/3/0/213598bb030d5c24a27a177aa5aca964.mp3?hdnea=exp=1791487800~acl=/api/1/1/2/1/3/0/213598bb030d5c24a27a177aa5aca964.mp3*~data=user_id=0,application_id=42~hmac=e8cb1770276d5a7b8a90e49453e2c6d81e6f6fa04c2d8baff14e0d4d74fb1b38",
+          "slice_offset_sec": 0,
+          "album": "JACKBOYS 2",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/2a622e01fb9b1c4717c63ae3caca9826/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3200805881",
+          "title": "4X4",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/6/3/0/463294c5a3d0de1e146641762754534c.mp3?hdnea=exp=1791487800~acl=/api/1/1/4/6/3/0/463294c5a3d0de1e146641762754534c.mp3*~data=user_id=0,application_id=42~hmac=32c7ce58d9bb6aeff0788f85843c136d153505eb8379ae1263f35e251d303b81",
+          "slice_offset_sec": 0,
+          "album": "4X4",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0f37592365f63e65cd7fa4d3c7f10c7c/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-367735791",
+          "title": "Know No Better",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/d/7/0/0/d700f1e17f0ca3be05d52803a86bc3ca.mp3?hdnea=exp=1791487800~acl=/api/1/1/d/7/0/0/d700f1e17f0ca3be05d52803a86bc3ca.mp3*~data=user_id=0,application_id=42~hmac=f58d93e3fc1b791e83ebc56ae5276a4df76d0bb0dbe2410088a811104c1ea811",
+          "slice_offset_sec": 0,
+          "album": "Know No Better",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/31285a0140507b687f4796a938240ac8/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-126092539",
+          "title": "pick up the phone",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/4/9/0/14924dcfe511d190d808f6abe52a2bc1.mp3?hdnea=exp=1791487800~acl=/api/1/1/1/4/9/0/14924dcfe511d190d808f6abe52a2bc1.mp3*~data=user_id=0,application_id=42~hmac=0552f2108fa9e8abd5c712ff2ef9056f3a96f0beb1033bb3ac873968155abf06",
+          "slice_offset_sec": 0,
+          "album": "pick up the phone (feat. Quavo)",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/bdc55cf166f1be51964f8c0cf58643ac/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2386586115",
+          "title": "TOPIA TWINS",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/6/a/b/0/6ab3bc286c857066b8f3e449cdb92f51.mp3?hdnea=exp=1791487800~acl=/api/1/1/6/a/b/0/6ab3bc286c857066b8f3e449cdb92f51.mp3*~data=user_id=0,application_id=42~hmac=067311198f11deb507ad951478e00e582ba621962a076efbbd9648aa765011ad",
+          "slice_offset_sec": 0,
+          "album": "UTOPIA",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-536421092",
+          "title": "YOSEMITE",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/a/4/7/0/a4763c687c57d63e6ba3809a02ef6c9e.mp3?hdnea=exp=1791487800~acl=/api/1/1/a/4/7/0/a4763c687c57d63e6ba3809a02ef6c9e.mp3*~data=user_id=0,application_id=42~hmac=c5947b3c85f479ff04cd7a7293920dce923d4c113f4cdad55cac6784788fb677",
+          "slice_offset_sec": 0,
+          "album": "ASTROWORLD",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3457399801",
+          "title": "CHAMPAIN & VACAY",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/6/1/f/0/61fb1ea6510153a07e6d0c76a8e8e8e5.mp3?hdnea=exp=1791487800~acl=/api/1/1/6/1/f/0/61fb1ea6510153a07e6d0c76a8e8e8e5.mp3*~data=user_id=0,application_id=42~hmac=8b31284212a7a9277e5e6c96fbf1840407903ec34a09100fb671c0de0a1347a7",
+          "slice_offset_sec": 0,
+          "album": "JACKBOYS 2",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/2a622e01fb9b1c4717c63ae3caca9826/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2386586025",
+          "title": "THANK GOD",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/9/7/0/19770718ae7c9b49c9d70b0e372d05c0.mp3?hdnea=exp=1791487800~acl=/api/1/1/1/9/7/0/19770718ae7c9b49c9d70b0e372d05c0.mp3*~data=user_id=0,application_id=42~hmac=c13d84ff71ed6ad8f379bdda8c503cd161bef606ba182e6bdb691ad421307ef9",
+          "slice_offset_sec": 0,
+          "album": "UTOPIA",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-841897092",
+          "title": "OUT WEST",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/b/6/b/0/b6b6faad9c2bb8bdb96be083b2fbb34d.mp3?hdnea=exp=1791487800~acl=/api/1/1/b/6/b/0/b6b6faad9c2bb8bdb96be083b2fbb34d.mp3*~data=user_id=0,application_id=42~hmac=bb9f523fa9956b954e97c5d2be88cc5119756e6ee2f757406acf9b54171f8199",
+          "slice_offset_sec": 0,
+          "album": "JACKBOYS",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/d1ed81aebe34697130d8caf2459e0d72/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-536421082",
+          "title": "ASTROTHUNDER",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/7/4/6/0/746a808541be868dc65fd4d6c7f8dd0a.mp3?hdnea=exp=1791487800~acl=/api/1/1/7/4/6/0/746a808541be868dc65fd4d6c7f8dd0a.mp3*~data=user_id=0,application_id=42~hmac=4ee394c870931a1f996047148a5dc7d15ea93fd7b536bc00e9757070b117e748",
+          "slice_offset_sec": 0,
+          "album": "ASTROWORLD",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-972669712",
+          "title": "TKN",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/b/a/7/0/ba7afa4cf3908e4d84f71c61125879fc.mp3?hdnea=exp=1791487800~acl=/api/1/1/b/a/7/0/ba7afa4cf3908e4d84f71c61125879fc.mp3*~data=user_id=0,application_id=42~hmac=8ec1d29cd5ee3c19e784698466f9034a95923913880b01ab9ddc8a09e02f0adb",
+          "slice_offset_sec": 0,
+          "album": "TKN",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/1f5bb099f460c29fa4c3991431116e17/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-939689012",
+          "title": "THE SCOTTS",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/d/c/9/0/dc9f6c09236f26a58610e0479e6602c1.mp3?hdnea=exp=1791487800~acl=/api/1/1/d/c/9/0/dc9f6c09236f26a58610e0479e6602c1.mp3*~data=user_id=0,application_id=42~hmac=cc90243e316a077c5bbb88dbf9cc593582fc815889feeaedf4e7456dd6122d51",
+          "slice_offset_sec": 0,
+          "album": "THE SCOTTS",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/c960f0b900832a1c8ece116ccc789a27/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2386586105",
+          "title": "I KNOW ?",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/8/2/8/0/8285d8922596a959e9d7af17a3773157.mp3?hdnea=exp=1791487800~acl=/api/1/1/8/2/8/0/8285d8922596a959e9d7af17a3773157.mp3*~data=user_id=0,application_id=42~hmac=96b52d0e20eb9ec70979d3c5b91618df783c94d9544c0e066b1c5e3156cfa1b7",
+          "slice_offset_sec": 0,
+          "album": "UTOPIA",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-841897112",
+          "title": "GATTI",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/d/c/f/0/dcf0d187aebac078d523262eed68a0d2.mp3?hdnea=exp=1791487800~acl=/api/1/1/d/c/f/0/dcf0d187aebac078d523262eed68a0d2.mp3*~data=user_id=0,application_id=42~hmac=a530922c72c428be8e2a3f8ea0895da99f38a770d85229c726d30ef669ca8afb",
+          "slice_offset_sec": 0,
+          "album": "JACKBOYS",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/d1ed81aebe34697130d8caf2459e0d72/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4152514452",
+          "title": "When I’m Home",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/c/4/a/0/c4a207e1ac003c89c910b5239ebb1a84.mp3?hdnea=exp=1791487800~acl=/api/1/1/c/4/a/0/c4a207e1ac003c89c910b5239ebb1a84.mp3*~data=user_id=0,application_id=42~hmac=35d3d5a24c662e8f86ff536c5af1cc31138d5538cba7818199efaea3a0dce3ab",
+          "slice_offset_sec": 0,
+          "album": "The Odyssey (Original Motion Picture Soundtrack)",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/dd000448a0e2f7f44c0e3150fcc42da9/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-536421062",
+          "title": "5% TINT",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/5/f/b/0/5fb959a56d6982f611ac6d880595fd87.mp3?hdnea=exp=1791487800~acl=/api/1/1/5/f/b/0/5fb959a56d6982f611ac6d880595fd87.mp3*~data=user_id=0,application_id=42~hmac=0a22124417aa38b3224785a0be2b80a157e7c2b6a32101e30cac46cdafd91fd3",
+          "slice_offset_sec": 0,
+          "album": "ASTROWORLD",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2386586125",
+          "title": "CIRCUS MAXIMUS",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/0/1/1/0/01123a25dcba9399ca178b29347272d7.mp3?hdnea=exp=1791487800~acl=/api/1/1/0/1/1/0/01123a25dcba9399ca178b29347272d7.mp3*~data=user_id=0,application_id=42~hmac=2cfa0bc4466c8fc81a8358c174cc95625bf175ad9ed9fe3bd1cedb00c7200c59",
+          "slice_offset_sec": 0,
+          "album": "UTOPIA",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2047662417",
+          "title": "Raindrops (Insane)",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/a/f/4/0/af488531f1dee655b3b658be43e1b81c.mp3?hdnea=exp=1791487800~acl=/api/1/1/a/f/4/0/af488531f1dee655b3b658be43e1b81c.mp3*~data=user_id=0,application_id=42~hmac=18c2843368f04225b027d6bda8946b51dcf0154c105e3b283d8d6ee1e4a5686e",
+          "slice_offset_sec": 0,
+          "album": "HEROES & VILLAINS",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/862ab860ff69c30deeb5979db6e46b62/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1992849427",
+          "title": "Down In Atlanta",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/b/8/0/4b8026a4f905fb98f86d0a9173afde8f.mp3?hdnea=exp=1791487800~acl=/api/1/1/4/b/8/0/4b8026a4f905fb98f86d0a9173afde8f.mp3*~data=user_id=0,application_id=42~hmac=71da884cee8df45d6dd3a4e4c55f58d6025c1678fb03f7adc89569dad04cbd08",
+          "slice_offset_sec": 0,
+          "album": "Down In Atlanta",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/e7701e80a53d80b6d0f577b7dc2d0b91/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-106713878",
+          "title": "90210",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/d/f/0/2dfa8879a28a07882735f27cf8305913.mp3?hdnea=exp=1791487800~acl=/api/1/1/2/d/f/0/2dfa8879a28a07882735f27cf8305913.mp3*~data=user_id=0,application_id=42~hmac=2781d090993877f9e9978c408d0b33d912bf3e2f2130d42011056b822c488fe9",
+          "slice_offset_sec": 0,
+          "album": "Rodeo",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/c6fe182fb0f3485428906c7b21873046/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2955903261",
+          "title": "Drugs You Should Try It",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/f/d/0/ffde1c559b719adcda540652b9db9093.mp3?hdnea=exp=1791487800~acl=/api/1/1/f/f/d/0/ffde1c559b719adcda540652b9db9093.mp3*~data=user_id=0,application_id=42~hmac=34795f7b374bf8c273ee950c7b2e0efacce94f560e54a71de79d76c45b319cdb",
+          "slice_offset_sec": 0,
+          "album": "DAYS BEFORE RODEO",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/b8be81921aa5990f1cd3b7499d4d6501/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-106713890",
+          "title": "Maria I'm Drunk",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/6/a/7/0/6a7517b029ef44af9cca9b8ff20ce4d5.mp3?hdnea=exp=1791487800~acl=/api/1/1/6/a/7/0/6a7517b029ef44af9cca9b8ff20ce4d5.mp3*~data=user_id=0,application_id=42~hmac=2ac03072b27549b5c3bd47e080af5a20bd280da27b73ad4c34016f0a814e4703",
+          "slice_offset_sec": 0,
+          "album": "Rodeo",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/c6fe182fb0f3485428906c7b21873046/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-536421102",
+          "title": "CAN'T SAY",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/4/c/0/24cb61b1af1a8991f7856c90db1ccee8.mp3?hdnea=exp=1791487800~acl=/api/1/1/2/4/c/0/24cb61b1af1a8991f7856c90db1ccee8.mp3*~data=user_id=0,application_id=42~hmac=1f50f31c30eb48ee1ecdd38795be35492021b1fef29333ae8edaa1bdbf441819",
+          "slice_offset_sec": 0,
+          "album": "ASTROWORLD",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2386586195",
+          "title": "TIL FURTHER NOTICE",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/6/0/3/0/60372c75c29778272e5d150c8b737a93.mp3?hdnea=exp=1791487800~acl=/api/1/1/6/0/3/0/60372c75c29778272e5d150c8b737a93.mp3*~data=user_id=0,application_id=42~hmac=aa010194b16db4814054d11db83be6973125e50f5060c0f5acb2593d71ed0005",
+          "slice_offset_sec": 0,
+          "album": "UTOPIA",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-106713882",
+          "title": "Nightcrawler",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/6/4/6/0/646928cd4ff982643ae7343e36aa7788.mp3?hdnea=exp=1791487800~acl=/api/1/1/6/4/6/0/646928cd4ff982643ae7343e36aa7788.mp3*~data=user_id=0,application_id=42~hmac=6c8354283ad4d734ac6b093238b47c5386641aeb17ccbf628ae387d8f110adf0",
+          "slice_offset_sec": 0,
+          "album": "Rodeo",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/c6fe182fb0f3485428906c7b21873046/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2047662437",
+          "title": "Trance",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/5/b/1/0/5b18f175688832a0c334eb1093b7c41c.mp3?hdnea=exp=1791487800~acl=/api/1/1/5/b/1/0/5b18f175688832a0c334eb1093b7c41c.mp3*~data=user_id=0,application_id=42~hmac=4377cd3ad26acd5ab4bbc1bd1b2b27c1bfde94d59a9aa4d1c2a411c968d9cc4e",
+          "slice_offset_sec": 0,
+          "album": "HEROES & VILLAINS",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/862ab860ff69c30deeb5979db6e46b62/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-536420982",
+          "title": "STARGAZING",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/b/a/1/0/ba114179e04e88d7d900f1e367ae6e37.mp3?hdnea=exp=1791487800~acl=/api/1/1/b/a/1/0/ba114179e04e88d7d900f1e367ae6e37.mp3*~data=user_id=0,application_id=42~hmac=af2d25debd124b9ec7302609dd7aa7a82d4a9bc70c1e7aaa63ba47e5ca67f182",
+          "slice_offset_sec": 0,
+          "album": "ASTROWORLD",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-536421022",
+          "title": "STOP TRYING TO BE GOD",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/5/6/6/0/5666732b308de0d6d054083c35e4fb68.mp3?hdnea=exp=1791487800~acl=/api/1/1/5/6/6/0/5666732b308de0d6d054083c35e4fb68.mp3*~data=user_id=0,application_id=42~hmac=2b738a88ab168a45310a8f550f8ebf1f6360c2a00201c4843bfe9cd719165bac",
+          "slice_offset_sec": 0,
+          "album": "ASTROWORLD",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b08015216f975dc7fb5be3d5dcc4d88/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2386586085",
+          "title": "FE!N",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/7/c/0/47c5acbdd0e0b218700ae15e0a5f34a0.mp3?hdnea=exp=1791487800~acl=/api/1/1/4/7/c/0/47c5acbdd0e0b218700ae15e0a5f34a0.mp3*~data=user_id=0,application_id=42~hmac=18c9c642156ae7882ca27f6bcb71a20dd7a22c751636a9530946df73adaa54c0",
+          "slice_offset_sec": 0,
+          "album": "UTOPIA",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1089612082",
+          "title": "FRANCHISE",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/5/0/0/250a18918d346122983feae6cbffc575.mp3?hdnea=exp=1791487800~acl=/api/1/1/2/5/0/0/250a18918d346122983feae6cbffc575.mp3*~data=user_id=0,application_id=42~hmac=3e18d544c09e92746cab15576aca6e1737141b9de1faa8a74d63fb1345df422e",
+          "slice_offset_sec": 0,
+          "album": "FRANCHISE (feat. Young Thug & M.I.A.)",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/78fc5cf233b24aa52561e76ecd75e9ae/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2386586185",
+          "title": "TELEKINESIS",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/5/f/9/0/5f964cf835087b1ecde591cd10fb6507.mp3?hdnea=exp=1791487800~acl=/api/1/1/5/f/9/0/5f964cf835087b1ecde591cd10fb6507.mp3*~data=user_id=0,application_id=42~hmac=e9649ef947bdef6eb06b4dfeee6f87b995809fcb11bcc08e53b42ecca4b06ddb",
+          "slice_offset_sec": 0,
+          "album": "UTOPIA",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2386586075",
+          "title": "MELTDOWN",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/f/d/0/2fd32f2fe468eb671e631c957c7eb44e.mp3?hdnea=exp=1791487800~acl=/api/1/1/2/f/d/0/2fd32f2fe468eb671e631c957c7eb44e.mp3*~data=user_id=0,application_id=42~hmac=dd2e088063c463fde776c632d14fbab21eec20434e8c6da19464ca631300585f",
+          "slice_offset_sec": 0,
+          "album": "UTOPIA",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-106713886",
+          "title": "Antidote",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/a/4/e/0/a4ef2ec4cb30d7696e214322fe413e39.mp3?hdnea=exp=1791487800~acl=/api/1/1/a/4/e/0/a4ef2ec4cb30d7696e214322fe413e39.mp3*~data=user_id=0,application_id=42~hmac=f172e8264fd6d331b1f0f7b6a4fca0ef2d2d193d416ea2e02f7baef07413e608",
+          "slice_offset_sec": 0,
+          "album": "Rodeo",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/c6fe182fb0f3485428906c7b21873046/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-841897102",
+          "title": "WHAT TO DO?",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/7/9/4/0/794e383bfe02724e6fbae9b0454fe837.mp3?hdnea=exp=1791487800~acl=/api/1/1/7/9/4/0/794e383bfe02724e6fbae9b0454fe837.mp3*~data=user_id=0,application_id=42~hmac=e8e2b6ccf8cf0f174235a59213fd71e20cbe72235d4bc7b4aa9d094bdd34b6e8",
+          "slice_offset_sec": 0,
+          "album": "JACKBOYS",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/d1ed81aebe34697130d8caf2459e0d72/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3210598461",
+          "title": "Reflections Laughing",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/8/f/0/28f4349950d6e3c8116436b9c6e5884e.mp3?hdnea=exp=1791487800~acl=/api/1/1/2/8/f/0/28f4349950d6e3c8116436b9c6e5884e.mp3*~data=user_id=0,application_id=42~hmac=c44d9b38b42e6f75ae1d231d960d7a3edccfe199deef9d006eee7fd1515ea227",
+          "slice_offset_sec": 0,
+          "album": "Hurry Up Tomorrow",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/e4b16c1afe136140bba34368357e8f05/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-132201196",
+          "title": "goosebumps",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/e/e/1/0/ee1f78cff459de066182995b5fde2fbb.mp3?hdnea=exp=1791487800~acl=/api/1/1/e/e/1/0/ee1f78cff459de066182995b5fde2fbb.mp3*~data=user_id=0,application_id=42~hmac=3220934ed112023eab441035d144a01cd65decf633c49aa50f8121984677b819",
+          "slice_offset_sec": 0,
+          "album": "Birds In The Trap Sing McKnight",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/a2f66f08468fb9897019e82ffb7a5fcb/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2386586045",
+          "title": "MY EYES",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/b/d/e/0/bde786926179901de4abb6cceb2f6176.mp3?hdnea=exp=1791487800~acl=/api/1/1/b/d/e/0/bde786926179901de4abb6cceb2f6176.mp3*~data=user_id=0,application_id=42~hmac=33e94dcb1c34281467afa0b174de4b71a24aed6b65936faa941b70ff657ccfb7",
+          "slice_offset_sec": 0,
+          "album": "UTOPIA",
+          "year": "Unknown",
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6d7164fecb39ddee0cb15952e750d907/1000x1000-000000-80-0-0.jpg"
+        }
+      ],
+      "all_searchable_titles": [
+        "goosebumps",
+        "FE!N",
+        "SICKO MODE",
+        "HIGHEST IN THE ROOM",
+        "MY EYES",
+        "Trance",
+        "TELEKINESIS",
+        "BUTTERFLY EFFECT",
+        "pick up the phone",
+        "Nightcrawler",
+        "I KNOW ?",
+        "THE SCOTTS",
+        "90210",
+        "SKELETONS",
+        "DUMBO",
+        "RHYNO (from GTAVI: The Album)",
+        "OUT WEST",
+        "TIL FURTHER NOTICE",
+        "Reflections Laughing",
+        "GATTI",
+        "Drugs You Should Try It",
+        "When I’m Home",
+        "STARGAZING",
+        "Antidote",
+        "ASTROTHUNDER",
+        "4X4",
+        "TKN",
+        "FRANCHISE",
+        "K-POP",
+        "Know No Better",
+        "TOPIA TWINS",
+        "YOSEMITE",
+        "Power is Power",
+        "CAN'T SAY",
+        "Niagara Falls (Foot or 2)",
+        "CIRCUS MAXIMUS",
+        "Down In Atlanta",
+        "Raindrops (Insane)",
+        "MELTDOWN",
+        "Maria I'm Drunk",
+        "CHAMPAIN & VACAY",
+        "THANK GOD",
+        "5% TINT",
+        "WHAT TO DO?",
+        "Love Galore",
+        "KICK OUT",
+        "Parking Lot",
+        "STOP TRYING TO BE GOD",
+        "MAFIA",
+        "DA WIZARD"
+      ],
+      "is_draft": false,
+      "is_active": false,
+      "created_at": "2026-10-08T19:14:34.913Z"
     }
   ]
 }
