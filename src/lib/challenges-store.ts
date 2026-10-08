@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import path from 'path';
+import os from 'os';
 
 export interface StoredChallenge {
   id: string;
@@ -12,28 +13,61 @@ export interface StoredChallenge {
   created_at: string;
 }
 
-const DATA_DIR = path.join(process.cwd(), 'data');
-const CHALLENGES_FILE = path.join(DATA_DIR, 'challenges.json');
+// In-memory store (primary fallback for serverless environments)
+declare global {
+  // eslint-disable-next-line no-var
+  var __memory_challenges__: StoredChallenge[] | undefined;
+}
 
-function ensureDataFile() {
-  if (!existsSync(DATA_DIR)) {
-    mkdirSync(DATA_DIR, { recursive: true });
+if (!global.__memory_challenges__) {
+  global.__memory_challenges__ = [];
+}
+
+// Check if running in a serverless / read-only environment like Vercel/AWS Lambda
+function getDataFilePath(): string {
+  // If running in AWS Lambda / Vercel (/var/task), write to /tmp which is writable
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.cwd().startsWith('/var/task')) {
+    return path.join(os.tmpdir(), 'challenges.json');
   }
-  if (!existsSync(CHALLENGES_FILE)) {
-    writeFileSync(CHALLENGES_FILE, JSON.stringify({ challenges: [] }, null, 2));
+  return path.join(process.cwd(), 'data', 'challenges.json');
+}
+
+function tryReadDisk(): StoredChallenge[] | null {
+  try {
+    const filePath = getDataFilePath();
+    if (existsSync(filePath)) {
+      const raw = readFileSync(filePath, 'utf-8');
+      const parsed = JSON.parse(raw);
+      return parsed.challenges || [];
+    }
+  } catch (e) {
+    // Read failed, fall back to memory
+  }
+  return null;
+}
+
+function tryWriteDisk(challenges: StoredChallenge[]) {
+  try {
+    const filePath = getDataFilePath();
+    const dir = path.dirname(filePath);
+    if (!existsSync(dir)) {
+      mkdirSync(dir, { recursive: true });
+    }
+    writeFileSync(filePath, JSON.stringify({ challenges }, null, 2));
+  } catch (e) {
+    // Write failed (e.g. read-only filesystem), in-memory will retain it
+    console.warn('Filesystem write not available, using in-memory store:', e);
   }
 }
 
 export function getAllStoredChallenges(): StoredChallenge[] {
-  try {
-    ensureDataFile();
-    const raw = readFileSync(CHALLENGES_FILE, 'utf-8');
-    const parsed = JSON.parse(raw);
-    return parsed.challenges || [];
-  } catch (e) {
-    console.error('Error reading challenges.json:', e);
-    return [];
+  const disk = tryReadDisk();
+  if (disk && disk.length > 0) {
+    // Sync into global memory
+    global.__memory_challenges__ = disk;
+    return disk;
   }
+  return global.__memory_challenges__ || [];
 }
 
 export function getStoredChallengeByDate(date: string): StoredChallenge | null {
@@ -42,7 +76,6 @@ export function getStoredChallengeByDate(date: string): StoredChallenge | null {
 }
 
 export function saveStoredChallenge(challenge: Omit<StoredChallenge, 'id' | 'created_at'>): StoredChallenge {
-  ensureDataFile();
   const all = getAllStoredChallenges();
 
   const id = `ch-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
@@ -52,20 +85,24 @@ export function saveStoredChallenge(challenge: Omit<StoredChallenge, 'id' | 'cre
     created_at: new Date().toISOString(),
   };
 
-  // If saving for a specific play_date that isn't a draft, replace any existing active challenge for that date
   const filtered = challenge.is_draft
     ? all
     : all.filter(c => c.play_date !== challenge.play_date);
 
   filtered.unshift(newChallenge);
 
-  writeFileSync(CHALLENGES_FILE, JSON.stringify({ challenges: filtered }, null, 2));
+  // Update in-memory
+  global.__memory_challenges__ = filtered;
+
+  // Attempt to persist to disk (/tmp in serverless or ./data in local)
+  tryWriteDisk(filtered);
+
   return newChallenge;
 }
 
 export function deleteStoredChallenge(id: string) {
-  ensureDataFile();
   const all = getAllStoredChallenges();
   const filtered = all.filter(c => c.id !== id);
-  writeFileSync(CHALLENGES_FILE, JSON.stringify({ challenges: filtered }, null, 2));
+  global.__memory_challenges__ = filtered;
+  tryWriteDisk(filtered);
 }
