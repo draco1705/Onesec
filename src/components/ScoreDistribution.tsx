@@ -1,6 +1,6 @@
 'use client';
 
-import { Copy, Flame } from 'lucide-react';
+import { Copy, Flame, Award } from 'lucide-react';
 
 interface TrackFeedback {
   isCorrect: boolean;
@@ -18,49 +18,45 @@ interface Props {
   artistName: string;
 }
 
-export default function ScoreDistribution({ userScore, userTimeMs, guessHistory, artistName }: Props) {
-  // Removed global score spread state and fetch
-
+export default function ScoreDistribution({ userScore, guessHistory, artistName }: Props) {
   const handleShare = () => {
     const emojis = guessHistory.map(h => h.isCorrect ? '🟩' : '⬛').join('');
-    const timeSec = (userTimeMs / 1000).toFixed(1);
-    const dayNumber = 14; // Mocked for design
-    
-    const text = `Onesec #${dayNumber} - ${artistName || 'Daily Artist'}\n${userScore}/${guessHistory.length} ⚡ (${timeSec}s)\n${emojis}\nplay: onesec.fm`;
-    
+    const dayNumber = 14;
+    const text = `Onesec #${dayNumber} - ${artistName || 'Daily Artist'}\n${userScore}/${guessHistory.length} ⚡\n${emojis}\nplay: onesec.fm`;
     navigator.clipboard.writeText(text);
     alert('Copied to clipboard!');
   };
 
-  const timeSec = (userTimeMs / 1000).toFixed(1);
+  const accuracyPct = guessHistory.length > 0 
+    ? Math.round((userScore / guessHistory.length) * 100) 
+    : 0;
 
   return (
     <div className="w-full animate-in fade-in slide-in-from-bottom-8 duration-700">
-      
       <div className="text-center mb-8">
         <div className="text-xs font-bold tracking-widest text-zinc-500 mb-2 flex items-center justify-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-green-500"/> DAILY CHALLENGE #14 COMPLETE
+          <span className="w-2 h-2 rounded-full bg-green-500"/> 60S CHALLENGE COMPLETE
         </div>
         <h2 className="text-2xl font-black text-white tracking-widest">FEATURED: {artistName?.toUpperCase()}</h2>
       </div>
 
       <div className="bg-[#111] border border-zinc-800 rounded-xl p-8 flex flex-col items-center justify-center mb-6 shadow-xl relative overflow-hidden">
-         <div className="text-xs font-bold tracking-widest text-zinc-500 mb-4">FINAL ACCURACY</div>
-         <div className="text-7xl font-black text-white tracking-tighter flex items-baseline gap-2 mb-4">
-           {userScore} <span className="text-4xl text-zinc-600">/ {guessHistory.length}</span>
-         </div>
-         <div className="text-sm font-bold tracking-widest text-zinc-400 flex items-center gap-2 mb-6">
-           <Flame size={14} className="text-orange-500"/> Total Time: <span className="text-white">{timeSec}s</span>
-         </div>
-         <div className="bg-zinc-800/50 border border-zinc-700 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest flex items-center gap-2 text-green-500">
-           <span className="text-green-500">🏆</span> TOP 8% OF PLAYERS TODAY • ELITE EAR
-         </div>
+        <div className="text-xs font-bold tracking-widest text-zinc-500 mb-4">TRACKS IDENTIFIED (IN 60 SECONDS)</div>
+        <div className="text-7xl font-black text-white tracking-tighter flex items-baseline gap-2 mb-4">
+          {userScore} <span className="text-4xl text-zinc-600">/ {guessHistory.length}</span>
+        </div>
+        <div className="text-sm font-bold tracking-widest text-zinc-400 flex items-center gap-2 mb-6">
+          <Award size={16} className="text-green-500"/> Accuracy: <span className="text-white font-mono">{accuracyPct}%</span>
+        </div>
+        <div className="bg-zinc-800/50 border border-zinc-700 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest flex items-center gap-2 text-green-500">
+          <Flame size={14} className="text-orange-500" /> 60S SPEED RUN COMPLETED • ELITE EAR
+        </div>
       </div>
 
       <div className="mb-6">
         <div className="flex justify-between text-xs font-bold tracking-widest text-zinc-500 mb-2 px-2">
           <span>TRACK BREAKDOWN</span>
-          <span>TIME ELAPSED</span>
+          <span>RESULT</span>
         </div>
         <div className="bg-[#111] border border-zinc-800 rounded-xl overflow-y-auto max-h-[300px] shadow-xl">
           {guessHistory.map((h, i) => (
@@ -77,8 +73,7 @@ export default function ScoreDistribution({ userScore, userTimeMs, guessHistory,
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="text-sm font-mono text-zinc-400">{(h.timeTaken / 1000).toFixed(1)}s</div>
-                <div className={`w-6 h-6 rounded flex items-center justify-center text-xs font-bold ${h.isCorrect ? 'bg-green-500/20 text-green-500' : 'bg-red-500/20 text-red-500'}`}>
+                <div className={`w-7 h-7 rounded-md flex items-center justify-center text-xs font-bold ${h.isCorrect ? 'bg-green-500/20 text-green-500 border border-green-500/30' : 'bg-red-500/20 text-red-500 border border-red-500/30'}`}>
                   {h.isCorrect ? '✓' : '✕'}
                 </div>
               </div>
@@ -87,19 +82,17 @@ export default function ScoreDistribution({ userScore, userTimeMs, guessHistory,
         </div>
       </div>
 
-      
       <div className="flex items-center justify-between bg-zinc-900 p-4 rounded-lg border border-zinc-800">
-         <div className="flex flex-wrap gap-1 max-w-[50%]">
-           {guessHistory.map((h, i) => (
-             <div key={i} className={`w-4 h-4 rounded-sm ${h.isCorrect ? 'bg-green-500' : 'bg-zinc-700'}`} />
-           ))}
-         </div>
-         <div className="text-xs font-bold tracking-widest text-zinc-500 text-center">ONESEC #14 <br className="sm:hidden" />[{userScore}/{guessHistory.length}]</div>
-         <button onClick={handleShare} className="text-xs font-bold tracking-widest text-white flex items-center gap-2 hover:text-green-400 transition-colors">
-           <Copy size={14} /> COPY CARD
-         </button>
+        <div className="flex flex-wrap gap-1 max-w-[50%]">
+          {guessHistory.map((h, i) => (
+            <div key={i} className={`w-4 h-4 rounded-sm ${h.isCorrect ? 'bg-green-500' : 'bg-zinc-700'}`} />
+          ))}
+        </div>
+        <div className="text-xs font-bold tracking-widest text-zinc-500 text-center">ONESEC 60S RUN <br className="sm:hidden" />[{userScore}/{guessHistory.length}]</div>
+        <button onClick={handleShare} className="text-xs font-bold tracking-widest text-white flex items-center gap-2 hover:text-green-400 transition-colors">
+          <Copy size={14} /> COPY CARD
+        </button>
       </div>
-
     </div>
   );
 }

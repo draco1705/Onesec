@@ -238,6 +238,7 @@ export default function GameContainer() {
     if (currentRound < challenge.track_pool.length - 1) {
       setCurrentRound(prev => prev + 1);
       setSearchQuery('');
+      timerStartRef.current = performance.now();
     } else {
       endGame(newScore, newTime);
     }
@@ -297,14 +298,13 @@ export default function GameContainer() {
                 <div className="text-xs font-bold tracking-widest text-green-500">1S SNIPPET / ROUND</div>
               </div>
               
-              <div className="relative w-full h-64 bg-zinc-900 rounded-lg overflow-hidden mb-8 group flex items-center justify-center">
+              <div className="relative w-full h-72 bg-zinc-900 rounded-lg overflow-hidden mb-8 shadow-inner">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={challenge?.artist_image_url} alt="Artist" className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity grayscale group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700" />
-                <div className="relative z-10 w-20 h-20 bg-black/80 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-2xl border border-white/10">
-                  <div className="flex gap-1">
-                    {[1,2,3,4].map(i => <div key={i} className="w-1.5 h-6 bg-white rounded-full animate-pulse" style={{ animationDelay: `${i*0.1}s` }} />)}
-                  </div>
-                </div>
+                <img 
+                  src={challenge?.artist_image_url} 
+                  alt="Artist" 
+                  className="w-full h-full object-cover" 
+                />
               </div>
 
               <div className="space-y-4 mb-8">
