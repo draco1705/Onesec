@@ -1,12 +1,31 @@
 import { NextResponse } from 'next/server';
-import { setActiveChallenge, getChallengeById, setActiveArtist, getAllChallenges, saveChallenge, deleteChallenge } from '@/lib/db';
+import {
+  setActiveChallenge,
+  getChallengeById,
+  setActiveArtist,
+  getAllChallenges,
+  saveChallenge,
+  deleteChallenge,
+  DEFAULT_ARTIST,
+} from '@/lib/db';
 import { fetchArtistDiscography } from '@/lib/music';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
   try {
-    const { challengeId, artistName } = await request.json();
+    const body = await request.json().catch(() => ({}));
+    const { challengeId, artistName, action, deleteId } = body;
+
+    // Handle delete action via POST
+    if (action === 'delete' || deleteId) {
+      const targetId = challengeId || deleteId;
+      if (!targetId) {
+        return NextResponse.json({ error: 'Missing challenge ID to delete' }, { status: 400 });
+      }
+      const success = deleteChallenge(targetId);
+      return NextResponse.json({ success, deletedId: targetId });
+    }
 
     if (challengeId) {
       const updated = setActiveChallenge(challengeId);
@@ -48,7 +67,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ error: 'Missing challengeId or artistName' }, { status: 400 });
   } catch (error: any) {
-    console.error('Error in set-active route:', error);
+    console.error('Error in set-active route POST:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
@@ -56,13 +75,23 @@ export async function POST(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
+    let id = searchParams.get('id');
+
+    if (!id) {
+      try {
+        const body = await request.json();
+        id = body?.id || body?.challengeId;
+      } catch {}
+    }
+
     if (!id) {
       return NextResponse.json({ error: 'Missing challenge id' }, { status: 400 });
     }
+
     const success = deleteChallenge(id);
-    return NextResponse.json({ success });
+    return NextResponse.json({ success, deletedId: id });
   } catch (error: any) {
+    console.error('Error in set-active route DELETE:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

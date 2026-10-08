@@ -80,22 +80,50 @@ export default function GameContainer() {
       ? `/api/daily?date=${dateStr}&artist=${encodeURIComponent(artistParam)}&t=${Date.now()}`
       : `/api/daily?date=${dateStr}&t=${Date.now()}`;
 
+    function shuffleTracks<T>(items: T[]): T[] {
+      const arr = [...items];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
     fetch(url, { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
-        if (!data.error) {
-          setChallenge(data);
+        if (!data.error && Array.isArray(data.track_pool)) {
+          const randomizedPool = shuffleTracks(data.track_pool);
+          setChallenge({
+            ...data,
+            track_pool: randomizedPool,
+          });
           setImageError(false);
           fuseRef.current = new Fuse(data.all_searchable_titles, {
             threshold: 0.3
           });
           
-          data.track_pool.forEach((t: { preview_url: string; id: string }) => {
-            audioEngine.loadAudio(t.preview_url, t.id);
+          // Preload first 3 tracks
+          randomizedPool.slice(0, 3).forEach((t: any) => {
+            if (t?.preview_url && t?.id) {
+              audioEngine.loadAudio(t.preview_url, t.id);
+            }
           });
         }
       });
   }, []);
+
+  // Preload upcoming tracks as round advances
+  useEffect(() => {
+    if (!challenge?.track_pool) return;
+    const pool = challenge.track_pool;
+    for (let i = currentRound; i < Math.min(pool.length, currentRound + 4); i++) {
+      const t = pool[i];
+      if (t?.preview_url && t?.id) {
+        audioEngine.loadAudio(t.preview_url, t.id).catch(() => {});
+      }
+    }
+  }, [challenge, currentRound]);
 
   // Global 1 minute timer
   const [gameTimeRemaining, setGameTimeRemaining] = useState(60);
@@ -150,7 +178,7 @@ export default function GameContainer() {
   }, [searchQuery]);
 
   const startGame = async () => {
-    audioEngine.unlock();
+    await audioEngine.unlock();
     
     if (challenge) {
       const res = await fetch('/api/game/start', {
@@ -167,27 +195,55 @@ export default function GameContainer() {
     timerStartRef.current = performance.now();
   };
 
-  const playCurrentSnippet = () => {
+  const playCurrentSnippet = async () => {
     if (!challenge) return;
     const track = challenge.track_pool[currentRound];
-    const buffer = audioEngine.getBuffer(track.id);
+    if (!track) return;
+
+    await audioEngine.unlock();
+    let buffer = audioEngine.getBuffer(track.id);
+    if (!buffer) {
+      buffer = (await audioEngine.loadAudio(track.preview_url, track.id)) || undefined;
+    }
     if (buffer) {
       setIsPlaying(true);
-      audioEngine.playSlice(buffer, track.slice_offset_sec, 1.0);
+      await audioEngine.playSlice(buffer, track.slice_offset_sec ?? 0, 1.0);
       setTimeout(() => setIsPlaying(false), 1000);
     }
   };
   
-  const playFullPreview = () => {
+  const playFullPreview = async () => {
     if (!challenge) return;
     const track = challenge.track_pool[currentRound];
-    const buffer = audioEngine.getBuffer(track.id);
+    if (!track) return;
+
+    await audioEngine.unlock();
+    let buffer = audioEngine.getBuffer(track.id);
+    if (!buffer) {
+      buffer = (await audioEngine.loadAudio(track.preview_url, track.id)) || undefined;
+    }
     if (buffer) {
       setIsPlaying(true);
-      audioEngine.playSlice(buffer, 0, 30);
+      await audioEngine.playSlice(buffer, 0, 30);
       setTimeout(() => setIsPlaying(false), 30000);
     }
   };
+
+  // Keyboard shortcut for spacebar to play snippet when not typing in an input
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (gameState !== 'PLAYING_ROUND') return;
+      if (e.code === 'Space') {
+        const activeTag = (document.activeElement as HTMLElement)?.tagName?.toLowerCase();
+        if (activeTag !== 'input' && activeTag !== 'textarea') {
+          e.preventDefault();
+          playCurrentSnippet();
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [gameState, currentRound, challenge]);
 
   const submitGuess = async (guess: string) => {
     if (!challenge) return;

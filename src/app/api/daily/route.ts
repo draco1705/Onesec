@@ -9,21 +9,19 @@ import {
   getActiveArtist,
   setActiveArtist,
   getAllChallenges,
+  DEFAULT_ARTIST,
 } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 function formatSafeChallenge(challengeData: any) {
-  let artistImg = challengeData.artist_image_url || '';
-  if ((!artistImg || artistImg.includes('example.com')) && challengeData.artist_name?.toLowerCase() === 'drake') {
-    artistImg = 'https://cdn-images.dzcdn.net/images/artist/eb0ed5b21d1ea5af021fc074ded0e91f/1000x1000-000000-80-0-0.jpg';
-  }
+  const artistImg = challengeData.artist_image_url || '';
 
   const safeTrackPool = challengeData.track_pool.map((track: any) => {
     const isLocal = track.preview_url?.startsWith('/songs/') || track.preview_url?.startsWith('/public/');
     const safeUrl = isLocal
       ? track.preview_url
-      : `/api/audio?token=${encodeURIComponent(encryptUrl(track.preview_url))}`;
+      : `/api/audio?token=${encodeURIComponent(encryptUrl(track.preview_url))}&id=${encodeURIComponent(track.id || '')}`;
 
     const trackArtwork = track.artwork_url || artistImg;
 
@@ -126,7 +124,7 @@ export async function GET(request: Request) {
 
     // 5. Fallback: auto-generate for the DB's active artist
     if (!challengeData) {
-      const activeArtist = getActiveArtist() || 'Drake';
+      const activeArtist = getActiveArtist() || DEFAULT_ARTIST;
       const { artistName, artistImageUrl, targetTracks, allTitles } = await fetchArtistDiscography(activeArtist);
 
       challengeData = saveChallenge({

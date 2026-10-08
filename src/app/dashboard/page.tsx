@@ -20,6 +20,7 @@ export default function Dashboard() {
   const [view, setView] = useState<'list' | 'create'>('list');
   const [scheduleOption, setScheduleOption] = useState<'A' | 'B' | 'C'>('B');
   const [customDate, setCustomDate] = useState('');
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   // Multi-source — both can be active simultaneously
   const [useDeezer, setUseDeezer] = useState(true);
@@ -124,17 +125,35 @@ export default function Dashboard() {
   };
 
   const handleDelete = async (challengeId: string) => {
-    if (!confirm('Are you sure you want to delete this challenge?')) return;
     try {
-      const res = await fetch(`/api/dashboard/set-active?id=${challengeId}`, {
+      setStatus('Deleting challenge from database...');
+      setHistory(prev => prev.filter(c => c.id !== challengeId));
+      setDeleteConfirmId(null);
+
+      let res = await fetch(`/api/dashboard/set-active?id=${encodeURIComponent(challengeId)}`, {
         method: 'DELETE',
       });
-      const data = await res.json();
+
+      if (!res.ok) {
+        res = await fetch('/api/dashboard/set-active', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'delete', challengeId }),
+        });
+      }
+
+      const data = await res.json().catch(() => ({}));
       if (data.success) {
+        setStatus('✓ Challenge deleted from database');
+        await loadHistory();
+      } else {
+        setStatus(`Error deleting challenge: ${data.error || 'Server error'}`);
         await loadHistory();
       }
-    } catch (e) {
-      console.error(e);
+    } catch (e: any) {
+      console.error('Delete error:', e);
+      setStatus(`Error: ${e.message || 'Request failed'}`);
+      await loadHistory();
     }
   };
 
@@ -528,13 +547,30 @@ export default function Dashboard() {
                           <Play size={12} fill="currentColor" /> Play in Game
                         </a>
                       )}
-                      <button
-                        onClick={() => handleDelete(item.id)}
-                        title="Delete challenge"
-                        className="text-zinc-600 hover:text-red-400 p-2 rounded transition-colors"
-                      >
-                        <Trash2 size={16} />
-                      </button>
+                      {deleteConfirmId === item.id ? (
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={() => handleDelete(item.id)}
+                            className="bg-red-600 hover:bg-red-500 text-white text-[11px] font-bold px-2 py-1.5 rounded transition-colors"
+                          >
+                            Confirm Delete
+                          </button>
+                          <button
+                            onClick={() => setDeleteConfirmId(null)}
+                            className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-[11px] px-2 py-1.5 rounded transition-colors"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => setDeleteConfirmId(item.id)}
+                          title="Delete challenge"
+                          className="text-zinc-600 hover:text-red-400 p-2 rounded transition-colors"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      )}
                     </div>
                   </div>
                 );
@@ -629,7 +665,7 @@ export default function Dashboard() {
                 type="text"
                 value={artistName}
                 onChange={e => setArtistName(e.target.value)}
-                placeholder="Artist name (e.g. Drake, Travis Scott, Taylor Swift)..."
+                placeholder="Artist name (e.g. Playboi Carti, Travis Scott, Taylor Swift)..."
                 className="w-full bg-zinc-900 border border-zinc-800 rounded-lg py-3 pl-10 pr-24 text-sm text-white focus:outline-none focus:border-zinc-600"
               />
               <button type="submit" disabled={!useDeezer && !useLocal}

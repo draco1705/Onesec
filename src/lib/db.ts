@@ -15,6 +15,8 @@ function getSqliteModule(): any {
   return null;
 }
 
+export const DEFAULT_ARTIST = 'Playboi Carti';
+
 export interface StoredChallenge {
   id: string;
   play_date: string; // YYYY-MM-DD or 'draft-...'
@@ -181,10 +183,7 @@ function syncToDiskBackup(challenges: StoredChallenge[]) {
 }
 
 function normalizeChallengeData(item: any): StoredChallenge {
-  let imageUrl = item.artist_image_url || '';
-  if ((!imageUrl || imageUrl.includes('example.com')) && item.artist_name?.toLowerCase() === 'drake') {
-    imageUrl = 'https://cdn-images.dzcdn.net/images/artist/eb0ed5b21d1ea5af021fc074ded0e91f/1000x1000-000000-80-0-0.jpg';
-  }
+  const imageUrl = item.artist_image_url || '';
 
   let track_pool = [];
   try {
@@ -298,7 +297,7 @@ export function getActiveArtist(): string {
     return activeChallenge.artist_name;
   }
   const savedArtist = getSetting('active_artist');
-  return savedArtist || 'Drake';
+  return savedArtist || DEFAULT_ARTIST;
 }
 
 export function setActiveChallenge(id: string): StoredChallenge | null {
@@ -353,10 +352,7 @@ export function saveChallenge(
   const is_draft = !!challenge.is_draft;
   const is_active = !is_draft && (makeActive || !!challenge.is_active);
 
-  let imageUrl = challenge.artist_image_url || '';
-  if ((!imageUrl || imageUrl.includes('example.com')) && challenge.artist_name?.toLowerCase() === 'drake') {
-    imageUrl = 'https://cdn-images.dzcdn.net/images/artist/eb0ed5b21d1ea5af021fc074ded0e91f/1000x1000-000000-80-0-0.jpg';
-  }
+  const imageUrl = challenge.artist_image_url || '';
 
   const newChallenge: StoredChallenge = {
     id,
@@ -426,19 +422,28 @@ export function deleteChallenge(id: string): boolean {
   const filtered = all.filter(c => c.id !== id);
   const activeId = getSetting('active_challenge_id');
 
+  const db = getDatabase();
+
   if (activeId === id) {
     const nextActive = filtered.find(c => !c.is_draft);
     if (nextActive) {
       nextActive.is_active = true;
       setSetting('active_challenge_id', nextActive.id);
       setSetting('active_artist', nextActive.artist_name);
+      if (db) {
+        try {
+          db.prepare('UPDATE challenges SET is_active = 0').run();
+          db.prepare('UPDATE challenges SET is_active = 1 WHERE id = ?').run(nextActive.id);
+        } catch (e: any) {
+          console.warn('SQLite nextActive update error:', e.message);
+        }
+      }
     } else {
       setSetting('active_challenge_id', '');
-      setSetting('active_artist', 'Drake');
+      setSetting('active_artist', DEFAULT_ARTIST);
     }
   }
 
-  const db = getDatabase();
   if (db) {
     try {
       db.prepare('DELETE FROM challenges WHERE id = ?').run(id);
