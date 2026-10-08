@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 
-// Deezer API proxy — queries by verified Artist ID to avoid global search pollution.
-// 1. Searches artist by name and finds the exact / best matching artist ID.
-// 2. Fetches their actual catalog using /artist/{id}/top and /artist/{id}/albums.
+// Deezer API proxy
+// 1. Searches artist by name and finds the exact or closest matching artist.
+// 2. Fetches their top tracks, album tracks, AND tracks where they are featured.
 
 const DEEZER_BASE = 'https://api.deezer.com';
 
@@ -33,29 +33,31 @@ export async function GET(request: Request) {
       artistsList[0];
 
     const artistId = matchedArtist.id;
-    const artistName = matchedArtist.name;
+    const verifiedArtistName = matchedArtist.name;
     const artistImageUrl =
       matchedArtist.picture_xl ||
       matchedArtist.picture_big ||
       matchedArtist.picture_medium ||
       '';
 
-    // 2. Fetch artist's top tracks + albums directly by artist ID
-    const [topTracksRes, albumsRes] = await Promise.all([
-      fetch(`${DEEZER_BASE}/artist/${artistId}/top?limit=100`, { next: { revalidate: 3600 } }).then(r => r.json()),
-      fetch(`${DEEZER_BASE}/artist/${artistId}/albums?limit=25`, { next: { revalidate: 3600 } }).then(r => r.json()),
+    // 2. Fetch artist top tracks, albums, AND featured tracks in parallel
+    const [topTracksRes, albumsRes, featSearchRes1, featSearchRes2] = await Promise.all([
+      fetch(`${DEEZER_BASE}/artist/${artistId}/top?limit=100`, { next: { revalidate: 3600 } }).then(r => r.json()).catch(() => ({ data: [] })),
+      fetch(`${DEEZER_BASE}/artist/${artistId}/albums?limit=25`, { next: { revalidate: 3600 } }).then(r => r.json()).catch(() => ({ data: [] })),
+      // Search for songs containing artist name (catches "Song Title (feat. Artist)")
+      fetch(`${DEEZER_BASE}/search?q=${encodeURIComponent(verifiedArtistName + ' feat')}&limit=100`, { next: { revalidate: 3600 } }).then(r => r.json()).catch(() => ({ data: [] })),
+      fetch(`${DEEZER_BASE}/search?q=${encodeURIComponent(verifiedArtistName)}&limit=100`, { next: { revalidate: 3600 } }).then(r => r.json()).catch(() => ({ data: [] })),
     ]);
 
     const topTracks: any[] = topTracksRes.data || [];
     const albums: any[] = albumsRes.data || [];
 
-    // 3. For the top albums, fetch their tracks to get a comprehensive discography
+    // 3. For the top albums, fetch their tracks
     const albumTrackRequests = albums.slice(0, 10).map(alb =>
       fetch(`${DEEZER_BASE}/album/${alb.id}/tracks`, { next: { revalidate: 3600 } })
         .then(r => r.json())
         .then(res => {
           const list = res.data || [];
-          // Attach album artwork and album title to each track if missing
           return list.map((t: any) => ({
             ...t,
             album: {
@@ -70,8 +72,21 @@ export async function GET(request: Request) {
 
     const albumTracksList = (await Promise.all(albumTrackRequests)).flat();
 
-    // 4. Combine top tracks and album tracks
-    const allTracksRaw = [...topTracks, ...albumTracksList];
+    // 4. Filter featured tracks: ensure they actually feature the artist
+    const queryLower = verifiedArtistName.toLowerCase();
+    const rawFeatTracks = [...(featSearchRes1.data || []), ...(featSearchRes2.data || [])];
+    const validFeatTracks = rawFeatTracks.filter(t => {
+      const titleLower = (t.title || '').toLowerCase();
+      const artistLower = (t.artist?.name || '').toLowerCase();
+      return (
+        artistLower === queryLower ||
+        titleLower.includes(queryLower) ||
+        (t.contributors && t.contributors.some((c: any) => c.name?.toLowerCase() === queryLower))
+      );
+    });
+
+    // 5. Combine everything
+    const allTracksRaw = [...topTracks, ...albumTracksList, ...validFeatTracks];
 
     // Filter tracks with preview and deduplicate by track title
     const seenTitles = new Set<string>();
@@ -86,8 +101,8 @@ export async function GET(request: Request) {
       uniqueTracks.push({
         trackId: `deezer-${t.id}`,
         trackName: t.title_short || t.title,
-        artistName: t.artist?.name || artistName,
-        collectionName: t.album?.title || 'Unknown Album',
+        artistName: t.artist?.name || verifiedArtistName,
+        collectionName: t.album?.title || 'Single / Feature',
         releaseDate: t.release_date || null,
         artworkUrl: t.album?.cover_xl || t.album?.cover_big || t.album?.cover_medium || artistImageUrl,
         previewUrl: t.preview,
@@ -97,11 +112,11 @@ export async function GET(request: Request) {
     }
 
     if (uniqueTracks.length === 0) {
-      return NextResponse.json({ error: `No playable tracks found for "${artistName}"` }, { status: 404 });
+      return NextResponse.json({ error: `No playable tracks found for "${verifiedArtistName}"` }, { status: 404 });
     }
 
     return NextResponse.json({
-      artistName,
+      artistName: verifiedArtistName,
       artistImageUrl,
       tracks: uniqueTracks,
     });

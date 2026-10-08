@@ -16,7 +16,7 @@ export function cleanTrackTitle(title: string): string {
     .trim();
 }
 
-// Fetches artist discography via Deezer using the exact artist ID.
+// Fetches artist discography via Deezer using the exact artist ID, including features.
 export async function fetchArtistDiscography(artistName: string) {
   const DEEZER_BASE = 'https://api.deezer.com';
 
@@ -43,10 +43,12 @@ export async function fetchArtistDiscography(artistName: string) {
     matchedArtist.picture_medium ||
     '';
 
-  // 2. Fetch top tracks and albums directly by artist ID
-  const [topTracksRes, albumsRes] = await Promise.all([
-    fetch(`${DEEZER_BASE}/artist/${artistId}/top?limit=100`).then(r => r.json()),
-    fetch(`${DEEZER_BASE}/artist/${artistId}/albums?limit=20`).then(r => r.json()),
+  // 2. Fetch top tracks, albums, and songs featuring this artist
+  const [topTracksRes, albumsRes, featRes1, featRes2] = await Promise.all([
+    fetch(`${DEEZER_BASE}/artist/${artistId}/top?limit=100`).then(r => r.json()).catch(() => ({ data: [] })),
+    fetch(`${DEEZER_BASE}/artist/${artistId}/albums?limit=20`).then(r => r.json()).catch(() => ({ data: [] })),
+    fetch(`${DEEZER_BASE}/search?q=${encodeURIComponent(actualArtistName + ' feat')}&limit=100`).then(r => r.json()).catch(() => ({ data: [] })),
+    fetch(`${DEEZER_BASE}/search?q=${encodeURIComponent(actualArtistName)}&limit=100`).then(r => r.json()).catch(() => ({ data: [] })),
   ]);
 
   const topTracks: any[] = topTracksRes.data || [];
@@ -70,7 +72,21 @@ export async function fetchArtistDiscography(artistName: string) {
   );
 
   const albumTracksList = (await Promise.all(albumTrackRequests)).flat();
-  const allTracksRaw = [...topTracks, ...albumTracksList];
+
+  // Filter features
+  const queryLower = actualArtistName.toLowerCase();
+  const rawFeatTracks = [...(featRes1.data || []), ...(featRes2.data || [])];
+  const validFeatTracks = rawFeatTracks.filter(t => {
+    const titleLower = (t.title || '').toLowerCase();
+    const artistLower = (t.artist?.name || '').toLowerCase();
+    return (
+      artistLower === queryLower ||
+      titleLower.includes(queryLower) ||
+      (t.contributors && t.contributors.some((c: any) => c.name?.toLowerCase() === queryLower))
+    );
+  });
+
+  const allTracksRaw = [...topTracks, ...albumTracksList, ...validFeatTracks];
 
   // 3. Deduplicate and clean titles
   const uniqueMap = new Map<string, Track>();

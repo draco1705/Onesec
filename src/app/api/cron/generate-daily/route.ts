@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { fetchArtistDiscography } from '@/lib/music';
+import { saveStoredChallenge } from '@/lib/challenges-store';
 
-// Secret to protect this cron endpoint
 const CRON_SECRET = process.env.CRON_SECRET || 'secret';
 
 export async function POST(request: Request) {
@@ -12,7 +12,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { artistName, playDate, customPool, customTitles, customImage } = await request.json();
+    const { artistName, playDate, customPool, customTitles, customImage, isDraft } = await request.json();
     if (!artistName || !playDate) {
       return NextResponse.json({ error: 'Missing artistName or playDate' }, { status: 400 });
     }
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     let finalTracks = customPool || [];
     let finalTitles = customTitles || [];
 
-    // If they didn't provide a custom pool from the dashboard, fetch it automatically
+    // If no custom pool provided, fetch automatically
     if (!customPool || customPool.length === 0) {
       const { artistName: fetchedArtistName, artistImageUrl, targetTracks, allTitles } = await fetchArtistDiscography(artistName);
       finalArtistName = fetchedArtistName;
@@ -31,29 +31,39 @@ export async function POST(request: Request) {
       finalTitles = allTitles;
     }
 
-    const { data, error } = await supabase
-      .from('daily_challenges')
-      .upsert(
-        {
-          play_date: playDate,
-          artist_name: finalArtistName,
-          artist_image_url: finalImageUrl,
-          track_pool: finalTracks,
-          all_searchable_titles: finalTitles
-        },
-        { onConflict: 'play_date' }
-      )
-      .select()
-      .single();
+    // Always save to the resilient local store first
+    const savedLocal = saveStoredChallenge({
+      play_date: playDate,
+      artist_name: finalArtistName,
+      artist_image_url: finalImageUrl,
+      track_pool: finalTracks,
+      all_searchable_titles: finalTitles,
+      is_draft: !!isDraft,
+    });
 
-    if (error) {
-      console.error('Supabase error:', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
+    // Optionally also sync to Supabase if available, but do not crash if it fails
+    try {
+      if (process.env.NEXT_PUBLIC_SUPABASE_URL && !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('dummy')) {
+        await supabase
+          .from('daily_challenges')
+          .upsert(
+            {
+              play_date: playDate,
+              artist_name: finalArtistName,
+              artist_image_url: finalImageUrl,
+              track_pool: finalTracks,
+              all_searchable_titles: finalTitles
+            },
+            { onConflict: 'play_date' }
+          );
+      }
+    } catch (dbErr) {
+      console.warn('Supabase sync skipped/failed (using local store):', dbErr);
     }
 
-    return NextResponse.json({ success: true, challenge: data });
+    return NextResponse.json({ success: true, challenge: savedLocal });
   } catch (error: any) {
-    console.error('Error generating daily challenge:', error);
+    console.error('Error in generate-daily route:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Search, Plus, Calendar, Trash2, Play, CheckCircle2, Circle, X, FolderOpen, Music, Scissors, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Plus, Calendar, Trash2, Play, CheckCircle2, Circle, X, FolderOpen, Music, Scissors, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
 
 // Source for each track — used for badges
 type TrackSource = 'deezer' | 'local';
@@ -106,11 +106,11 @@ export default function Dashboard() {
   // ── Normalise helpers ─────────────────────────────────────────────────────────
   const normaliseDeezer = (tracks: any[]): any[] =>
     tracks.map(t => ({
-      trackId: t.trackId,               // already prefixed "deezer-xxx" by the API
+      trackId: t.trackId,
       trackName: t.trackName,
       collectionName: t.collectionName,
       releaseDate: t.releaseDate,
-      artworkUrl100: t.artworkUrl ?? '',  // Deezer returns cover_xl via artworkUrl
+      artworkUrl100: t.artworkUrl ?? '',
       previewUrl: t.previewUrl,
       primaryGenreName: 'Deezer',
       artistName: t.artistName,
@@ -138,6 +138,7 @@ export default function Dashboard() {
     if (!artistName || (!useDeezer && !useLocal)) return;
 
     setIsSearching(true);
+    setStatus('');
     setSearchResults([]);
     setSelectedTracks(new Set());
     setTrackOffsets(new Map());
@@ -147,6 +148,7 @@ export default function Dashboard() {
     let localTracks: any[] = [];
     let firstImage = '';
     let firstGenre = '';
+    let resolvedArtistName = artistName;
 
     const [deezerResult, localResult] = await Promise.allSettled([
       // ── Deezer (via server-side proxy) ──
@@ -163,15 +165,24 @@ export default function Dashboard() {
     if (deezerResult.status === 'fulfilled' && !deezerResult.value.error) {
       const dd = deezerResult.value;
       deezerTracks = normaliseDeezer(dd.tracks ?? []);
-      firstImage = dd.artistImageUrl ?? '';       // real Deezer artist photo
+      firstImage = dd.artistImageUrl ?? '';
       firstGenre = deezerTracks.length > 0 ? 'Deezer' : '';
+      if (dd.artistName) {
+        resolvedArtistName = dd.artistName;
+        // Keep search input synced with the verified artist name
+        setArtistName(dd.artistName);
+      }
     }
 
     if (localResult.status === 'fulfilled' && !localResult.value.error) {
       const ld = localResult.value;
       localTracks = normaliseLocal(ld.songs || [], ld);
-      if (ld.image_url) firstImage = ld.image_url;   // local image takes priority
+      if (ld.image_url) firstImage = ld.image_url;
       if (localTracks.length > 0) firstGenre = firstGenre ? 'Mixed' : 'Local';
+      if (!resolvedArtistName && ld.name) {
+        resolvedArtistName = ld.name;
+        setArtistName(ld.name);
+      }
     }
 
     // Merge: local first, Deezer deduped by title
@@ -200,9 +211,8 @@ export default function Dashboard() {
 
   const selectLocalArtist = async (name: string) => {
     setArtistName(name);
-    // Trigger a full merged search with that name
-    // We set state and rely on the search function
     setIsSearching(true);
+    setStatus('');
     setSearchResults([]);
     setSelectedTracks(new Set());
     setTrackOffsets(new Map());
@@ -221,6 +231,9 @@ export default function Dashboard() {
     if (dRes.status === 'fulfilled' && !dRes.value.error) {
       deezerTracks = normaliseDeezer(dRes.value.tracks ?? []);
       firstImage = dRes.value.artistImageUrl ?? '';
+      if (dRes.value.artistName) {
+        setArtistName(dRes.value.artistName);
+      }
     }
     if (lRes.status === 'fulfilled' && !lRes.value.error) {
       localTracks = normaliseLocal(lRes.value.songs || [], lRes.value);
@@ -246,22 +259,33 @@ export default function Dashboard() {
 
   // ── Queue helpers ─────────────────────────────────────────────────────────────
   const getNextQueueDate = () => {
-    if (history.length === 0) return new Date().toISOString().split('T')[0];
-    const latest = new Date([...history.map(h => h.play_date)].sort().reverse()[0]);
+    const validDates = history
+      .filter(h => h.play_date && !h.is_draft && !h.play_date.startsWith('draft-'))
+      .map(h => h.play_date);
+    if (validDates.length === 0) return new Date().toISOString().split('T')[0];
+    const latest = new Date([...validDates].sort().reverse()[0]);
     latest.setUTCDate(latest.getUTCDate() + 1);
     return latest.toISOString().split('T')[0];
   };
   const nextQueueDate = getNextQueueDate();
 
-  // ── Save ──────────────────────────────────────────────────────────────────────
-  const handleSaveChallenge = async () => {
-    if (selectedTracks.size === 0) { setStatus('Please select at least 1 song!'); return; }
-    setStatus('Saving custom challenge...');
+  // ── Save Challenge or Save as Draft ──────────────────────────────────────────
+  const handleSaveChallenge = async (asDraft = false) => {
+    if (selectedTracks.size === 0) {
+      setStatus('Please select at least 1 song!');
+      return;
+    }
+    setStatus(asDraft ? 'Saving as draft...' : 'Saving challenge...');
 
-    let targetDate = new Date().toISOString().split('T')[0];
-    if (scheduleOption === 'A') targetDate = nextQueueDate;
-    if (scheduleOption === 'B') targetDate = new Date().toISOString().split('T')[0];
-    if (scheduleOption === 'C' && customDate) targetDate = customDate;
+    const todayStr = new Date().toISOString().split('T')[0];
+    let targetDate = todayStr;
+    if (asDraft) {
+      targetDate = `draft-${Date.now()}`;
+    } else {
+      if (scheduleOption === 'A') targetDate = nextQueueDate;
+      if (scheduleOption === 'B') targetDate = todayStr;
+      if (scheduleOption === 'C' && customDate) targetDate = customDate;
+    }
 
     const finalPool = searchResults
       .filter(t => selectedTracks.has(t.trackId))
@@ -275,22 +299,40 @@ export default function Dashboard() {
         artwork_url: track.artworkUrl100?.replace('100x100bb', '600x600bb') || track.artworkUrl100 || '',
       }));
 
-    const res = await fetch('/api/cron/generate-daily', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer secret' },
-      body: JSON.stringify({ artistName, playDate: targetDate, customPool: finalPool, customTitles: finalPool.map(t => t.title), customImage: artistImage }),
-    });
-    const data = await res.json();
-    if (data.success) {
-      setStatus(''); setArtistName(''); setSearchResults([]); setTrackOffsets(new Map()); loadHistory(); setView('list');
-    } else {
-      setStatus(`Error: ${data.error}`);
+    try {
+      const res = await fetch('/api/cron/generate-daily', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer secret' },
+        body: JSON.stringify({
+          artistName,
+          playDate: targetDate,
+          customPool: finalPool,
+          customTitles: finalPool.map(t => t.title),
+          customImage: artistImage,
+          isDraft: asDraft,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setStatus('');
+        setArtistName('');
+        setSearchResults([]);
+        setTrackOffsets(new Map());
+        loadHistory();
+        setView('list');
+      } else {
+        setStatus(`Error: ${data.error || 'Failed to save'}`);
+      }
+    } catch (err: any) {
+      console.error('Error saving challenge:', err);
+      setStatus(`Error: ${err.message || 'Network request failed'}`);
     }
   };
 
   const selectedTracksList = searchResults.filter(t => selectedTracks.has(t.trackId));
   const localCount = selectedTracksList.filter(t => t._source === 'local').length;
-  const itunesCount = selectedTracksList.filter(t => t._source === 'itunes').length;
+  const itunesCount = selectedTracksList.filter(t => t._source === 'deezer').length;
 
   // ── LIST VIEW ─────────────────────────────────────────────────────────────────
   if (view === 'list') {
@@ -306,7 +348,8 @@ export default function Dashboard() {
           <div className="bg-[#111] p-6 rounded-lg border border-zinc-800">
             <div className="space-y-3">
               {history.length > 0 ? history.map((item, i) => {
-                const isToday = item.play_date === new Date().toISOString().split('T')[0];
+                const isDraft = item.is_draft || item.play_date?.startsWith('draft-');
+                const isToday = !isDraft && item.play_date === new Date().toISOString().split('T')[0];
                 return (
                   <div key={i} className="bg-zinc-900/50 p-4 rounded-lg flex items-center gap-4 border border-zinc-800/50">
                     {item.artist_image_url && <img src={item.artist_image_url} alt={item.artist_name} className="w-12 h-12 rounded object-cover" />}
@@ -314,12 +357,23 @@ export default function Dashboard() {
                       <div className="font-bold text-white flex items-center gap-2">
                         {item.artist_name}
                         {isToday && <span className="bg-green-500 text-black text-[10px] px-1.5 py-0.5 rounded font-bold uppercase">Live Today</span>}
+                        {isDraft && <span className="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] px-1.5 py-0.5 rounded font-bold uppercase">Draft</span>}
                       </div>
-                      <div className="text-xs text-zinc-500 mt-1 flex items-center gap-2"><Calendar size={12} /> {item.play_date}</div>
+                      <div className="text-xs text-zinc-500 mt-1 flex items-center gap-2">
+                        {isDraft ? (
+                          <>
+                            <FileText size={12} /> Saved Draft
+                          </>
+                        ) : (
+                          <>
+                            <Calendar size={12} /> {item.play_date}
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
                 );
-              }) : <div className="text-zinc-500 text-sm p-4 text-center">No history found or database not connected.</div>}
+              }) : <div className="text-zinc-500 text-sm p-4 text-center">No challenges or drafts yet. Click &quot;Create Challenge&quot; above to create one.</div>}
             </div>
           </div>
         </div>
@@ -357,7 +411,7 @@ export default function Dashboard() {
                   {useDeezer && <div className="w-2 h-2 bg-black rounded-sm" />}
                 </div>
                 <Music size={15} />
-                Deezer Catalog
+                Deezer Catalog (Studio + Features)
               </button>
 
               {/* Local checkbox */}
@@ -437,10 +491,10 @@ export default function Dashboard() {
                   {artistImage && <img src={artistImage} className="w-14 h-14 rounded object-cover shadow" alt="artist" />}
                   <div>
                     <div className="text-white font-bold text-lg flex items-center gap-2">
-                      {searchResults[0].artistName} <CheckCircle2 size={16} className="text-green-500" />
+                      {artistName} <CheckCircle2 size={16} className="text-green-500" />
                     </div>
                     <div className="text-xs text-zinc-400 mt-1 flex items-center gap-2">
-                      <span>{searchResults.length} songs found</span>
+                      <span>{searchResults.length} songs found (incl. features)</span>
                       {localCount > 0 && <span className="bg-blue-500/20 text-blue-400 border border-blue-500/30 px-1.5 py-0.5 rounded text-[10px] font-bold"><FolderOpen size={9} className="inline mr-1" />{localCount} local</span>}
                       {itunesCount > 0 && <span className="bg-zinc-700/50 text-zinc-300 border border-zinc-600/30 px-1.5 py-0.5 rounded text-[10px] font-bold"><Music size={9} className="inline mr-1" />{itunesCount} Deezer</span>}
                     </div>
@@ -499,7 +553,10 @@ export default function Dashboard() {
                                 }
                                 <span className="truncate">{track.trackName}</span>
                               </div>
-                              <div className="text-[10px] text-zinc-500">{track.collectionName} ({track.releaseDate?.substring(0, 4) || '?'})</div>
+                              <div className="text-[10px] text-zinc-500">
+                                {track.artistName !== artistName && <span className="text-zinc-400 mr-1.5 font-medium">{track.artistName} •</span>}
+                                {track.collectionName} ({track.releaseDate?.substring(0, 4) || '?'})
+                              </div>
                             </div>
                           </div>
 
@@ -647,11 +704,16 @@ export default function Dashboard() {
               Cancel &amp; Discard
             </button>
             <div className="flex gap-3 w-full sm:w-auto">
-              <button onClick={() => setView('list')} className="flex-1 sm:flex-none text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-white px-6 py-2.5 rounded">
-                Save as Draft
+              <button
+                onClick={() => handleSaveChallenge(true)}
+                className="flex-1 sm:flex-none text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-white px-6 py-2.5 rounded transition-colors flex items-center justify-center gap-2"
+              >
+                <FileText size={14} /> Save as Draft
               </button>
-              <button onClick={handleSaveChallenge}
-                className="flex-1 sm:flex-none text-xs font-bold bg-white hover:bg-zinc-200 text-black px-6 py-2.5 rounded flex items-center justify-center gap-2">
+              <button
+                onClick={() => handleSaveChallenge(false)}
+                className="flex-1 sm:flex-none text-xs font-bold bg-white hover:bg-zinc-200 text-black px-6 py-2.5 rounded flex items-center justify-center gap-2"
+              >
                 <Calendar size={14} />
                 {scheduleOption === 'A' ? `Queue (${nextQueueDate})` : scheduleOption === 'B' ? 'Make Live Today' : 'Save Custom Date'}
               </button>
