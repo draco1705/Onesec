@@ -16,68 +16,77 @@ export function cleanTrackTitle(title: string): string {
     .trim();
 }
 
+// Fetches artist discography via Deezer (real artist photos, up-to-date catalog, free).
+// Called server-side only (no CORS issues).
 export async function fetchArtistDiscography(artistName: string) {
-  const url1 = `https://itunes.apple.com/search?term=${encodeURIComponent(artistName)}&entity=song&limit=200`;
-  const url2 = `https://itunes.apple.com/search?term=${encodeURIComponent(artistName + ' feat')}&entity=song&limit=200`;
-  
-  const [res1, res2] = await Promise.all([fetch(url1), fetch(url2)]);
-  const data1 = await res1.json();
-  const data2 = await res2.json();
+  const DEEZER_BASE = 'https://api.deezer.com';
 
-  const combinedResults = [...(data1.results || []), ...(data2.results || [])];
+  // 1. Artist info for real profile photo
+  const artistRes = await fetch(
+    `${DEEZER_BASE}/search/artist?q=${encodeURIComponent(artistName)}&limit=1`
+  );
+  const artistData = await artistRes.json();
+  const artistInfo = artistData.data?.[0] ?? null;
 
-  if (combinedResults.length === 0) {
-    throw new Error('Artist not found');
+  // 2. Paginate tracks (2 pages × 100 = up to 200)
+  const [page1, page2] = await Promise.all([
+    fetch(`${DEEZER_BASE}/search?q=artist:"${encodeURIComponent(artistName)}"&limit=100&index=0`).then(r => r.json()),
+    fetch(`${DEEZER_BASE}/search?q=artist:"${encodeURIComponent(artistName)}"&limit=100&index=100`).then(r => r.json()),
+  ]);
+
+  const allRaw: any[] = [...(page1.data ?? []), ...(page2.data ?? [])];
+
+  if (allRaw.length === 0) {
+    throw new Error(`Artist "${artistName}" not found on Deezer`);
   }
 
-  // Create a combined data object to mimic the original structure
-  const data = { results: combinedResults };
+  // 3. Filter: must have a 30s preview
+  const withPreview = allRaw.filter(t => t.preview);
 
-  // Filter out songs without previews
-  const validTracks = data.results.filter((track: { previewUrl?: string; trackName?: string; trackId?: number; collectionName?: string; releaseDate?: string; artworkUrl100?: string }) => track.previewUrl);
-  
-  // Group by clean title to avoid duplicates
-  const uniqueTracksMap = new Map<string, Track>();
-  for (const track of validTracks) {
-    const cleanTitle = cleanTrackTitle(track.trackName);
-    if (!uniqueTracksMap.has(cleanTitle)) {
-      uniqueTracksMap.set(cleanTitle, {
-        id: track.trackId.toString(),
+  // 4. Deduplicate + clean titles
+  const uniqueMap = new Map<string, Track>();
+  for (const t of withPreview) {
+    const cleanTitle = cleanTrackTitle(t.title_short ?? t.title ?? '');
+    if (!uniqueMap.has(cleanTitle)) {
+      uniqueMap.set(cleanTitle, {
+        id: `deezer-${t.id}`,
         title: cleanTitle,
-        preview_url: track.previewUrl,
+        preview_url: t.preview,
         slice_offset_sec: 0,
-        album: track.collectionName || 'Unknown Album',
-        year: track.releaseDate ? new Date(track.releaseDate).getFullYear() : 'Unknown',
-        artwork_url: track.artworkUrl100 ? track.artworkUrl100.replace('100x100bb', '600x600bb') : ''
+        album: t.album?.title ?? 'Unknown Album',
+        year: t.release_date ? t.release_date.substring(0, 4) : 'Unknown',
+        artwork_url: t.album?.cover_xl ?? t.album?.cover_big ?? t.album?.cover ?? '',
       });
     }
   }
 
-  const allTracks = Array.from(uniqueTracksMap.values());
-  
-  // Need at least 5 tracks for the game
+  const allTracks = Array.from(uniqueMap.values());
+
   if (allTracks.length < 5) {
     throw new Error('Not enough tracks found for this artist');
   }
 
-  // Sort by popularity or just take the first 50 (iTunes returns most relevant/popular first usually)
+  // 5. Take top 50 shuffled as the game pool
   const top50 = allTracks.slice(0, 50);
-  
-  // Pick all up to 50 random tracks for the target pool
-  const shuffled = [...top50].sort(() => 0.5 - Math.random());
-  const targetTracks = shuffled.slice(0, 50);
+  const targetTracks = [...top50].sort(() => 0.5 - Math.random()).slice(0, 50);
 
-  // iTunes returns album artwork. Let's use the first track's artwork as the artist image
-  // and upgrade the resolution from 100x100 to 600x600.
-  const baseArtworkUrl = data.results[0].artworkUrl100 || '';
-  const artistImageUrl = baseArtworkUrl.replace('100x100bb', '600x600bb');
+  // 6. Artist image: real Deezer photo > first album cover
+  const artistImageUrl =
+    artistInfo?.picture_xl ??
+    artistInfo?.picture_big ??
+    artistInfo?.picture ??
+    allTracks[0]?.artwork_url ??
+    '';
 
-  const actualArtistName = data.results.find((r: { artistName: string }) => r.artistName.toLowerCase() === artistName.toLowerCase())?.artistName || artistName;
+  const actualArtistName =
+    artistInfo?.name ??
+    allRaw.find(r => r.artist?.name?.toLowerCase() === artistName.toLowerCase())?.artist?.name ??
+    artistName;
 
   return {
     artistName: actualArtistName,
     artistImageUrl,
     targetTracks,
-    allTitles: top50.map(t => t.title)
+    allTitles: top50.map(t => t.title),
   };
 }
