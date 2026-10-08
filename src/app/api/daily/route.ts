@@ -7,6 +7,8 @@ import { getStoredChallengeByDate, getLatestActiveChallenge } from '@/lib/challe
 // In-memory cache for test queries
 const testCache = new Map<string, any>();
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const date = searchParams.get('date');

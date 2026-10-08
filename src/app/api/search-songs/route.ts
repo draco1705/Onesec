@@ -6,6 +6,8 @@ import { NextResponse } from 'next/server';
 
 const DEEZER_BASE = 'https://api.deezer.com';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const artistQuery = searchParams.get('artist')?.trim();
