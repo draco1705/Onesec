@@ -517,21 +517,514 @@
       "id": "ch-1791481700049-n2cvf",
       "play_date": "2026-10-08",
       "artist_name": "Drake",
-      "artist_image_url": "https://example.com/drake.jpg",
+      "artist_image_url": "https://cdn-images.dzcdn.net/images/artist/eb0ed5b21d1ea5af021fc074ded0e91f/1000x1000-000000-80-0-0.jpg",
       "track_pool": [
         {
-          "id": "1",
+          "id": "deezer-124603270",
+          "title": "One Dance",
+          "album": "Views",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/7/a/b/0/7ab0602a95834e7862f7ef2ee5389d88.mp3?hdnea=exp=1791488684~acl=/api/1/1/7/a/b/0/7ab0602a95834e7862f7ef2ee5389d88.mp3*~data=user_id=0,application_id=42~hmac=9a03f5ca49e1014c43173c13a50cec7cc1d954f6f44e02bdcd2f0d79ef9ccb19",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/56bdb7a86a27fadb96332c0c8f1b8e81/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-533609232",
           "title": "God's Plan",
-          "preview_url": "https://example.com/audio.mp3",
-          "slice_offset_sec": 0
+          "album": "Scorpion",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/9/5/c/0/95c243df757f8ccd17b6692e1051e2e9.mp3?hdnea=exp=1791488684~acl=/api/1/1/9/5/c/0/95c243df757f8ccd17b6692e1051e2e9.mp3*~data=user_id=0,application_id=42~hmac=0a7fc8039e02ac8337d91a419fd343f4aeab0d703b7e81d7a21ef98e3455e11b",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/b69d3bcbd130ad4cc9259de543889e30/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4022917771",
+          "title": "Janice STFU",
+          "album": "ICEMAN",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/7/3/2/0/7324c7d1edf2e198c43ec4f5c80670fc.mp3?hdnea=exp=1791488684~acl=/api/1/1/7/3/2/0/7324c7d1edf2e198c43ec4f5c80670fc.mp3*~data=user_id=0,application_id=42~hmac=9567afdcc64af2abf37e69b7af997772a35c1bec87deef726abac5a945358618",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/cccf5e9af10b6aae96f5cdd5a27c2aff/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4321519892",
+          "title": "Solar Eclipse",
+          "album": "HABIBTI (FOMO)",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/c/d/b/0/cdb11f4a66c3cdf7eb9e9eb9bfe6fabd.mp3?hdnea=exp=1791488684~acl=/api/1/1/c/d/b/0/cdb11f4a66c3cdf7eb9e9eb9bfe6fabd.mp3*~data=user_id=0,application_id=42~hmac=0330a5ba617416f6b37f66cf257441df5273cbb3165d8150833ad06e41d8895b",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/327e5092efa34fbcf4760be0d0056825/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-124603286",
+          "title": "Hotline Bling",
+          "album": "Views",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/a/c/1/0/ac1d5a7a9a829c0332a6de32a0f8a90b.mp3?hdnea=exp=1791488684~acl=/api/1/1/a/c/1/0/ac1d5a7a9a829c0332a6de32a0f8a90b.mp3*~data=user_id=0,application_id=42~hmac=fc6dde2cd51951810b76b1350874d65471c65fd3df03879cac759c3980448ab2",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/56bdb7a86a27fadb96332c0c8f1b8e81/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4321519912",
+          "title": "Cold Shoulder",
+          "album": "HABIBTI (FOMO)",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/6/3/0/263bdf07d748282e4cf78a6c813da56c.mp3?hdnea=exp=1791488684~acl=/api/1/1/2/6/3/0/263bdf07d748282e4cf78a6c813da56c.mp3*~data=user_id=0,application_id=42~hmac=8ea7596fa9c67d7384c58182bc6c46fcfc453cb677b8e5cc35c5537e5ccb14e7",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/327e5092efa34fbcf4760be0d0056825/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1484144902",
+          "title": "Yebba’s Heartbreak",
+          "album": "Certified Lover Boy",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/a/4/0/fa495d0e81bf7500a7260e1503a9a58e.mp3?hdnea=exp=1791488684~acl=/api/1/1/f/a/4/0/fa495d0e81bf7500a7260e1503a9a58e.mp3*~data=user_id=0,application_id=42~hmac=a2aedcc8444256815ed6f83d0df219f06eef735f9510dbba7c52c354c71bc5d5",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/ea8f80f2edb20885ac8aed8751716794/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-144572210",
+          "title": "Passionfruit",
+          "album": "More Life",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/e/b/d/0/ebd770a4b7ecbfbc98bc19a96e39f048.mp3?hdnea=exp=1791488684~acl=/api/1/1/e/b/d/0/ebd770a4b7ecbfbc98bc19a96e39f048.mp3*~data=user_id=0,application_id=42~hmac=a5c2acd932f447744940101946ad10cbe59d7e4ea44bcb7342b4b2f6831dece6",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8f0187ad83cdd1f47f1c55420f9df227/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2486117711",
+          "title": "Rich Baby Daddy",
+          "album": "For All The Dogs",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/c/7/f/0/c7f452be42181a050a57540cfd317f5e.mp3?hdnea=exp=1791488684~acl=/api/1/1/c/7/f/0/c7f452be42181a050a57540cfd317f5e.mp3*~data=user_id=0,application_id=42~hmac=877821221a8a868123ad11c7fdae6720aca3d77e32b181b33e520329f8cfa578",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/868162e87da67d647789ed7b6456840c/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-70697364",
+          "title": "Hold On, We're Going Home (Album Version)",
+          "album": "Nothing Was The Same (Deluxe)",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/5/a/6/0/5a668eb11bba76dbada03606b7b3de91.mp3?hdnea=exp=1791488684~acl=/api/1/1/5/a/6/0/5a668eb11bba76dbada03606b7b3de91.mp3*~data=user_id=0,application_id=42~hmac=254dc17dfb409a2856f8d80d33dce106e3de59feab9f19f5a44ce5774dfa4375",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/64ec37a4cf512c7810c40ba0d318ff1e/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-533609402",
+          "title": "Don’t Matter To Me",
+          "album": "Scorpion",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/7/7/f/0/77f1289a7afded248f1b1deafbd97e80.mp3?hdnea=exp=1791488684~acl=/api/1/1/7/7/f/0/77f1289a7afded248f1b1deafbd97e80.mp3*~data=user_id=0,application_id=42~hmac=49219a008841414b9f1501587a76e49f670ee649604526e529a2cee5f951d03f",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/b69d3bcbd130ad4cc9259de543889e30/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-17347964",
+          "title": "Headlines (Explicit Version)",
+          "album": "Take Care (Deluxe)",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/e/2/0/0/e20ff1b84ea32883a21366e4d3116b9d.mp3?hdnea=exp=1791488684~acl=/api/1/1/e/2/0/0/e20ff1b84ea32883a21366e4d3116b9d.mp3*~data=user_id=0,application_id=42~hmac=4759d572a776d80a6b85deac843e3d156f426607bfabbbfa97f98e7ad4bfcb2f",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6e7a6c8f36669dcd11abe7e7c3222e91/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4022917821",
+          "title": "National Treasures",
+          "album": "ICEMAN",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/9/7/d/0/97d16a361784464e6e647b6afe1f61ec.mp3?hdnea=exp=1791488684~acl=/api/1/1/9/7/d/0/97d16a361784464e6e647b6afe1f61ec.mp3*~data=user_id=0,application_id=42~hmac=1666f13c231564173a2fd265e4cce22877e290b02c32159fb0229bbe3d4e3153",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/cccf5e9af10b6aae96f5cdd5a27c2aff/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1484144852",
+          "title": "Fair Trade",
+          "album": "Certified Lover Boy",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/b/0/9/0/b09bb40ef4ffa400f43478fbd15717a2.mp3?hdnea=exp=1791488684~acl=/api/1/1/b/0/9/0/b09bb40ef4ffa400f43478fbd15717a2.mp3*~data=user_id=0,application_id=42~hmac=a0f5fa5f33c34a5be9bced9f0d896c2271cbcabde1030a0ef435297e8ca058de",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/ea8f80f2edb20885ac8aed8751716794/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-919708552",
+          "title": "Toosie Slide",
+          "album": "Toosie Slide",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/0/c/2/0/0c2b974e0db59b2aec53f76806cdb486.mp3?hdnea=exp=1791488684~acl=/api/1/1/0/c/2/0/0c2b974e0db59b2aec53f76806cdb486.mp3*~data=user_id=0,application_id=42~hmac=86186dbe8101712fcbf1a443bcd351c2701d3684a111ec20c6647940f7831a1c",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/d2216c368d2223ebf839fa09cd90c150/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1484144822",
+          "title": "Girls Want Girls",
+          "album": "Certified Lover Boy",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/e/c/3/0/ec3944b6a050f26119386643d0d12d65.mp3?hdnea=exp=1791488684~acl=/api/1/1/e/c/3/0/ec3944b6a050f26119386643d0d12d65.mp3*~data=user_id=0,application_id=42~hmac=fd9ab93f94ab179906177054f0e0984864df91c54780b90c3d6ed682e2b3cda1",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/ea8f80f2edb20885ac8aed8751716794/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1050306812",
+          "title": "Laugh Now Cry Later",
+          "album": "Laugh Now Cry Later",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/4/e/0/f4e7e0195c2d4aaf11c03718539ec9dd.mp3?hdnea=exp=1791488684~acl=/api/1/1/f/4/e/0/f4e7e0195c2d4aaf11c03718539ec9dd.mp3*~data=user_id=0,application_id=42~hmac=0d5abaaa93db890f3b4f8baebefafd9620357213616510f5f325e0dc04d8c167",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/9797dfc8af8f1c08653f348b27202d93/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1470212372",
+          "title": "She Will",
+          "album": "Tha Carter IV (Complete Edition)",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/d/3/c/0/d3c6744a1e95d8f7ef6ccf40eddf695a.mp3?hdnea=exp=1791488684~acl=/api/1/1/d/3/c/0/d3c6744a1e95d8f7ef6ccf40eddf695a.mp3*~data=user_id=0,application_id=42~hmac=194192fa6507fec5e01aa5796b06193e6c15865b38a3ed4ccc16b5861b446775",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/9cd3050aedcb4324e6ffc4477929f2db/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1794149427",
+          "title": "Massive",
+          "album": "Honestly, Nevermind",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/e/1/0/fe1bbe6f41896fd2ae874d5625a31233.mp3?hdnea=exp=1791488684~acl=/api/1/1/f/e/1/0/fe1bbe6f41896fd2ae874d5625a31233.mp3*~data=user_id=0,application_id=42~hmac=c6dcfbc9455f7b7842120131e21ad5b095de12adc7a914b73265d5e303d16b3b",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b26e40653e97c640740ece8e32fc2af/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-947861092",
+          "title": "Not You Too",
+          "album": "Dark Lane Demo Tapes",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/d/5/1/0/d51008801a76749ce151a78a1c6595af.mp3?hdnea=exp=1791488684~acl=/api/1/1/d/5/1/0/d51008801a76749ce151a78a1c6595af.mp3*~data=user_id=0,application_id=42~hmac=7f19ceb31ceff355d1fa3620b5407b2bab20d8c3c99f89d6eb593baaf8aad663",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/d46b7a8aa40ef7f09d71a03c2ce8edcd/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-724098482",
+          "title": "Trust Issues",
+          "album": "Care Package",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/7/8/b/0/78b55e44f9faf9f9c1d8105c256c522b.mp3?hdnea=exp=1791488684~acl=/api/1/1/7/8/b/0/78b55e44f9faf9f9c1d8105c256c522b.mp3*~data=user_id=0,application_id=42~hmac=39a40dd36f2f76af57f632efc0d2064bf77a721282d915b9606ed21fab167bb1",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0c9e064b0d4455a08a67dfd7a4fd263a/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-17347967",
+          "title": "Take Care",
+          "album": "Take Care (Deluxe)",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/c/8/0/2c8e63eefa13bd0e30a0ee3edf194425.mp3?hdnea=exp=1791488684~acl=/api/1/1/2/c/8/0/2c8e63eefa13bd0e30a0ee3edf194425.mp3*~data=user_id=0,application_id=42~hmac=be692548ea95d8c433e4aaf02713ed3413b246d073d9b5305d7d9d2a5a6bb054",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6e7a6c8f36669dcd11abe7e7c3222e91/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4022917791",
+          "title": "Shabang",
+          "album": "ICEMAN",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/e/4/0/fe4ce0c7912e3a02f26be7ac4aab4f3d.mp3?hdnea=exp=1791488684~acl=/api/1/1/f/e/4/0/fe4ce0c7912e3a02f26be7ac4aab4f3d.mp3*~data=user_id=0,application_id=42~hmac=71dfa33d6d1f7c29bc6139125894741f78094f3132ec3ff3cb6d6a51a60c6aca",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/cccf5e9af10b6aae96f5cdd5a27c2aff/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4208859852",
+          "title": "Ahí",
+          "album": "NO ME ARREPIENTO DE SENTIR TANTO",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/5/7/d/0/57d6af5c1f6d70380fbbfb733e5d02c8.mp3?hdnea=exp=1791488684~acl=/api/1/1/5/7/d/0/57d6af5c1f6d70380fbbfb733e5d02c8.mp3*~data=user_id=0,application_id=42~hmac=96ebc561550301face427ef238778bb1261d24674d48db91cb824b565b1e985b",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/f794dd1931dac42fc13f938850b686c6/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-17347979",
+          "title": "Doing It Wrong",
+          "album": "Take Care (Deluxe)",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/f/f/0/2ff0cf9caf7f0252ff56e3729714ce23.mp3?hdnea=exp=1791488684~acl=/api/1/1/2/f/f/0/2ff0cf9caf7f0252ff56e3729714ce23.mp3*~data=user_id=0,application_id=42~hmac=f280a16e7d1252800bc55c685c4136f9776568300414408fde1d5c6dee584aee",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6e7a6c8f36669dcd11abe7e7c3222e91/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-533609392",
+          "title": "In My Feelings",
+          "album": "Scorpion",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/8/e/9/0/8e98d4391469188d709eb95264246113.mp3?hdnea=exp=1791488684~acl=/api/1/1/8/e/9/0/8e98d4391469188d709eb95264246113.mp3*~data=user_id=0,application_id=42~hmac=0a2436d47c608198cded26ee33decf618e9a495ad6fa8b8efaa394069fa830d8",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/b69d3bcbd130ad4cc9259de543889e30/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-144572232",
+          "title": "Teenage Fever",
+          "album": "More Life",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/f/e/0/2fe80eb47049c28c0a612bd7bf1059f1.mp3?hdnea=exp=1791488684~acl=/api/1/1/2/f/e/0/2fe80eb47049c28c0a612bd7bf1059f1.mp3*~data=user_id=0,application_id=42~hmac=9021e76af6e81f809b701dbd775e5969f349ff567bbfce092e2013d86d17d667",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8f0187ad83cdd1f47f1c55420f9df227/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4321519902",
+          "title": "Quebec",
+          "album": "HABIBTI (FOMO)",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/6/0/3/0/6034b1a8ce995053737c914d73b02f55.mp3?hdnea=exp=1791488684~acl=/api/1/1/6/0/3/0/6034b1a8ce995053737c914d73b02f55.mp3*~data=user_id=0,application_id=42~hmac=39a992c82553535d328ab139b040725483e7d5dc585592bc47beb0b065a039d7",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/327e5092efa34fbcf4760be0d0056825/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-696957242",
+          "title": "Money In The Grave",
+          "album": "The Best In The World Pack",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/b/a/7/0/ba7358aa3d74b60dc6bcf26211f7f9e5.mp3?hdnea=exp=1791488684~acl=/api/1/1/b/a/7/0/ba7358aa3d74b60dc6bcf26211f7f9e5.mp3*~data=user_id=0,application_id=42~hmac=a713b9173ce040d6f6204f366106466d29eb979d026d92d7d2c4f0d423edac47",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/4291e5f9bfe723d120fe22fdd74d0e64/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-533609202",
+          "title": "Nonstop",
+          "album": "Scorpion",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/e/0/c/0/e0c1c5e0db941f3393239a64e8991376.mp3?hdnea=exp=1791488684~acl=/api/1/1/e/0/c/0/e0c1c5e0db941f3393239a64e8991376.mp3*~data=user_id=0,application_id=42~hmac=211b0e21e2d43962119b1b6721c44a168bf109388cd4f896f95da6a8fcf47030",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/b69d3bcbd130ad4cc9259de543889e30/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-3476500411",
+          "title": "Which One",
+          "album": "Which One",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/c/2/f/0/c2f0725719c8b2dbe16c3dff6e98ce6a.mp3?hdnea=exp=1791488684~acl=/api/1/1/c/2/f/0/c2f0725719c8b2dbe16c3dff6e98ce6a.mp3*~data=user_id=0,application_id=42~hmac=dba1fc6691b632601436ee923af94f00d47c15310c3dda1e9730ef100614110d",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/d04f4739ca6f79262874b8209c9954a5/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4022917831",
+          "title": "B’s On The Table",
+          "album": "ICEMAN",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/d/6/5/0/d65bfaf21dd61c331e964a90982d51e6.mp3?hdnea=exp=1791488684~acl=/api/1/1/d/6/5/0/d65bfaf21dd61c331e964a90982d51e6.mp3*~data=user_id=0,application_id=42~hmac=01699a105c1b12bb3868f48d4864fc275ada9ecffafd97326bdc6e2734c28168",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/cccf5e9af10b6aae96f5cdd5a27c2aff/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-533609342",
+          "title": "Nice For What",
+          "album": "Scorpion",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/8/3/d/0/83dab8c0e8fde3054bfc993c3da9edcd.mp3?hdnea=exp=1791488684~acl=/api/1/1/8/3/d/0/83dab8c0e8fde3054bfc993c3da9edcd.mp3*~data=user_id=0,application_id=42~hmac=4f6eb7ab1f367b1fd15365519b729e8fc8fe86ddcd7145040642ee2be75a7e8c",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/b69d3bcbd130ad4cc9259de543889e30/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1794149487",
+          "title": "Jimmy Cooks",
+          "album": "Honestly, Nevermind",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/9/c/7/0/9c775b3ddb238859dc8dafe1f64f423d.mp3?hdnea=exp=1791488684~acl=/api/1/1/9/c/7/0/9c775b3ddb238859dc8dafe1f64f423d.mp3*~data=user_id=0,application_id=42~hmac=ea337095784f0e4cb0c1c1ef67460ff652e998a5ddda3ebe3accef0cfb48d9d2",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b26e40653e97c640740ece8e32fc2af/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4302194",
+          "title": "Forever (Explicit Version)",
+          "album": "Forever",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/e/2/0/2e2f35e5cdee732dba2ba0e912c04ab3.mp3?hdnea=exp=1791488684~acl=/api/1/1/2/e/2/0/2e2f35e5cdee732dba2ba0e912c04ab3.mp3*~data=user_id=0,application_id=42~hmac=104e5871c6caa6a406248a5a1e71b56dc7ba23484196a184e38459ac0c832b02",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/e1e3e58f8f395010769d435ae3f14bb4/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4321519922",
+          "title": "Classic PT2",
+          "album": "HABIBTI (FOMO)",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/1/8/1/0/181368f18d4423d74301f16468ced314.mp3?hdnea=exp=1791488684~acl=/api/1/1/1/8/1/0/181368f18d4423d74301f16468ced314.mp3*~data=user_id=0,application_id=42~hmac=e4c28bb802c59ee00db4750b13b8557f7b96c0caa5c6040fd054c2a77d583ed9",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/327e5092efa34fbcf4760be0d0056825/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-144572214",
+          "title": "Get It Together",
+          "album": "More Life",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/c/7/0/2c74cee872b2076a7e5b30503ce29c7f.mp3?hdnea=exp=1791488684~acl=/api/1/1/2/c/7/0/2c74cee872b2076a7e5b30503ce29c7f.mp3*~data=user_id=0,application_id=42~hmac=650cafbd508d0854351d8c7e45788e886a22004d7c7b33c8ea2b27879e8f04b5",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/8f0187ad83cdd1f47f1c55420f9df227/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4022917851",
+          "title": "Plot Twist",
+          "album": "ICEMAN",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/4/e/d/0/4ed082085b9d2a7efd4f13f42009f400.mp3?hdnea=exp=1791488684~acl=/api/1/1/4/e/d/0/4ed082085b9d2a7efd4f13f42009f400.mp3*~data=user_id=0,application_id=42~hmac=62247b1b1ee1ce950a0b54ec45deae2a0fdab13e11139eeb76d7630cc661365d",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/cccf5e9af10b6aae96f5cdd5a27c2aff/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2486117581",
+          "title": "IDGAF",
+          "album": "For All The Dogs",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/2/3/c/0/23cdc163a14413c809ed8821f201d97c.mp3?hdnea=exp=1791488684~acl=/api/1/1/2/3/c/0/23cdc163a14413c809ed8821f201d97c.mp3*~data=user_id=0,application_id=42~hmac=9788d6ce028b7b0849b02300dd6ca32e67a1ffa014499394176522588697ecb6",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/868162e87da67d647789ed7b6456840c/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-124603278",
+          "title": "Too Good",
+          "album": "Views",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/1/5/0/f152d4afb75fae93e1f8702f2e6be4b3.mp3?hdnea=exp=1791488684~acl=/api/1/1/f/1/5/0/f152d4afb75fae93e1f8702f2e6be4b3.mp3*~data=user_id=0,application_id=42~hmac=cad77e434f824b1de20e3973e6169dae267f97e86c105f16b8289e0b8a0120ea",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/56bdb7a86a27fadb96332c0c8f1b8e81/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4022917761",
+          "title": "Whisper My Name",
+          "album": "ICEMAN",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/c/9/0/fc902a2c4d3add205c45309109fcf943.mp3?hdnea=exp=1791488684~acl=/api/1/1/f/c/9/0/fc902a2c4d3add205c45309109fcf943.mp3*~data=user_id=0,application_id=42~hmac=30a5caa4d45211e9be51b31a82641d56be77c6b8dfec968a4f2c70230557b53a",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/cccf5e9af10b6aae96f5cdd5a27c2aff/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2546268032",
+          "title": "You Broke My Heart",
+          "album": "For All The Dogs Scary Hours Edition",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/8/b/e/0/8be249c9229b71fe1b53163bc3b95b46.mp3?hdnea=exp=1791488684~acl=/api/1/1/8/b/e/0/8be249c9229b71fe1b53163bc3b95b46.mp3*~data=user_id=0,application_id=42~hmac=0f22f21e38294f8f080b32f263e9fc40616686c0922561132ede6e09742cb566",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/ac62d5e7dc2bac7e971657e2a86f946a/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-947861082",
+          "title": "Chicago Freestyle",
+          "album": "Dark Lane Demo Tapes",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/3/1/4/0/31495c0f2753bd7787373f5beaaa8d1e.mp3?hdnea=exp=1791488684~acl=/api/1/1/3/1/4/0/31495c0f2753bd7787373f5beaaa8d1e.mp3*~data=user_id=0,application_id=42~hmac=f8f17ed3e00eca84a3e3d622b1eb7250344b531dd6ca0455704c147cf7ea6ea4",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/d46b7a8aa40ef7f09d71a03c2ce8edcd/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-17347969",
+          "title": "Marvins Room",
+          "album": "Take Care (Deluxe)",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/b/1/d/0/b1df628ca915f6a0268c2982af14dd06.mp3?hdnea=exp=1791488684~acl=/api/1/1/b/1/d/0/b1df628ca915f6a0268c2982af14dd06.mp3*~data=user_id=0,application_id=42~hmac=6d77f6a69d4f43595e9e23b207c49a7a5314468917def86e5043fd80f49f043f",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/6e7a6c8f36669dcd11abe7e7c3222e91/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1024107692",
+          "title": "GREECE (feat. Drake)",
+          "album": "GREECE (feat. Drake)",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/f/0/3/0/f03f1d76c50e8a5e8be8fe60b86361b5.mp3?hdnea=exp=1791488684~acl=/api/1/1/f/0/3/0/f03f1d76c50e8a5e8be8fe60b86361b5.mp3*~data=user_id=0,application_id=42~hmac=b06bb22f2528c0a884485f46fddadb0f423316e05e81f0e93df8b6c587363756",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/d8a4dcd34e53b1f4647bfa1b1a4b5308/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-4022872421",
+          "title": "WNBA",
+          "album": "HABIBTI",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/c/0/3/0/c03eb935621390f86eb9d13a888f90a2.mp3?hdnea=exp=1791488684~acl=/api/1/1/c/0/3/0/c03eb935621390f86eb9d13a888f90a2.mp3*~data=user_id=0,application_id=42~hmac=1988ae7fb60a615ce2de1e7c6e514149f7d805cc6080f67b4a2e7721458176fa",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/a3c0b45062f3987b928b13cd6122f443/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-2972935451",
+          "title": "Circadian Rhythm",
+          "album": "100 GIGS",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/e/9/f/0/e9f7e732b3c442be8e62783516bac6b1.mp3?hdnea=exp=1791488684~acl=/api/1/1/e/9/f/0/e9f7e732b3c442be8e62783516bac6b1.mp3*~data=user_id=0,application_id=42~hmac=ef3734e78af89dcea4b7a383bffc38246dac468b186fbce618af15291a49732a",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/a58cd5bb40a9ef3dd783c3db727671c6/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-124603250",
+          "title": "9",
+          "album": "Views",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/c/e/a/0/ceac2b0f817e0be28654b1cd6c6f6115.mp3?hdnea=exp=1791488684~acl=/api/1/1/c/e/a/0/ceac2b0f817e0be28654b1cd6c6f6115.mp3*~data=user_id=0,application_id=42~hmac=99f27dc97b157da7a9fdc15c506babbe8c1ca0eb9c962373459f870ad45577fd",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/56bdb7a86a27fadb96332c0c8f1b8e81/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-1794149437",
+          "title": "Flight's Booked",
+          "album": "Honestly, Nevermind",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/a/4/3/0/a4382de61133c0598b22ee19164171c2.mp3?hdnea=exp=1791488684~acl=/api/1/1/a/4/3/0/a4382de61133c0598b22ee19164171c2.mp3*~data=user_id=0,application_id=42~hmac=ef5b33c9a1ce565bc8de4897eabfd47bbf912ed418a144f3e568e7e14a32e2bf",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/0b26e40653e97c640740ece8e32fc2af/1000x1000-000000-80-0-0.jpg"
+        },
+        {
+          "id": "deezer-6297750",
+          "title": "Shut It Down",
+          "album": "Thank Me Later (Int'l Version)",
+          "year": "Unknown",
+          "preview_url": "https://cdnt-preview.dzcdn.net/api/1/1/d/1/a/0/d1a509fb89b669e5a517b42e6a018276.mp3?hdnea=exp=1791488684~acl=/api/1/1/d/1/a/0/d1a509fb89b669e5a517b42e6a018276.mp3*~data=user_id=0,application_id=42~hmac=19de8a969442472a703ce8beec3424c2a247a0f39a09c80ef4228056d62fbb9e",
+          "slice_offset_sec": 0,
+          "artwork_url": "https://cdn-images.dzcdn.net/images/cover/cc4f9cb36261380fe2d011d85bd441ac/1000x1000-000000-80-0-0.jpg"
         }
       ],
       "all_searchable_titles": [
-        "God's Plan"
+        "One Dance",
+        "God's Plan",
+        "Janice STFU",
+        "Solar Eclipse",
+        "Hotline Bling",
+        "Cold Shoulder",
+        "Yebba’s Heartbreak",
+        "Passionfruit",
+        "Rich Baby Daddy",
+        "Hold On, We're Going Home (Album Version)",
+        "Don’t Matter To Me",
+        "Headlines (Explicit Version)",
+        "National Treasures",
+        "Fair Trade",
+        "Toosie Slide",
+        "Girls Want Girls",
+        "Laugh Now Cry Later",
+        "She Will",
+        "Massive",
+        "Not You Too",
+        "Trust Issues",
+        "Take Care",
+        "Shabang",
+        "Ahí",
+        "Doing It Wrong",
+        "In My Feelings",
+        "Teenage Fever",
+        "Quebec",
+        "Money In The Grave",
+        "Nonstop",
+        "Which One",
+        "B’s On The Table",
+        "Nice For What",
+        "Jimmy Cooks",
+        "Forever (Explicit Version)",
+        "Classic PT2",
+        "Get It Together",
+        "Plot Twist",
+        "IDGAF",
+        "Too Good",
+        "Whisper My Name",
+        "You Broke My Heart",
+        "Chicago Freestyle",
+        "Marvins Room",
+        "GREECE (feat. Drake)",
+        "WNBA",
+        "Circadian Rhythm",
+        "9",
+        "Flight's Booked",
+        "Shut It Down"
       ],
       "is_draft": false,
       "is_active": true,
-      "created_at": "2026-10-08T17:48:20.049Z"
+      "created_at": "2026-10-08T19:29:17.986Z"
     }
   ]
 }

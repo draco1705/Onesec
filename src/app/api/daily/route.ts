@@ -14,17 +14,24 @@ import {
 export const dynamic = 'force-dynamic';
 
 function formatSafeChallenge(challengeData: any) {
+  let artistImg = challengeData.artist_image_url || '';
+  if ((!artistImg || artistImg.includes('example.com')) && challengeData.artist_name?.toLowerCase() === 'drake') {
+    artistImg = 'https://cdn-images.dzcdn.net/images/artist/eb0ed5b21d1ea5af021fc074ded0e91f/1000x1000-000000-80-0-0.jpg';
+  }
+
   const safeTrackPool = challengeData.track_pool.map((track: any) => {
     const isLocal = track.preview_url?.startsWith('/songs/') || track.preview_url?.startsWith('/public/');
     const safeUrl = isLocal
       ? track.preview_url
       : `/api/audio?token=${encodeURIComponent(encryptUrl(track.preview_url))}`;
 
+    const trackArtwork = track.artwork_url || artistImg;
+
     const answerToken = encryptTrackData({
       title: track.title,
       album: track.album || 'Unknown Album',
       year: track.year || 'Unknown Year',
-      artwork_url: track.artwork_url || challengeData.artist_image_url || '',
+      artwork_url: trackArtwork,
       slice_offset_sec: track.slice_offset_sec ?? 0,
     });
 
@@ -32,7 +39,7 @@ function formatSafeChallenge(challengeData: any) {
       id: track.id,
       preview_url: safeUrl,
       slice_offset_sec: track.slice_offset_sec,
-      artwork_url: track.artwork_url,
+      artwork_url: trackArtwork,
       answer_token: answerToken,
     };
   });
@@ -41,7 +48,7 @@ function formatSafeChallenge(challengeData: any) {
     id: challengeData.id,
     play_date: challengeData.play_date,
     artist_name: challengeData.artist_name,
-    artist_image_url: challengeData.artist_image_url,
+    artist_image_url: artistImg,
     track_pool: safeTrackPool,
     all_searchable_titles: challengeData.all_searchable_titles,
   };
@@ -58,7 +65,6 @@ export async function GET(request: Request) {
 
     // 1. If a specific artist is requested via query param
     if (artistParam) {
-      // Check if we already have a non-draft challenge for this artist in SQLite
       const existing = getAllChallenges().find(
         c => !c.is_draft && c.artist_name.toLowerCase().trim() === artistParam.toLowerCase().trim()
       );
@@ -66,7 +72,6 @@ export async function GET(request: Request) {
       if (existing) {
         challengeData = existing;
       } else {
-        // Fetch discography and save to DB
         const { artistName, artistImageUrl, targetTracks, allTitles } = await fetchArtistDiscography(artistParam);
         challengeData = saveChallenge({
           play_date: date || todayStr,
@@ -80,12 +85,12 @@ export async function GET(request: Request) {
       setActiveArtist(challengeData.artist_name);
     }
 
-    // 2. If no specific artist requested: load active challenge from SQLite database
+    // 2. If no specific artist requested: load active challenge from database
     if (!challengeData) {
       challengeData = getActiveChallenge();
     }
 
-    // 3. If still no challenge and date requested matches a specific stored challenge
+    // 3. If date matches a specific stored challenge
     if (!challengeData && date) {
       const stored = getChallengeByDate(date);
       if (stored) {
@@ -122,7 +127,7 @@ export async function GET(request: Request) {
 
     // 5. Fallback: auto-generate for the DB's active artist
     if (!challengeData) {
-      const activeArtist = getActiveArtist() || 'Wxrdie';
+      const activeArtist = getActiveArtist() || 'Drake';
       const { artistName, artistImageUrl, targetTracks, allTitles } = await fetchArtistDiscography(activeArtist);
 
       challengeData = saveChallenge({

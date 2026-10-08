@@ -31,9 +31,25 @@ export async function POST(request: Request) {
       finalTitles = allTitles;
     }
 
+    // Resolve missing or broken example.com image URL
+    if (!finalImageUrl || finalImageUrl.includes('example.com')) {
+      try {
+        const artistRes = await fetch(`https://api.deezer.com/search/artist?q=${encodeURIComponent(finalArtistName)}&limit=1`);
+        const artistData = await artistRes.json();
+        if (artistData?.data?.[0]?.picture_xl || artistData?.data?.[0]?.picture_big) {
+          finalImageUrl = artistData.data[0].picture_xl || artistData.data[0].picture_big;
+        }
+      } catch (imgErr) {
+        console.warn('Deezer image fetch warning:', imgErr);
+      }
+      if (!finalImageUrl && finalTracks[0]?.artwork_url) {
+        finalImageUrl = finalTracks[0].artwork_url;
+      }
+    }
+
     const shouldMakeActive = !isDraft && (makeActive !== undefined ? !!makeActive : true);
 
-    // Save to SQLite database
+    // Save to SQLite / persistent database
     const savedLocal = saveChallenge(
       {
         play_date: playDate,
@@ -50,7 +66,7 @@ export async function POST(request: Request) {
       setActiveChallenge(savedLocal.id);
     }
 
-    // Optionally also sync to Supabase if available
+    // Optionally sync to Supabase if available
     try {
       if (process.env.NEXT_PUBLIC_SUPABASE_URL && !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('dummy')) {
         await supabase
@@ -67,7 +83,7 @@ export async function POST(request: Request) {
           );
       }
     } catch (dbErr) {
-      console.warn('Supabase sync skipped/failed (using local SQLite):', dbErr);
+      console.warn('Supabase sync skipped/failed:', dbErr);
     }
 
     return NextResponse.json({ success: true, challenge: savedLocal });

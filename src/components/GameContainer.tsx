@@ -40,6 +40,7 @@ export default function GameContainer() {
   const [currentTime, setCurrentTime] = useState<string>('');
   const [resetTimer, setResetTimer] = useState<string>('00:00:00');
   const [sessionToken, setSessionToken] = useState<string | null>(null);
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     const updateClocks = () => {
@@ -83,6 +84,7 @@ export default function GameContainer() {
       .then(data => {
         if (!data.error) {
           setChallenge(data);
+          setImageError(false);
           fuseRef.current = new Fuse(data.all_searchable_titles, {
             threshold: 0.3
           });
@@ -300,13 +302,24 @@ export default function GameContainer() {
                 <div className="text-xs font-bold tracking-widest text-green-500">1S SNIPPET / ROUND</div>
               </div>
               
-              <div className="relative w-full h-72 bg-zinc-900 rounded-lg overflow-hidden mb-8 shadow-inner">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img 
-                  src={challenge?.artist_image_url} 
-                  alt="Artist" 
-                  className="w-full h-full object-cover" 
-                />
+              <div className="relative w-full h-72 bg-zinc-900 rounded-lg overflow-hidden mb-8 shadow-inner flex items-center justify-center">
+                {challenge?.artist_image_url && !imageError ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img 
+                    src={challenge.artist_image_url} 
+                    alt={challenge.artist_name || 'Artist'} 
+                    onError={() => setImageError(true)}
+                    className="w-full h-full object-cover" 
+                  />
+                ) : (
+                  <div className="flex flex-col items-center justify-center p-6 text-center">
+                    <div className="w-24 h-24 rounded-full bg-zinc-800 border-2 border-zinc-700 flex items-center justify-center text-3xl font-black text-white mb-3 shadow-lg">
+                      {challenge?.artist_name?.slice(0, 2).toUpperCase() || 'ART'}
+                    </div>
+                    <span className="text-xl font-bold text-white">{challenge?.artist_name}</span>
+                    <span className="text-xs text-zinc-500 mt-1">Featured Artist</span>
+                  </div>
+                )}
               </div>
 
               <div className="space-y-4 mb-8">
