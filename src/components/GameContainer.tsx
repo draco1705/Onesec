@@ -265,8 +265,8 @@ export default function GameContainer() {
         </div>
         
         <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-4 md:gap-6 font-bold">
-          <button className="text-white hover:text-green-400 transition-colors">GAME</button>
-          <button className="text-zinc-500 hover:text-white transition-colors">ARCHIVE</button>
+          <a href="/" className="text-white hover:text-green-400 transition-colors">GAME</a>
+          <a href="/dashboard" className="text-zinc-500 hover:text-white transition-colors">DASHBOARD</a>
         </div>
 
         <div className="flex items-center gap-3 text-zinc-400 shrink-0">

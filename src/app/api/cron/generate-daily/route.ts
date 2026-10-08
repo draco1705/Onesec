@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { fetchArtistDiscography } from '@/lib/music';
-import { saveStoredChallenge } from '@/lib/challenges-store';
+import { saveChallenge, setActiveChallenge } from '@/lib/db';
 
 const CRON_SECRET = process.env.CRON_SECRET || 'secret';
 
@@ -12,7 +12,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { artistName, playDate, customPool, customTitles, customImage, isDraft } = await request.json();
+    const { artistName, playDate, customPool, customTitles, customImage, isDraft, makeActive } = await request.json();
     if (!artistName || !playDate) {
       return NextResponse.json({ error: 'Missing artistName or playDate' }, { status: 400 });
     }
@@ -31,17 +31,26 @@ export async function POST(request: Request) {
       finalTitles = allTitles;
     }
 
-    // Always save to the resilient local store first
-    const savedLocal = saveStoredChallenge({
-      play_date: playDate,
-      artist_name: finalArtistName,
-      artist_image_url: finalImageUrl,
-      track_pool: finalTracks,
-      all_searchable_titles: finalTitles,
-      is_draft: !!isDraft,
-    });
+    const shouldMakeActive = !isDraft && (makeActive !== undefined ? !!makeActive : true);
 
-    // Optionally also sync to Supabase if available, but do not crash if it fails
+    // Save to SQLite database
+    const savedLocal = saveChallenge(
+      {
+        play_date: playDate,
+        artist_name: finalArtistName,
+        artist_image_url: finalImageUrl,
+        track_pool: finalTracks,
+        all_searchable_titles: finalTitles,
+        is_draft: !!isDraft,
+      },
+      shouldMakeActive
+    );
+
+    if (shouldMakeActive) {
+      setActiveChallenge(savedLocal.id);
+    }
+
+    // Optionally also sync to Supabase if available
     try {
       if (process.env.NEXT_PUBLIC_SUPABASE_URL && !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('dummy')) {
         await supabase
@@ -52,13 +61,13 @@ export async function POST(request: Request) {
               artist_name: finalArtistName,
               artist_image_url: finalImageUrl,
               track_pool: finalTracks,
-              all_searchable_titles: finalTitles
+              all_searchable_titles: finalTitles,
             },
             { onConflict: 'play_date' }
           );
       }
     } catch (dbErr) {
-      console.warn('Supabase sync skipped/failed (using local store):', dbErr);
+      console.warn('Supabase sync skipped/failed (using local SQLite):', dbErr);
     }
 
     return NextResponse.json({ success: true, challenge: savedLocal });

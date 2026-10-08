@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Search, Plus, Calendar, Trash2, Play, CheckCircle2, Circle, X, FolderOpen, Music, Scissors, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
+import { Search, Plus, Calendar, Trash2, Play, CheckCircle2, Circle, X, FolderOpen, Music, Scissors, ChevronLeft, ChevronRight, FileText, ArrowLeft, Zap, Radio } from 'lucide-react';
 
 // Source for each track — used for badges
 type TrackSource = 'deezer' | 'local';
@@ -18,7 +18,7 @@ export default function Dashboard() {
   const [genre, setGenre] = useState('');
 
   const [view, setView] = useState<'list' | 'create'>('list');
-  const [scheduleOption, setScheduleOption] = useState<'A' | 'B' | 'C'>('A');
+  const [scheduleOption, setScheduleOption] = useState<'A' | 'B' | 'C'>('B');
   const [customDate, setCustomDate] = useState('');
 
   // Multi-source — both can be active simultaneously
@@ -88,11 +88,11 @@ export default function Dashboard() {
     return Math.max(0, dur !== null ? Math.min(raw, dur - 1.0) : raw);
   };
 
-  // ── History ───────────────────────────────────────────────────────────────────
+  // ── History & Active Challenge ────────────────────────────────────────────────
   const loadHistory = () =>
     fetch('/api/dashboard/history')
       .then(r => r.json())
-      .then(d => { if (!d.error) setHistory(d); });
+      .then(d => { if (Array.isArray(d)) setHistory(d); });
 
   useEffect(() => { loadHistory(); }, []);
 
@@ -102,6 +102,63 @@ export default function Dashboard() {
         .then(d => { if (Array.isArray(d)) setLocalArtists(d); })
         .catch(() => {});
   }, [localArtists.length]);
+
+  const handleSetActive = async (challengeId: string) => {
+    setStatus('Activating challenge for game...');
+    try {
+      const res = await fetch('/api/dashboard/set-active', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ challengeId }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus(`✓ ${data.challenge?.artist_name} is now the LIVE artist in the game!`);
+        await loadHistory();
+      } else {
+        setStatus(`Error: ${data.error || 'Failed to activate'}`);
+      }
+    } catch (e: any) {
+      setStatus(`Error: ${e.message || 'Request failed'}`);
+    }
+  };
+
+  const handleDelete = async (challengeId: string) => {
+    if (!confirm('Are you sure you want to delete this challenge?')) return;
+    try {
+      const res = await fetch(`/api/dashboard/set-active?id=${challengeId}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success) {
+        await loadHistory();
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleQuickActivateArtist = async (nameToActivate: string) => {
+    if (!nameToActivate) return;
+    setStatus(`Activating ${nameToActivate} for the game database...`);
+    try {
+      const res = await fetch('/api/dashboard/set-active', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ artistName: nameToActivate }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus(`✓ ${data.challenge?.artist_name} is now saved and LIVE in the game!`);
+        await loadHistory();
+        setView('list');
+      } else {
+        setStatus(`Error: ${data.error || 'Failed to activate artist'}`);
+      }
+    } catch (e: any) {
+      setStatus(`Error: ${e.message || 'Request failed'}`);
+    }
+  };
 
   // ── Normalise helpers ─────────────────────────────────────────────────────────
   const normaliseDeezer = (tracks: any[]): any[] =>
@@ -151,12 +208,10 @@ export default function Dashboard() {
     let resolvedArtistName = artistName;
 
     const [deezerResult, localResult] = await Promise.allSettled([
-      // ── Deezer (via server-side proxy) ──
       useDeezer
         ? fetch(`/api/search-songs?artist=${encodeURIComponent(artistName)}&limit=200`).then(r => r.json())
         : Promise.resolve({ error: 'disabled' }),
 
-      // ── Local ──
       useLocal
         ? fetch(`/api/local-songs?artist=${encodeURIComponent(artistName)}`).then(r => r.json()).catch(() => ({ error: 'not found' }))
         : Promise.resolve({ error: 'disabled' }),
@@ -169,7 +224,6 @@ export default function Dashboard() {
       firstGenre = deezerTracks.length > 0 ? 'Deezer' : '';
       if (dd.artistName) {
         resolvedArtistName = dd.artistName;
-        // Keep search input synced with the verified artist name
         setArtistName(dd.artistName);
       }
     }
@@ -275,7 +329,7 @@ export default function Dashboard() {
       setStatus('Please select at least 1 song!');
       return;
     }
-    setStatus(asDraft ? 'Saving as draft...' : 'Saving challenge...');
+    setStatus(asDraft ? 'Saving as draft...' : 'Saving challenge to database...');
 
     const todayStr = new Date().toISOString().split('T')[0];
     let targetDate = todayStr;
@@ -300,6 +354,7 @@ export default function Dashboard() {
       }));
 
     try {
+      const makeActive = !asDraft && (scheduleOption === 'B' || scheduleOption === 'A');
       const res = await fetch('/api/cron/generate-daily', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer secret' },
@@ -310,16 +365,17 @@ export default function Dashboard() {
           customTitles: finalPool.map(t => t.title),
           customImage: artistImage,
           isDraft: asDraft,
+          makeActive,
         }),
       });
 
       const data = await res.json();
       if (data.success) {
-        setStatus('');
+        setStatus(`✓ Challenge for "${artistName}" saved to database${makeActive ? ' and set as LIVE in game!' : '!'}`);
         setArtistName('');
         setSearchResults([]);
         setTrackOffsets(new Map());
-        loadHistory();
+        await loadHistory();
         setView('list');
       } else {
         setStatus(`Error: ${data.error || 'Failed to save'}`);
@@ -334,46 +390,159 @@ export default function Dashboard() {
   const localCount = selectedTracksList.filter(t => t._source === 'local').length;
   const itunesCount = selectedTracksList.filter(t => t._source === 'deezer').length;
 
+  const activeChallenge = history.find(h => h.is_active);
+
   // ── LIST VIEW ─────────────────────────────────────────────────────────────────
   if (view === 'list') {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] text-white p-8 font-sans selection:bg-green-500/30">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex justify-between items-center mb-8 pb-4 border-b border-zinc-800">
-            <h1 className="text-2xl font-bold tracking-tight">Challenge Archive</h1>
-            <button onClick={() => setView('create')} className="bg-white text-black font-bold text-sm px-4 py-2 rounded flex items-center gap-2 hover:bg-zinc-200 transition-colors">
+      <div className="min-h-screen bg-[#0a0a0a] text-white p-4 md:p-8 font-sans selection:bg-green-500/30">
+        <div className="max-w-4xl mx-auto space-y-6">
+
+          {/* Top navigation */}
+          <div className="flex justify-between items-center pb-4 border-b border-zinc-800">
+            <div className="flex items-center gap-3">
+              <a
+                href="/"
+                className="bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-white px-3 py-1.5 rounded text-xs font-bold flex items-center gap-1.5 transition-colors"
+              >
+                <ArrowLeft size={14} /> Play Game
+              </a>
+              <h1 className="text-xl md:text-2xl font-bold tracking-tight">Challenge Archive &amp; Database</h1>
+            </div>
+            <button
+              onClick={() => { setStatus(''); setView('create'); }}
+              className="bg-white text-black font-bold text-sm px-4 py-2 rounded flex items-center gap-2 hover:bg-zinc-200 transition-colors"
+            >
               <Plus size={16} /> Create Challenge
             </button>
           </div>
+
+          {/* Active Artist Hero Card */}
+          {activeChallenge && (
+            <div className="bg-gradient-to-r from-zinc-900 via-[#151515] to-zinc-900 border border-green-500/40 rounded-xl p-5 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                {activeChallenge.artist_image_url ? (
+                  <img src={activeChallenge.artist_image_url} alt={activeChallenge.artist_name} className="w-16 h-16 rounded-lg object-cover border border-zinc-700 shadow" />
+                ) : (
+                  <div className="w-16 h-16 rounded-lg bg-zinc-800 flex items-center justify-center font-bold text-lg">{activeChallenge.artist_name.slice(0, 2)}</div>
+                )}
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="flex h-2 w-2 relative">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    <span className="text-[10px] bg-green-500 text-black px-2 py-0.5 rounded font-black tracking-wider uppercase">Currently Live in Game</span>
+                    <span className="text-xs text-zinc-500 font-mono">ID: {activeChallenge.id}</span>
+                  </div>
+                  <h2 className="text-2xl font-black text-white tracking-tight">{activeChallenge.artist_name}</h2>
+                  <p className="text-xs text-zinc-400 mt-0.5">
+                    {activeChallenge.track_count || 'Discography'} tracks configured • Persisted in SQLite database
+                  </p>
+                </div>
+              </div>
+              <a
+                href="/"
+                className="bg-green-500 hover:bg-green-400 text-black font-black text-xs px-5 py-3 rounded-lg flex items-center justify-center gap-2 transition-all shadow-md shrink-0"
+              >
+                <Play size={14} fill="currentColor" /> Play This Artist in Game →
+              </a>
+            </div>
+          )}
+
+          {status && (
+            <div className={`text-sm font-bold p-3 rounded text-center ${status.includes('Error') ? 'bg-red-500/20 text-red-500 border border-red-500/30' : 'bg-green-500/20 text-green-400 border border-green-500/30'}`}>
+              {status}
+            </div>
+          )}
+
+          {/* List of Challenges */}
           <div className="bg-[#111] p-6 rounded-lg border border-zinc-800">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-400">Database Records ({history.length})</h3>
+              <span className="text-xs text-zinc-500">Click &quot;Make Live Now&quot; to switch active game artist</span>
+            </div>
+
             <div className="space-y-3">
               {history.length > 0 ? history.map((item, i) => {
                 const isDraft = item.is_draft || item.play_date?.startsWith('draft-');
                 const isToday = !isDraft && item.play_date === new Date().toISOString().split('T')[0];
+                const isActive = !!item.is_active;
+
                 return (
-                  <div key={i} className="bg-zinc-900/50 p-4 rounded-lg flex items-center gap-4 border border-zinc-800/50">
-                    {item.artist_image_url && <img src={item.artist_image_url} alt={item.artist_name} className="w-12 h-12 rounded object-cover" />}
-                    <div className="flex-1">
-                      <div className="font-bold text-white flex items-center gap-2">
-                        {item.artist_name}
-                        {isToday && <span className="bg-green-500 text-black text-[10px] px-1.5 py-0.5 rounded font-bold uppercase">Live Today</span>}
-                        {isDraft && <span className="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] px-1.5 py-0.5 rounded font-bold uppercase">Draft</span>}
+                  <div
+                    key={item.id || i}
+                    className={`p-4 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4 border transition-all ${
+                      isActive ? 'bg-green-950/20 border-green-500/50' : 'bg-zinc-900/50 border-zinc-800/50 hover:border-zinc-700'
+                    }`}
+                  >
+                    <div className="flex items-center gap-4 min-w-0">
+                      {item.artist_image_url ? (
+                        <img src={item.artist_image_url} alt={item.artist_name} className="w-12 h-12 rounded object-cover shrink-0" />
+                      ) : (
+                        <div className="w-12 h-12 rounded bg-zinc-800 flex items-center justify-center font-bold text-sm shrink-0">{item.artist_name.slice(0, 2)}</div>
+                      )}
+                      <div className="min-w-0">
+                        <div className="font-bold text-white flex items-center gap-2 flex-wrap">
+                          <span className="truncate">{item.artist_name}</span>
+                          {isActive && (
+                            <span className="bg-green-500 text-black text-[10px] px-2 py-0.5 rounded font-black uppercase flex items-center gap-1">
+                              <Radio size={10} className="animate-pulse" /> Live in Game
+                            </span>
+                          )}
+                          {!isActive && isToday && (
+                            <span className="bg-zinc-800 text-zinc-400 text-[10px] px-1.5 py-0.5 rounded font-bold uppercase">Today</span>
+                          )}
+                          {isDraft && (
+                            <span className="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] px-1.5 py-0.5 rounded font-bold uppercase">Draft</span>
+                          )}
+                        </div>
+                        <div className="text-xs text-zinc-500 mt-1 flex items-center gap-2">
+                          {isDraft ? (
+                            <>
+                              <FileText size={12} /> Saved Draft
+                            </>
+                          ) : (
+                            <>
+                              <Calendar size={12} /> {item.play_date} • {item.track_count || 0} songs
+                            </>
+                          )}
+                        </div>
                       </div>
-                      <div className="text-xs text-zinc-500 mt-1 flex items-center gap-2">
-                        {isDraft ? (
-                          <>
-                            <FileText size={12} /> Saved Draft
-                          </>
-                        ) : (
-                          <>
-                            <Calendar size={12} /> {item.play_date}
-                          </>
-                        )}
-                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                      {!isActive && (
+                        <button
+                          onClick={() => handleSetActive(item.id)}
+                          className="bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold px-3 py-2 rounded flex items-center gap-1.5 transition-colors border border-zinc-700 hover:border-white"
+                        >
+                          <Zap size={12} className="text-green-400" /> Make Live Now
+                        </button>
+                      )}
+                      {isActive && (
+                        <a
+                          href="/"
+                          className="bg-white hover:bg-zinc-200 text-black text-xs font-black px-3 py-2 rounded flex items-center gap-1.5 transition-colors"
+                        >
+                          <Play size={12} fill="currentColor" /> Play in Game
+                        </a>
+                      )}
+                      <button
+                        onClick={() => handleDelete(item.id)}
+                        title="Delete challenge"
+                        className="text-zinc-600 hover:text-red-400 p-2 rounded transition-colors"
+                      >
+                        <Trash2 size={16} />
+                      </button>
                     </div>
                   </div>
                 );
-              }) : <div className="text-zinc-500 text-sm p-4 text-center">No challenges or drafts yet. Click &quot;Create Challenge&quot; above to create one.</div>}
+              }) : (
+                <div className="text-zinc-500 text-sm p-6 text-center">
+                  No challenges in the database yet. Click &quot;Create Challenge&quot; above to create one.
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -389,8 +558,8 @@ export default function Dashboard() {
         {/* Header */}
         <div className="flex justify-between items-center p-4 md:p-6 border-b border-zinc-800 shrink-0">
           <div className="flex items-center gap-3">
-            <span className="bg-white text-black font-bold text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wider">Workflow</span>
-            <h1 className="text-lg md:text-xl font-bold text-white">Create Daily Challenge</h1>
+            <span className="bg-white text-black font-bold text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wider">Database Admin</span>
+            <h1 className="text-lg md:text-xl font-bold text-white">Create or Change Game Artist</h1>
           </div>
           <button onClick={() => setView('list')} className="text-zinc-500 hover:text-white transition-colors"><X size={20} /></button>
         </div>
@@ -402,7 +571,6 @@ export default function Dashboard() {
           <div>
             <div className="text-xs font-bold tracking-widest text-zinc-500 mb-3 uppercase">Audio Sources — select one or both</div>
             <div className="grid grid-cols-2 gap-3">
-              {/* Deezer checkbox */}
               <button
                 onClick={() => setUseDeezer(v => !v)}
                 className={`p-3 rounded-lg border text-sm font-bold flex items-center gap-3 transition-all ${useDeezer ? 'bg-zinc-800/80 border-white text-white' : 'bg-zinc-900/50 border-zinc-700 text-zinc-500 hover:border-zinc-500'}`}
@@ -414,7 +582,6 @@ export default function Dashboard() {
                 Deezer Catalog (Studio + Features)
               </button>
 
-              {/* Local checkbox */}
               <button
                 onClick={() => setUseLocal(v => !v)}
                 className={`p-3 rounded-lg border text-sm font-bold flex items-center gap-3 transition-all ${useLocal ? 'bg-zinc-800/80 border-white text-white' : 'bg-zinc-900/50 border-zinc-700 text-zinc-500 hover:border-zinc-500'}`}
@@ -425,20 +592,6 @@ export default function Dashboard() {
                 <FolderOpen size={15} />
                 Local MP3 Files
               </button>
-            </div>
-
-            {/* Info pills */}
-            <div className="flex gap-2 mt-2 flex-wrap">
-              {useDeezer && useLocal && (
-                <span className="text-[10px] bg-green-500/10 border border-green-500/30 text-green-400 px-2 py-1 rounded font-bold">
-                  ✓ Both enabled — results merged, local songs prioritised on duplicates
-                </span>
-              )}
-              {useLocal && (
-                <span className="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-1 rounded">
-                  Local: drop MP3s in <code className="text-zinc-200">public/songs/</code> + add to <code className="text-zinc-200">manifest.json</code>
-                </span>
-              )}
             </div>
           </div>
 
@@ -476,7 +629,7 @@ export default function Dashboard() {
                 type="text"
                 value={artistName}
                 onChange={e => setArtistName(e.target.value)}
-                placeholder="Artist name…"
+                placeholder="Artist name (e.g. Drake, Travis Scott, Taylor Swift)..."
                 className="w-full bg-zinc-900 border border-zinc-800 rounded-lg py-3 pl-10 pr-24 text-sm text-white focus:outline-none focus:border-zinc-600"
               />
               <button type="submit" disabled={!useDeezer && !useLocal}
@@ -486,22 +639,29 @@ export default function Dashboard() {
             </form>
 
             {searchResults.length > 0 && (
-              <div className="bg-zinc-900/50 border border-zinc-800 p-4 rounded-lg flex items-center justify-between">
+              <div className="bg-zinc-900/50 border border-zinc-800 p-4 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
                   {artistImage && <img src={artistImage} className="w-14 h-14 rounded object-cover shadow" alt="artist" />}
                   <div>
                     <div className="text-white font-bold text-lg flex items-center gap-2">
                       {artistName} <CheckCircle2 size={16} className="text-green-500" />
                     </div>
-                    <div className="text-xs text-zinc-400 mt-1 flex items-center gap-2">
-                      <span>{searchResults.length} songs found (incl. features)</span>
+                    <div className="text-xs text-zinc-400 mt-1 flex items-center gap-2 flex-wrap">
+                      <span>{searchResults.length} songs found</span>
                       {localCount > 0 && <span className="bg-blue-500/20 text-blue-400 border border-blue-500/30 px-1.5 py-0.5 rounded text-[10px] font-bold"><FolderOpen size={9} className="inline mr-1" />{localCount} local</span>}
                       {itunesCount > 0 && <span className="bg-zinc-700/50 text-zinc-300 border border-zinc-600/30 px-1.5 py-0.5 rounded text-[10px] font-bold"><Music size={9} className="inline mr-1" />{itunesCount} Deezer</span>}
                     </div>
                   </div>
                 </div>
-                <div className="hidden md:flex text-xs font-bold text-zinc-400 items-center gap-1 bg-zinc-800/50 px-3 py-1.5 rounded-full">
-                  <CheckCircle2 size={14} className="text-green-500" /> {selectedTracks.size}-Track Pool
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => handleQuickActivateArtist(artistName)}
+                    className="bg-green-500 hover:bg-green-400 text-black text-xs font-black px-4 py-2 rounded-lg flex items-center gap-1.5 transition-all shadow"
+                    title="Instantly set this artist as live in the game without manual curation"
+                  >
+                    <Zap size={13} fill="currentColor" /> Quick Set Live in Game
+                  </button>
                 </div>
               </div>
             )}
@@ -546,7 +706,6 @@ export default function Dashboard() {
                             <div className="min-w-0">
                               <div className="text-sm font-bold text-zinc-200 group-hover:text-white flex items-center gap-1.5 flex-wrap">
                                 {!isSelected && <span className="bg-red-500 text-black text-[9px] px-1 rounded uppercase font-black">REMOVED</span>}
-                                {/* Source badge */}
                                 {isLocal
                                   ? <span className="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-[9px] px-1 rounded font-black uppercase">Local</span>
                                   : <span className="bg-zinc-700/50 text-zinc-400 border border-zinc-600/30 text-[9px] px-1 rounded font-black uppercase">Deezer</span>
@@ -561,7 +720,6 @@ export default function Dashboard() {
                           </div>
 
                           <div className="flex items-center gap-2 shrink-0 ml-2">
-                            {/* Clip badge */}
                             <button
                               onClick={() => { setExpandedTrackId(isExpanded ? null : id); ensureBuffer(id, track.previewUrl); }}
                               title="Edit clip start point"
@@ -585,7 +743,6 @@ export default function Dashboard() {
                               <span className="text-zinc-500">{isLoading ? 'LOADING AUDIO…' : bufDur ? `DURATION: ${bufDur.toFixed(1)}s` : 'CLICK PLAY TO LOAD'}</span>
                             </div>
 
-                            {/* Slider */}
                             <div className="flex items-center gap-3">
                               <span className="text-[10px] text-zinc-500 w-6 text-right">0s</span>
                               <input type="range" min={0} max={maxOffset} step={0.5} value={offset}
@@ -594,7 +751,6 @@ export default function Dashboard() {
                               <span className="text-[10px] text-zinc-500 w-12">{maxOffset}s</span>
                             </div>
 
-                            {/* Fine controls */}
                             <div className="flex items-center gap-2 flex-wrap">
                               {([-10, -5, -1] as const).map(d => (
                                 <button key={d} onClick={() => setOffset(id, clampedOffset(id, offset + d))}
@@ -619,7 +775,6 @@ export default function Dashboard() {
                               </button>
                             </div>
 
-                            {/* Visual timeline */}
                             <div className="relative h-6 bg-zinc-900 rounded overflow-hidden border border-zinc-800">
                               <div className="absolute inset-y-0 bg-zinc-700/40" style={{ left: 0, width: `${(offset / Math.max(maxOffset, 1)) * 100}%` }} />
                               <div className="absolute inset-y-0 bg-amber-500/50 border-l-2 border-r-2 border-amber-400"
@@ -635,16 +790,13 @@ export default function Dashboard() {
                   })}
                 </div>
 
-                {/* Footer */}
                 <div className="bg-zinc-900 p-3 flex justify-between items-center text-[10px] text-zinc-500 border-t border-zinc-800/50">
                   <span>
                     {selectedTracksList.length} selected
                     {localCount > 0 && <span className="text-blue-400 ml-2">· {localCount} local</span>}
                     {itunesCount > 0 && <span className="text-zinc-400 ml-2">· {itunesCount} Deezer</span>}
-                    {[...trackOffsets.values()].filter(v => v > 0).length > 0 &&
-                      <span className="text-amber-400 ml-2">· {[...trackOffsets.values()].filter(v => v > 0).length} clips set</span>}
                   </span>
-                  <span>Local songs override Deezer duplicates</span>
+                  <span>Persistent SQLite database storage enabled</span>
                 </div>
               </div>
             </div>
@@ -660,28 +812,33 @@ export default function Dashboard() {
                 </h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Option B — Recommended default */}
+                <div onClick={() => setScheduleOption('B')} className={`cursor-pointer p-4 rounded-lg border transition-all ${scheduleOption === 'B' ? 'bg-zinc-800/80 border-green-400 ring-1 ring-green-400/40' : 'bg-zinc-900/50 border-zinc-800 hover:border-zinc-600'}`}>
+                  <div className="flex justify-between items-start mb-2">
+                    <span className="text-[10px] font-bold tracking-widest uppercase text-green-400">RECOMMENDED • LIVE NOW</span>
+                    {scheduleOption === 'B' ? <CheckCircle2 size={16} className="text-green-400" /> : <Circle size={16} className="text-zinc-600" />}
+                  </div>
+                  <div className="text-sm font-bold text-white mb-1">Make Live in Game Today</div>
+                  <div className="text-[10px] text-zinc-400">Immediately sets this artist as active for the game page ({new Date().toISOString().split('T')[0]})</div>
+                </div>
+
+                {/* Option A */}
                 <div onClick={() => setScheduleOption('A')} className={`cursor-pointer p-4 rounded-lg border transition-all ${scheduleOption === 'A' ? 'bg-zinc-800/80 border-white' : 'bg-zinc-900/50 border-zinc-800 hover:border-zinc-600'}`}>
                   <div className="flex justify-between items-start mb-2">
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-green-500">Option A • Next Slot</span>
+                    <span className="text-[10px] font-bold tracking-widest uppercase text-zinc-400">Queue Next Slot</span>
                     {scheduleOption === 'A' ? <CheckCircle2 size={16} className="text-white" /> : <Circle size={16} className="text-zinc-600" />}
                   </div>
                   <div className="text-sm font-bold text-white mb-1">Next Available Date</div>
                   <div className="text-[10px] text-zinc-400">Queue: {nextQueueDate}</div>
                 </div>
-                <div onClick={() => setScheduleOption('B')} className={`cursor-pointer p-4 rounded-lg border transition-all ${scheduleOption === 'B' ? 'bg-zinc-800/80 border-white' : 'bg-zinc-900/50 border-zinc-800 hover:border-zinc-600'}`}>
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-orange-500">Option B • Override</span>
-                    {scheduleOption === 'B' ? <CheckCircle2 size={16} className="text-white" /> : <Circle size={16} className="text-zinc-600" />}
-                  </div>
-                  <div className="text-sm font-bold text-white mb-1">Make Active Now</div>
-                  <div className="text-[10px] text-zinc-400">Replaces today&apos;s challenge ({new Date().toISOString().split('T')[0]})</div>
-                </div>
+
+                {/* Option C */}
                 <div onClick={() => setScheduleOption('C')} className={`cursor-pointer p-4 rounded-lg border transition-all ${scheduleOption === 'C' ? 'bg-zinc-800/80 border-white' : 'bg-zinc-900/50 border-zinc-800 hover:border-zinc-600'}`}>
                   <div className="flex justify-between items-start mb-2">
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-blue-500">Option C • Calendar</span>
+                    <span className="text-[10px] font-bold tracking-widest uppercase text-blue-500">Pick Calendar Date</span>
                     {scheduleOption === 'C' ? <CheckCircle2 size={16} className="text-white" /> : <Circle size={16} className="text-zinc-600" />}
                   </div>
-                  <div className="text-sm font-bold text-white mb-1">Pick Custom Date</div>
+                  <div className="text-sm font-bold text-white mb-1">Custom Date</div>
                   <input type="date" value={customDate} onChange={e => { setCustomDate(e.target.value); setScheduleOption('C'); }}
                     onClick={e => e.stopPropagation()}
                     className="w-full bg-zinc-900 border border-zinc-700 text-[10px] p-1.5 rounded text-white focus:outline-none" />
@@ -691,7 +848,7 @@ export default function Dashboard() {
           )}
 
           {status && (
-            <div className={`text-sm font-bold p-3 rounded text-center ${status.includes('Error') ? 'bg-red-500/20 text-red-500' : 'bg-green-500/20 text-green-500'}`}>
+            <div className={`text-sm font-bold p-3 rounded text-center ${status.includes('Error') ? 'bg-red-500/20 text-red-500' : 'bg-green-500/20 text-green-400'}`}>
               {status}
             </div>
           )}
@@ -706,16 +863,16 @@ export default function Dashboard() {
             <div className="flex gap-3 w-full sm:w-auto">
               <button
                 onClick={() => handleSaveChallenge(true)}
-                className="flex-1 sm:flex-none text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-white px-6 py-2.5 rounded transition-colors flex items-center justify-center gap-2"
+                className="flex-1 sm:flex-none text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-white px-5 py-2.5 rounded transition-colors flex items-center justify-center gap-2"
               >
                 <FileText size={14} /> Save as Draft
               </button>
               <button
                 onClick={() => handleSaveChallenge(false)}
-                className="flex-1 sm:flex-none text-xs font-bold bg-white hover:bg-zinc-200 text-black px-6 py-2.5 rounded flex items-center justify-center gap-2"
+                className="flex-1 sm:flex-none text-xs font-black bg-white hover:bg-zinc-200 text-black px-6 py-2.5 rounded flex items-center justify-center gap-2"
               >
                 <Calendar size={14} />
-                {scheduleOption === 'A' ? `Queue (${nextQueueDate})` : scheduleOption === 'B' ? 'Make Live Today' : 'Save Custom Date'}
+                {scheduleOption === 'B' ? 'Save & Make Live in Game Now' : scheduleOption === 'A' ? `Queue (${nextQueueDate})` : 'Save to Custom Date'}
               </button>
             </div>
           </div>
