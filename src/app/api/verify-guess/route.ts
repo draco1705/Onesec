@@ -1,28 +1,46 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { fetchArtistDiscography } from '@/lib/music';
-import { getStoredChallengeByDate } from '@/lib/challenges-store';
+import { getStoredChallengeByDate, getLatestActiveChallenge } from '@/lib/challenges-store';
+import { decryptTrackData } from '@/lib/crypto';
 
 export async function POST(request: Request) {
   try {
-    const { date, trackId, guess, testArtist } = await request.json();
+    const { date, trackId, guess, testArtist, answerToken } = await request.json();
 
     if (!trackId || guess === undefined) {
       return NextResponse.json({ error: 'Missing parameters' }, { status: 400 });
     }
 
+    // 1. If an answerToken was provided from the challenge, decrypt it directly
+    if (answerToken) {
+      try {
+        const meta = decryptTrackData(answerToken);
+        const isCorrect = meta.title.toLowerCase().trim() === guess.toLowerCase().trim();
+        return NextResponse.json({
+          isCorrect,
+          actualTitle: meta.title,
+          album: meta.album || 'Unknown Album',
+          year: meta.year || 'Unknown Year',
+          sliceStart: meta.slice_offset_sec ?? 0,
+          artwork_url: meta.artwork_url || '',
+        });
+      } catch (e) {
+        console.warn('answerToken decrypt failed, falling back to lookup:', e);
+      }
+    }
+
+    // 2. Fallback to challenge lookup by date/testArtist
     let targetTracks: any[] = [];
 
     if (testArtist) {
       const { targetTracks: fetchedTracks } = await fetchArtistDiscography(testArtist);
       targetTracks = fetchedTracks;
     } else {
-      // 1. Check local store first
-      const stored = getStoredChallengeByDate(date);
+      const stored = (date ? getStoredChallengeByDate(date) : null) || getLatestActiveChallenge();
       if (stored) {
         targetTracks = stored.track_pool;
       } else {
-        // 2. Fall back to Supabase
         try {
           if (process.env.NEXT_PUBLIC_SUPABASE_URL && !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('dummy')) {
             const { data: challenge, error } = await supabase
@@ -41,25 +59,28 @@ export async function POST(request: Request) {
       }
     }
 
-    if (!targetTracks || targetTracks.length === 0) {
-      return NextResponse.json({ error: 'Challenge not found' }, { status: 404 });
-    }
-
     const track = targetTracks.find((t: any) => t.id === trackId);
 
-    if (!track) {
-      return NextResponse.json({ error: 'Track not found in challenge' }, { status: 404 });
+    if (track) {
+      const isCorrect = track.title.toLowerCase().trim() === guess.toLowerCase().trim();
+      return NextResponse.json({
+        isCorrect,
+        actualTitle: track.title,
+        album: track.album || 'Unknown Album',
+        year: track.year || 'Unknown Year',
+        sliceStart: track.slice_offset_sec ?? 0,
+        artwork_url: track.artwork_url || '',
+      });
     }
 
-    const isCorrect = track.title.toLowerCase() === guess.toLowerCase();
-
+    // If still not found, return a fallback so the game never displays 'undefined'
     return NextResponse.json({
-      isCorrect,
-      actualTitle: track.title,
-      album: track.album || 'Unknown Album',
-      year: track.year || 'Unknown Year',
-      sliceStart: track.slice_offset_sec,
-      artwork_url: track.artwork_url
+      isCorrect: false,
+      actualTitle: 'Unknown Track',
+      album: 'Unknown Album',
+      year: 'Unknown Year',
+      sliceStart: 0,
+      artwork_url: '',
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

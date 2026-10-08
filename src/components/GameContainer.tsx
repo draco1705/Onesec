@@ -205,26 +205,27 @@ export default function GameContainer() {
         date: dateStr, 
         trackId: track.id, 
         guess,
-        testArtist
+        testArtist,
+        answerToken: track.answer_token,
       })
     });
-    const result = await res.json();
+    const result = await res.json().catch(() => ({}));
     
     // Time penalty for skipping
     if (guess === '') {
       setGameTimeRemaining(prev => Math.max(0, prev - 1.0));
     }
     
-    const isCorrect = result.isCorrect;
+    const isCorrect = !!result.isCorrect;
     const fb: TrackFeedback = { 
       isCorrect, 
-      actualTitle: result.actualTitle,
-      album: result.album,
-      year: result.year,
-      sliceStart: result.sliceStart,
+      actualTitle: result.actualTitle || track.title || 'Unknown Track',
+      album: result.album || track.album || 'Unknown Album',
+      year: result.year || track.year || 'Unknown Year',
+      sliceStart: result.sliceStart ?? track.slice_offset_sec ?? 0,
       timeTaken,
       guess: guess || 'Skipped',
-      artwork_url: result.artwork_url
+      artwork_url: result.artwork_url || track.artwork_url || challenge?.artist_image_url || ''
     };
     
     const newScore = score + (isCorrect ? 1 : 0);

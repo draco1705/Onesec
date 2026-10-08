@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { fetchArtistDiscography } from '@/lib/music';
-import { encryptUrl } from '@/lib/crypto';
+import { encryptUrl, encryptTrackData } from '@/lib/crypto';
 import { getStoredChallengeByDate, getLatestActiveChallenge } from '@/lib/challenges-store';
 
 // In-memory cache for test queries
@@ -57,11 +57,22 @@ export async function GET(request: Request) {
         const safeUrl = isLocal
           ? track.preview_url
           : `/api/audio?token=${encodeURIComponent(encryptUrl(track.preview_url))}`;
+        
+        // Encrypt track answer metadata so verification never fails or says undefined
+        const answerToken = encryptTrackData({
+          title: track.title,
+          album: track.album || 'Unknown Album',
+          year: track.year || 'Unknown Year',
+          artwork_url: track.artwork_url || challengeData.artist_image_url || '',
+          slice_offset_sec: track.slice_offset_sec ?? 0
+        });
+
         return {
           id: track.id,
           preview_url: safeUrl,
           slice_offset_sec: track.slice_offset_sec,
-          artwork_url: track.artwork_url
+          artwork_url: track.artwork_url,
+          answer_token: answerToken,
         };
       });
 
@@ -88,12 +99,23 @@ export async function GET(request: Request) {
 
     const { artistName, artistImageUrl, targetTracks, allTitles } = await fetchArtistDiscography(fallbackArtist);
 
-    const safeTrackPoolFallback = targetTracks.map((track: any) => ({
-      id: track.id,
-      preview_url: `/api/audio?token=${encodeURIComponent(encryptUrl(track.preview_url))}`,
-      slice_offset_sec: track.slice_offset_sec,
-      artwork_url: track.artwork_url
-    }));
+    const safeTrackPoolFallback = targetTracks.map((track: any) => {
+      const answerToken = encryptTrackData({
+        title: track.title,
+        album: track.album || 'Unknown Album',
+        year: track.year || 'Unknown Year',
+        artwork_url: track.artwork_url || artistImageUrl,
+        slice_offset_sec: track.slice_offset_sec ?? 0
+      });
+
+      return {
+        id: track.id,
+        preview_url: `/api/audio?token=${encodeURIComponent(encryptUrl(track.preview_url))}`,
+        slice_offset_sec: track.slice_offset_sec,
+        artwork_url: track.artwork_url,
+        answer_token: answerToken,
+      };
+    });
 
     const fallbackChallenge = {
       id: 'fallback-challenge',

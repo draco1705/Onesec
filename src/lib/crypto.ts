@@ -26,6 +26,36 @@ export function decryptUrl(token: string): string {
   }
 }
 
+export interface EncryptedTrackMetadata {
+  title: string;
+  album: string;
+  year: string | number;
+  artwork_url?: string;
+  slice_offset_sec?: number;
+}
+
+export function encryptTrackData(data: EncryptedTrackMetadata): string {
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv('aes-256-gcm', ENCRYPTION_KEY, iv);
+  let encrypted = cipher.update(JSON.stringify(data), 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  const authTag = cipher.getAuthTag().toString('hex');
+  return Buffer.from(JSON.stringify({ iv: iv.toString('hex'), encrypted, authTag })).toString('base64');
+}
+
+export function decryptTrackData(token: string): EncryptedTrackMetadata {
+  try {
+    const { iv, encrypted, authTag } = JSON.parse(Buffer.from(token, 'base64').toString('utf8'));
+    const decipher = crypto.createDecipheriv('aes-256-gcm', ENCRYPTION_KEY, Buffer.from(iv, 'hex'));
+    decipher.setAuthTag(Buffer.from(authTag, 'hex'));
+    let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+    return JSON.parse(decrypted);
+  } catch {
+    throw new Error('Invalid track metadata token');
+  }
+}
+
 export function createSessionToken(challengeId: string): string {
   const startMs = Date.now();
   const payload = `${challengeId}:${startMs}`;
