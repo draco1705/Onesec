@@ -1,85 +1,109 @@
 import { NextResponse } from 'next/server';
 
-// Deezer API proxy — avoids CORS and keeps API calls server-side.
-// Deezer is free, no auth required, and returns real artist photos + up-to-date catalogs.
+// Deezer API proxy — queries by verified Artist ID to avoid global search pollution.
+// 1. Searches artist by name and finds the exact / best matching artist ID.
+// 2. Fetches their actual catalog using /artist/{id}/top and /artist/{id}/albums.
 
 const DEEZER_BASE = 'https://api.deezer.com';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const artist = searchParams.get('artist')?.trim();
-  const limitParam = parseInt(searchParams.get('limit') || '200', 10);
+  const artistQuery = searchParams.get('artist')?.trim();
 
-  if (!artist) {
+  if (!artistQuery) {
     return NextResponse.json({ error: 'Missing artist parameter' }, { status: 400 });
   }
 
   try {
-    // 1. Fetch artist info (real profile picture)
+    // 1. Find the exact / closest matching artist by name
     const artistRes = await fetch(
-      `${DEEZER_BASE}/search/artist?q=${encodeURIComponent(artist)}&limit=1`,
+      `${DEEZER_BASE}/search/artist?q=${encodeURIComponent(artistQuery)}&limit=10`,
       { next: { revalidate: 3600 } }
     );
     const artistData = await artistRes.json();
-    const artistInfo = artistData.data?.[0] ?? null;
+    const artistsList: any[] = artistData.data || [];
 
-    // 2. Fetch tracks — paginate up to `limitParam` (max 100 per Deezer page)
-    const perPage = 100;
-    const pages = Math.ceil(Math.min(limitParam, 200) / perPage);
-
-    const pageRequests = Array.from({ length: pages }, (_, i) =>
-      fetch(
-        `${DEEZER_BASE}/search?q=artist:"${encodeURIComponent(artist)}"&limit=${perPage}&index=${i * perPage}`,
-        { next: { revalidate: 3600 } }
-      ).then(r => r.json())
-    );
-
-    const pageResults = await Promise.all(pageRequests);
-
-    const allTracks: any[] = [];
-    for (const page of pageResults) {
-      if (page.data) allTracks.push(...page.data);
+    if (artistsList.length === 0) {
+      return NextResponse.json({ error: `Artist "${artistQuery}" not found on Deezer` }, { status: 404 });
     }
 
-    if (allTracks.length === 0) {
-      return NextResponse.json({ error: 'Artist not found on Deezer' }, { status: 404 });
-    }
+    // Pick exact case-insensitive match if available, otherwise the top result
+    const matchedArtist =
+      artistsList.find(a => a.name.toLowerCase() === artistQuery.toLowerCase()) ||
+      artistsList[0];
 
-    // 3. Filter tracks with previews + deduplicate by title
-    const withPreview = allTracks.filter(t => t.preview);
-    const seen = new Set<string>();
-    const unique = withPreview.filter(t => {
-      const key = t.title_short?.toLowerCase().trim() ?? t.title?.toLowerCase().trim();
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
-
-    // 4. Normalise to a clean shape
-    const tracks = unique.map(t => ({
-      trackId: `deezer-${t.id}`,
-      trackName: t.title_short ?? t.title,
-      artistName: t.artist?.name ?? artist,
-      collectionName: t.album?.title ?? 'Unknown Album',
-      releaseDate: t.release_date ?? null,   // YYYY-MM-DD
-      artworkUrl: t.album?.cover_xl ?? t.album?.cover_big ?? t.album?.cover ?? '',
-      previewUrl: t.preview,                 // 30s MP3
-      durationSec: t.duration ?? 30,
-      primaryGenreName: 'Deezer',
-    }));
-
-    // 5. Artist image: prefer Deezer artist photo, fallback to first album cover
+    const artistId = matchedArtist.id;
+    const artistName = matchedArtist.name;
     const artistImageUrl =
-      artistInfo?.picture_xl ??
-      artistInfo?.picture_big ??
-      artistInfo?.picture ??
-      tracks[0]?.artworkUrl ??
+      matchedArtist.picture_xl ||
+      matchedArtist.picture_big ||
+      matchedArtist.picture_medium ||
       '';
 
+    // 2. Fetch artist's top tracks + albums directly by artist ID
+    const [topTracksRes, albumsRes] = await Promise.all([
+      fetch(`${DEEZER_BASE}/artist/${artistId}/top?limit=100`, { next: { revalidate: 3600 } }).then(r => r.json()),
+      fetch(`${DEEZER_BASE}/artist/${artistId}/albums?limit=25`, { next: { revalidate: 3600 } }).then(r => r.json()),
+    ]);
+
+    const topTracks: any[] = topTracksRes.data || [];
+    const albums: any[] = albumsRes.data || [];
+
+    // 3. For the top albums, fetch their tracks to get a comprehensive discography
+    const albumTrackRequests = albums.slice(0, 10).map(alb =>
+      fetch(`${DEEZER_BASE}/album/${alb.id}/tracks`, { next: { revalidate: 3600 } })
+        .then(r => r.json())
+        .then(res => {
+          const list = res.data || [];
+          // Attach album artwork and album title to each track if missing
+          return list.map((t: any) => ({
+            ...t,
+            album: {
+              title: alb.title,
+              cover_xl: alb.cover_xl || alb.cover_big || alb.cover_medium,
+            },
+            release_date: alb.release_date,
+          }));
+        })
+        .catch(() => [])
+    );
+
+    const albumTracksList = (await Promise.all(albumTrackRequests)).flat();
+
+    // 4. Combine top tracks and album tracks
+    const allTracksRaw = [...topTracks, ...albumTracksList];
+
+    // Filter tracks with preview and deduplicate by track title
+    const seenTitles = new Set<string>();
+    const uniqueTracks: any[] = [];
+
+    for (const t of allTracksRaw) {
+      if (!t.preview) continue;
+      const cleanTitleKey = (t.title_short || t.title || '').toLowerCase().trim();
+      if (!cleanTitleKey || seenTitles.has(cleanTitleKey)) continue;
+
+      seenTitles.add(cleanTitleKey);
+      uniqueTracks.push({
+        trackId: `deezer-${t.id}`,
+        trackName: t.title_short || t.title,
+        artistName: t.artist?.name || artistName,
+        collectionName: t.album?.title || 'Unknown Album',
+        releaseDate: t.release_date || null,
+        artworkUrl: t.album?.cover_xl || t.album?.cover_big || t.album?.cover_medium || artistImageUrl,
+        previewUrl: t.preview,
+        durationSec: t.duration || 30,
+        primaryGenreName: 'Deezer',
+      });
+    }
+
+    if (uniqueTracks.length === 0) {
+      return NextResponse.json({ error: `No playable tracks found for "${artistName}"` }, { status: 404 });
+    }
+
     return NextResponse.json({
-      artistName: artistInfo?.name ?? tracks[0]?.artistName ?? artist,
+      artistName,
       artistImageUrl,
-      tracks,
+      tracks: uniqueTracks,
     });
   } catch (err: any) {
     console.error('[search-songs] Deezer error:', err);

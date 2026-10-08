@@ -16,46 +16,78 @@ export function cleanTrackTitle(title: string): string {
     .trim();
 }
 
-// Fetches artist discography via Deezer (real artist photos, up-to-date catalog, free).
-// Called server-side only (no CORS issues).
+// Fetches artist discography via Deezer using the exact artist ID.
 export async function fetchArtistDiscography(artistName: string) {
   const DEEZER_BASE = 'https://api.deezer.com';
 
-  // 1. Artist info for real profile photo
+  // 1. Resolve artist ID with exact/closest match
   const artistRes = await fetch(
-    `${DEEZER_BASE}/search/artist?q=${encodeURIComponent(artistName)}&limit=1`
+    `${DEEZER_BASE}/search/artist?q=${encodeURIComponent(artistName)}&limit=10`
   );
   const artistData = await artistRes.json();
-  const artistInfo = artistData.data?.[0] ?? null;
+  const artistsList: any[] = artistData.data || [];
 
-  // 2. Paginate tracks (2 pages × 100 = up to 200)
-  const [page1, page2] = await Promise.all([
-    fetch(`${DEEZER_BASE}/search?q=artist:"${encodeURIComponent(artistName)}"&limit=100&index=0`).then(r => r.json()),
-    fetch(`${DEEZER_BASE}/search?q=artist:"${encodeURIComponent(artistName)}"&limit=100&index=100`).then(r => r.json()),
-  ]);
-
-  const allRaw: any[] = [...(page1.data ?? []), ...(page2.data ?? [])];
-
-  if (allRaw.length === 0) {
+  if (artistsList.length === 0) {
     throw new Error(`Artist "${artistName}" not found on Deezer`);
   }
 
-  // 3. Filter: must have a 30s preview
-  const withPreview = allRaw.filter(t => t.preview);
+  const matchedArtist =
+    artistsList.find(a => a.name.toLowerCase() === artistName.toLowerCase()) ||
+    artistsList[0];
 
-  // 4. Deduplicate + clean titles
+  const artistId = matchedArtist.id;
+  const actualArtistName = matchedArtist.name;
+  const artistImageUrl =
+    matchedArtist.picture_xl ||
+    matchedArtist.picture_big ||
+    matchedArtist.picture_medium ||
+    '';
+
+  // 2. Fetch top tracks and albums directly by artist ID
+  const [topTracksRes, albumsRes] = await Promise.all([
+    fetch(`${DEEZER_BASE}/artist/${artistId}/top?limit=100`).then(r => r.json()),
+    fetch(`${DEEZER_BASE}/artist/${artistId}/albums?limit=20`).then(r => r.json()),
+  ]);
+
+  const topTracks: any[] = topTracksRes.data || [];
+  const albums: any[] = albumsRes.data || [];
+
+  const albumTrackRequests = albums.slice(0, 10).map(alb =>
+    fetch(`${DEEZER_BASE}/album/${alb.id}/tracks`)
+      .then(r => r.json())
+      .then(res => {
+        const list = res.data || [];
+        return list.map((t: any) => ({
+          ...t,
+          album: {
+            title: alb.title,
+            cover_xl: alb.cover_xl || alb.cover_big || alb.cover_medium,
+          },
+          release_date: alb.release_date,
+        }));
+      })
+      .catch(() => [])
+  );
+
+  const albumTracksList = (await Promise.all(albumTrackRequests)).flat();
+  const allTracksRaw = [...topTracks, ...albumTracksList];
+
+  // 3. Deduplicate and clean titles
   const uniqueMap = new Map<string, Track>();
-  for (const t of withPreview) {
-    const cleanTitle = cleanTrackTitle(t.title_short ?? t.title ?? '');
+  for (const t of allTracksRaw) {
+    if (!t.preview) continue;
+    const cleanTitle = cleanTrackTitle(t.title_short || t.title || '');
+    if (!cleanTitle) continue;
+
     if (!uniqueMap.has(cleanTitle)) {
       uniqueMap.set(cleanTitle, {
         id: `deezer-${t.id}`,
         title: cleanTitle,
         preview_url: t.preview,
         slice_offset_sec: 0,
-        album: t.album?.title ?? 'Unknown Album',
+        album: t.album?.title || 'Unknown Album',
         year: t.release_date ? t.release_date.substring(0, 4) : 'Unknown',
-        artwork_url: t.album?.cover_xl ?? t.album?.cover_big ?? t.album?.cover ?? '',
+        artwork_url: t.album?.cover_xl || t.album?.cover_big || artistImageUrl,
       });
     }
   }
@@ -66,22 +98,8 @@ export async function fetchArtistDiscography(artistName: string) {
     throw new Error('Not enough tracks found for this artist');
   }
 
-  // 5. Take top 50 shuffled as the game pool
   const top50 = allTracks.slice(0, 50);
   const targetTracks = [...top50].sort(() => 0.5 - Math.random()).slice(0, 50);
-
-  // 6. Artist image: real Deezer photo > first album cover
-  const artistImageUrl =
-    artistInfo?.picture_xl ??
-    artistInfo?.picture_big ??
-    artistInfo?.picture ??
-    allTracks[0]?.artwork_url ??
-    '';
-
-  const actualArtistName =
-    artistInfo?.name ??
-    allRaw.find(r => r.artist?.name?.toLowerCase() === artistName.toLowerCase())?.artist?.name ??
-    artistName;
 
   return {
     artistName: actualArtistName,
